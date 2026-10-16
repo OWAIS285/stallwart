@@ -144,6 +144,62 @@ export const STAGES = [
 
 export const SOURCE_LABELS = { live_tool: "heard live", verifier: "second check" };
 
+// Short names for the behaviours that decide the verdict (the server sends the full definition and the quote).
+export const SIGNAL_LABELS = {
+  asks_secret_credential: "Asked for OTP / PIN / password",
+  remote_access_or_install: "Asked to install an app",
+  pay_to_receive: "Pay first to receive",
+  payment_to_personal_account: "Money to a personal account",
+  arrest_or_legal_threat: "Threat of arrest or case",
+  secrecy_or_isolation: "Told to keep it secret",
+  extortion_threat: "Threat to shame or harm",
+  urgency_deadline: "Threatening deadline",
+  discourages_verification: "Refused a callback",
+  asks_full_identifier: "Wanted a full ID number",
+  link_or_unofficial_channel: "Link or unofficial channel",
+  too_good_to_be_true: "Too good to be true",
+  emotional_emergency: "Family emergency pressure",
+  identity_inconsistency: "Story does not add up",
+  offers_official_verification: "Offered official callback",
+  partial_identifier_only: "Asked only partial details",
+  official_channel_only: "Official channel only",
+  accepts_refusal: "Accepted a no",
+  no_request: "Asked for nothing",
+  knows_customer_record: "Knew his account's last 4 digits",
+};
+
+export const ROUTED_BY_LABELS = {
+  ifsc: "by IFSC",
+  upi_handle: "by UPI handle",
+  bank_named: "by bank name",
+  unresolved: "needs a manual lookup",
+};
+
+export const BANK_DECISIONS = {
+  reported: { label: "Reported", tone: "" },
+  monitoring: { label: "Monitoring", tone: "warn" },
+  frozen: { label: "Frozen", tone: "bad" },
+  dismissed: { label: "Dismissed", tone: "" },
+};
+
+export const DELIVERY_LABELS = { pending: "Sending…", delivered: "Delivered", failed: "Delivery failed" };
+
+export const pct = (x) => `${Math.round((x || 0) * 100)}%`;
+
+/** One line for a tracked UPI ID or account: reported to a bank, or held on the watchlist below the report level. */
+export function bankItemState(item) {
+  if (item.stage === "reported" && item.status) {
+    const tone = item.status === "delivered" ? "ok" : item.status === "failed" ? "bad" : "warn";
+    return { tone, label: DELIVERY_LABELS[item.status] || item.status };
+  }
+  if (item.stage === "reported") return { tone: "ok", label: "Reported" };
+  return { tone: "warn", label: "On watch" };
+}
+
+export const VERDICT_LABELS = { scam: "Scam", legitimate: "Not a scam", undetermined: "Not clear yet" };
+
+export const verdictTitle = (verdict, scamType) => (verdict === "scam" ? scamLabel(scamType) : VERDICT_LABELS[verdict] || scamLabel(scamType));
+
 export const scamLabel = (id) => SCAM_LABELS[id] || (id ? humanize(id) : "Listening…");
 
 export function humanize(text) {

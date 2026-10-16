@@ -9,7 +9,7 @@ ORDINARY = {
     "wrong_number": [(C, "Hello, is this Sunita?"), (P, "No, you have the wrong number."), (C, "Oh sorry, I wanted the tailor shop.")],
     "friend_walk": [(C, "Namaste Sharma ji, Verma here from the park. Are you coming for the morning walk tomorrow?")],
     "delivery_address": [(C, "Sir, I am the delivery boy. I am near Nirala Nagar, which house is yours? Is there any landmark?")],
-    "asks_phone_number": [(C, "Sir, can you tell me your phone number? I want to save it."), (P, "Yes, it is 9876543210."), (C, "Thank you, and what is your name?")],
+    "asks_phone_number": [(C, "Sir, can you tell me your phone number? I want to save it."), (P, "I would rather not give my number on the phone."), (C, "Thank you, and what is your name?")],
     "bank_branch_visit": [(C, "Sir, I am calling from the State Bank Aliganj branch. Your passbook update is pending. Please visit any day this week, there is no hurry.")],
     "survey": [(C, "Hello sir, a short survey on electricity supply in Lucknow. Was the power supply good last month?")],
     "family_hinglish": [(C, "Papa, Amit bol raha hoon. Kaise hain aap? Dawai li aapne?")],

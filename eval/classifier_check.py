@@ -35,11 +35,11 @@ async def main(runs: int) -> None:
             errors += 1
             print(f"ERROR  {name}")
             continue
-        flagged = res.scam_type not in analysis.NON_SCAM
+        flagged = res.verdict == "scam"
         bad = flagged != is_scam
         false_alarms += bad and not is_scam
         missed += bad and is_scam
-        print(f"{'FAIL' if bad else 'ok  '}  {'scam' if is_scam else 'ordinary':8} {name:22} -> {res.scam_type} {res.confidence:.2f}")
+        print(f"{'FAIL' if bad else 'ok  '}  {'scam' if is_scam else 'ordinary':8} {name:22} -> {res.verdict} ({res.scam_type}) {res.confidence:.2f}")
     ordinary = sum(1 for _, s, r in rows if not s and r)
     scams = sum(1 for _, s, r in rows if s and r)
     print(f"\nfalse alarms on ordinary calls: {false_alarms}/{ordinary}; scams missed: {missed}/{scams}; errors: {errors}")

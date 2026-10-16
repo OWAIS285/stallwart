@@ -9,6 +9,8 @@ from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel, Field
 
 import analysis
+import bank_registry
+import bank_reports
 import config
 from call_handler import CallHandler, jlog
 from drill import DRILL_OPENING_CUE, DRILL_TOOLS, DrillHandler, build_drill_prompt, new_drill_doc
@@ -151,6 +153,139 @@ async def list_strains(request: Request) -> dict:
     return {"strains": [clean(d) for d in docs] + analysis.DEMO_STRAINS}
 
 
+# ---------- bank reports ----------
+
+
+class DecisionIn(BaseModel):
+    decision: Literal["monitoring", "frozen", "dismissed"]
+    note: str = Field(default="", max_length=300)
+
+
+def _known_bank(code: str) -> str:
+    if code not in bank_registry.BANKS and code != bank_registry.UNRESOLVED:
+        raise HTTPException(404, "Unknown bank.")
+    return code
+
+
+async def _with_aggregates(reports: list[dict]) -> list[dict]:
+    out = []
+    for report in reports:
+        mule = await store.get(f"mule_accounts/{report.get('muleKey')}") or {}
+        row = clean({k: v for k, v in report.items() if k != "payload"})
+        row["sightings"] = mule.get("sightings", 1)
+        row["currentConfidence"] = mule.get("confidence", report.get("confidence"))
+        row["bankStatus"] = mule.get("status", "reported")
+        row["linkedDetails"] = (report.get("payload") or {}).get("linkedDetails", [])
+        row["routingReason"] = (report.get("payload") or {}).get("subject", {}).get("routingReason", "")
+        out.append(row)
+    return out
+
+
+@app.get("/api/banks")
+async def list_banks(request: Request) -> dict:
+    """Every proxy bank inbox, with how many reports this browser's calls sent to each."""
+    owner = owner_hash(require_client_id(request.headers.get("x-client-id")))
+    counts: dict[str, int] = {}
+    for report in await store.list_owned("bank_reports", owner, limit=300):
+        counts[report.get("bankCode", "")] = counts.get(report.get("bankCode", ""), 0) + 1
+    return {"banks": [{**b, "reports": counts.get(b["code"], 0)} for b in bank_registry.directory()],
+            "apiEnabled": bool(config.BANK_SIGNING_SECRET)}
+
+
+@app.get("/api/banks/{code}/reports")
+async def bank_inbox_demo(code: str, request: Request) -> dict:
+    """A proxy bank's inbox, limited to reports that came from this browser's own calls."""
+    owner = owner_hash(require_client_id(request.headers.get("x-client-id")))
+    _known_bank(code)
+    reports = [r for r in await store.list_owned("bank_reports", owner, limit=300) if r.get("bankCode") == code]
+    reports.sort(key=lambda r: r.get("sentAt", ""), reverse=True)
+    return {"bank": {"code": code, "name": bank_registry.bank_name(code)}, "reports": await _with_aggregates(reports)}
+
+
+@app.get("/api/watchlist")
+async def watchlist(request: Request) -> dict:
+    """UPI IDs and accounts from this browser's scam calls, with their current confidence across every call."""
+    owner = owner_hash(require_client_id(request.headers.get("x-client-id")))
+    rows: dict[str, dict] = {}
+    for seen in await store.list_owned("watch_sightings", owner, limit=300):
+        row = rows.setdefault(seen["muleKey"], {"muleKey": seen["muleKey"], "type": seen.get("type"),
+                                                "value": seen.get("value"), "yourCalls": 0, "lastSeenAt": ""})
+        row["yourCalls"] += 1
+        row["lastSeenAt"] = max(row["lastSeenAt"], seen.get("seenAt", ""))
+    out = []
+    for row in rows.values():
+        mule = await store.get(f"mule_accounts/{row['muleKey']}") or {}
+        out.append({**row, "confidence": mule.get("confidence", 0.0), "sightings": mule.get("sightings", 0),
+                    "stage": mule.get("stage", "watching"), "bankCode": mule.get("bankCode"),
+                    "bankName": mule.get("bankName"), "routedBy": mule.get("routedBy")})
+    out.sort(key=lambda r: r["lastSeenAt"], reverse=True)
+    out.sort(key=lambda r: r["stage"] != "watching")
+    return {"items": out, "reportAt": config.BANK_REPORT_CONFIDENCE, "watchAt": config.BANK_WATCH_CONFIDENCE}
+
+
+@app.post("/api/banks/{code}/reports/{report_id}/decision")
+async def bank_decision_demo(code: str, report_id: str, body: DecisionIn, request: Request) -> dict:
+    """Play the bank in the demo: record a decision on one of your own reports (never touches the shared record)."""
+    owner = owner_hash(require_client_id(request.headers.get("x-client-id")))
+    report = await store.get(f"bank_reports/{report_id}")
+    if not report or report.get("ownerHash") != owner or report.get("bankCode") != _known_bank(code):
+        raise HTTPException(404, "Report not found.")
+    await store.update(f"bank_reports/{report_id}", {"simulatedDecision": body.decision, "decisionNote": body.note,
+                                                     "decidedAt": analysis.now_iso()})
+    return {"reportId": report_id, "simulatedDecision": body.decision}
+
+
+@app.post("/proxy-banks/{code}/webhook")
+async def proxy_bank_webhook(code: str, request: Request) -> Response:
+    """Where a bank's real webhook would be: verifies the signature and files the report (BANK_DELIVERY=http)."""
+    status, result = await bank_reports.receive(code, dict(request.headers), await request.body())
+    return Response(json.dumps(result), status_code=status, media_type="application/json")
+
+
+def _bank_auth(code: str, request: Request) -> str:
+    _known_bank(code)
+    if not config.BANK_SIGNING_SECRET:
+        raise HTTPException(503, "The bank API is not configured on this server.")
+    if not bank_reports.check_bank_key(code, request.headers.get("x-bank-key")):
+        raise HTTPException(401, "Missing or invalid X-Bank-Key for this bank.")
+    return code
+
+
+@app.get("/bank-api/v1/{code}/reports")
+async def bank_api_reports(code: str, request: Request, limit: int = 100) -> dict:
+    """Full signed-report payloads for one bank, newest first."""
+    _bank_auth(code, request)
+    reports = await store.list_where("bank_reports", "bankCode", code, limit=min(max(limit, 1), 500))
+    reports.sort(key=lambda r: r.get("sentAt", ""), reverse=True)
+    return {"bank": {"code": code, "name": bank_registry.bank_name(code)},
+            "reports": [r.get("payload") for r in reports if r.get("payload")]}
+
+
+@app.get("/bank-api/v1/{code}/mule-accounts")
+async def bank_api_mules(code: str, request: Request) -> dict:
+    """Every payee detail reported to this bank, de-duplicated across calls, with how many calls gave it."""
+    _bank_auth(code, request)
+    # A bank only ever sees identifiers that crossed the report threshold, never the watchlist.
+    hidden = ("calls", "reportedCalls", "callIds", "route")
+    mules = [clean({k: v for k, v in m.items() if k not in hidden}) | {"callCount": len(m.get("calls") or m.get("callIds") or [])}
+             for m in await store.list_where("mule_accounts", "bankCode", code, limit=500)
+             if m.get("stage", "reported") == "reported"]
+    mules.sort(key=lambda m: (m.get("sightings", 0), m.get("lastSeenAt", "")), reverse=True)
+    return {"bank": {"code": code, "name": bank_registry.bank_name(code)}, "muleAccounts": mules}
+
+
+@app.post("/bank-api/v1/{code}/mule-accounts/{mule_key}/status")
+async def bank_api_status(code: str, mule_key: str, body: DecisionIn, request: Request) -> dict:
+    """The bank's decision on a reported account, visible on every later report of it."""
+    _bank_auth(code, request)
+    mule = await store.get(f"mule_accounts/{mule_key}")
+    if not mule or mule.get("bankCode") != code or mule.get("stage", "reported") != "reported":
+        raise HTTPException(404, "Mule account not found for this bank.")
+    await store.update(f"mule_accounts/{mule_key}", {"status": body.decision, "statusNote": body.note,
+                                                     "statusAt": analysis.now_iso()})
+    return {"muleKey": mule_key, "status": body.decision}
+
+
 # ---------- family drills ----------
 
 PARENT_TITLES = {"mother": "Amma", "father": "Papa", "elder": "Ji"}
@@ -266,19 +401,21 @@ async def _run_call(ws: WebSocket, mode: str) -> None:
     ip = client_ip(ws)
     limiter.enter(ip)
     try:
-        handler = CallHandler(client_id=client_id, ip=ip, mode=mode)
+        profile = CallProfile()
+        handler = CallHandler(client_id=client_id, ip=ip, mode=mode, record=profile.record)
         await store.put(f"calls/{handler.call_id}", handler.initial_doc())
         if mode == "live":
-            profile = CallProfile()
             jlog("INFO", "persona_profile", callId=handler.call_id, mood=profile.mood_key)
             session = LiveSession(ws, handler, system_instruction=build_persona(profile), voice=config.PERSONA_VOICE,
                                   tools=PERSONA_TOOLS, max_seconds=config.MAX_CALL_SECONDS, opening_cue=OPENING_CUE,
                                   temperature=config.PERSONA_TEMPERATURE)
         else:
-            session = TextSession(ws, handler)
+            session = TextSession(ws, handler, profile)
         handler.emit = session.send
         await session.send({"type": "ready", "callId": handler.call_id, "playToken": handler.play_token,
                             "mode": mode, "maxSeconds": config.MAX_CALL_SECONDS})
+        # Shown to the tester so they can play a genuine bank: a real bank has these endings on screen.
+        await session.send({"type": "record", **profile.record.public()})
         jlog("INFO", "call_started", callId=handler.call_id, mode=mode)
         reason = await session.run()
         await handler.finish(reason)
