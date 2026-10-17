@@ -85,10 +85,14 @@ export function playIntro({ onReveal } = {}) {
     let lastNow = t0;
     const timers = [];
 
+    // everything in the opening is sized from one scale, so the mark stays large on a tall screen and still fits on a short one
+    let sc = 1;
     function resize() {
       dpr = Math.min(window.devicePixelRatio || 1, 2);
       width = window.innerWidth;
       height = window.innerHeight;
+      sc = Math.max(0.5, Math.min(1, (height / 2 - 280) / 205, width / 700));
+      root.style.setProperty('--sc', sc.toFixed(3));
       canvas.width = Math.round(width * dpr);
       canvas.height = Math.round(height * dpr);
     }
@@ -113,7 +117,7 @@ export function playIntro({ onReveal } = {}) {
       g.clearRect(0, 0, width, height);
       const cx = width / 2;
       const cy = height / 2;
-      const scale = Math.min(1, Math.min(width, height) / 640);
+      const scale = sc;
 
       // a slow field of dust behind everything
       for (const s of stars) {
@@ -135,13 +139,13 @@ export function playIntro({ onReveal } = {}) {
           g.strokeStyle = k === 1 ? `rgba(125,211,252,${(1 - life) * 0.38 * fade})` : `rgba(121,169,255,${(1 - life) * 0.5 * fade})`;
           g.lineWidth = 1.4;
           g.beginPath();
-          g.arc(cx, cy, (40 + life * 270) * scale, 0, Math.PI * 2);
+          g.arc(cx, cy, (66 + life * 330) * scale, 0, Math.PI * 2);
           g.stroke();
         }
       }
 
       // the loading ring around the mark: it closes when everything is ready
-      const arcR = 54 * scale;
+      const arcR = 86 * scale;
       const prog = shown / 100;
       g.lineWidth = 1.4;
       g.strokeStyle = "rgba(255,255,255,0.1)";
@@ -167,9 +171,9 @@ export function playIntro({ onReveal } = {}) {
         g.strokeStyle = `rgba(255,255,255,${(1 - burst) * 0.75})`;
         g.lineWidth = 3 * (1 - burst) + 0.5;
         g.beginPath();
-        g.arc(cx, cy, (46 + ease(burst) * 440) * scale, 0, Math.PI * 2);
+        g.arc(cx, cy, (78 + ease(burst) * 560) * scale, 0, Math.PI * 2);
         g.stroke();
-        const flash = g.createRadialGradient(cx, cy, 0, cx, cy, 280 * scale);
+        const flash = g.createRadialGradient(cx, cy, 0, cx, cy, 380 * scale);
         flash.addColorStop(0, `rgba(140,190,255,${(1 - burst) * 0.34})`);
         flash.addColorStop(1, "rgba(140,190,255,0)");
         g.fillStyle = flash;
@@ -180,7 +184,7 @@ export function playIntro({ onReveal } = {}) {
       const since = t - tPick;
       if (since > 0) {
         const env = ease(since / 0.8);
-        const base = (66 + 20 * ease(since / 0.9) + Math.sin(t * 5) * 1.4) * scale;
+        const base = (102 + 26 * ease(since / 0.9) + Math.sin(t * 5) * 1.8) * scale;
         const points = 140;
         const gradient = g.createLinearGradient(cx - base, cy - base, cx + base, cy + base);
         gradient.addColorStop(0, "#9cc4ff");
@@ -191,7 +195,7 @@ export function playIntro({ onReveal } = {}) {
           for (let i = 0; i <= points; i++) {
             const a = (i / points) * Math.PI * 2 + t * 0.35;
             const wobble = (0.5 + 0.5 * Math.sin(i * 0.41 + t * 5.2)) * (0.6 + 0.4 * Math.sin(i * 0.13 - t * 3.3));
-            const r = (base + wobble * 24 * env * scale) * mult;
+            const r = (base + wobble * 32 * env * scale) * mult;
             if (i === 0) g.moveTo(cx + Math.cos(a) * r, cy + Math.sin(a) * r);
             else g.lineTo(cx + Math.cos(a) * r, cy + Math.sin(a) * r);
           }
@@ -209,8 +213,8 @@ export function playIntro({ onReveal } = {}) {
         for (let i = 0; i < ticks; i++) {
           const a = (i / ticks) * Math.PI * 2 - t * 0.18;
           const wave = 0.5 + 0.5 * Math.sin(i * 0.9 + t * 4.4) * Math.sin(i * 0.27 - t * 1.9);
-          const r0 = base + 34 * scale;
-          const len = (3 + wave * 15 * env) * scale;
+          const r0 = base + 44 * scale;
+          const len = (4 + wave * 20 * env) * scale;
           g.strokeStyle = i % 9 === 0 ? `rgba(125,211,252,${0.85 * env})` : `rgba(226,234,255,${0.5 * env})`;
           g.lineWidth = 1.3;
           g.beginPath();
@@ -220,7 +224,7 @@ export function playIntro({ onReveal } = {}) {
         }
         for (let k = 0; k < 3; k++) {
           const a = t * (0.9 + k * 0.25) + (k * Math.PI * 2) / 3;
-          const r = (base + 60 * scale) * (1 + k * 0.05);
+          const r = (base + 80 * scale) * (1 + k * 0.05);
           g.fillStyle = ["#9cc4ff", "#eef4ff", "#38bdf8"][k];
           g.globalAlpha = 0.85 * env;
           g.beginPath();

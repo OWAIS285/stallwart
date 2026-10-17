@@ -197,6 +197,8 @@ export function HomeView() {
       onFail() {
         journey?.destroy();
         journey = null;
+        el.classList.remove("has-journey");
+        el.style.removeProperty("--k");
         mountClassic();
       },
     });
@@ -266,15 +268,23 @@ export function HomeView() {
     ),
   );
 
-  const el = h("div", { class: "home" }, topSlot, tick.el, statsBand, storySlot, marquee(), tryIt, trust, finale);
+  // everything after the story is one sheet that rises over the pinned scene and opens out to full width as you scroll
+  const sheet = h("div", { class: "home-sheet" }, tick.el, statsBand, storySlot, marquee(), tryIt, trust, finale);
+  const el = h("div", { class: `home${journey ? " has-journey" : ""}` }, topSlot, sheet);
 
   let queued = false;
   const onScroll = () => {
-    if (queued || !classic) return;
+    if (queued) return;
     queued = true;
     requestAnimationFrame(() => {
       queued = false;
       classic?.hero.style.setProperty("--sy", Math.min(1.2, window.scrollY / Math.max(1, window.innerHeight)).toFixed(3));
+      if (journey) {
+        const k = Math.min(1, Math.max(0, window.scrollY / Math.max(1, window.innerHeight - 66)));
+        el.style.setProperty("--k", k.toFixed(3));
+        el.classList.toggle("sheet-open", k >= 0.999);
+        journey.setPaused(k >= 0.985);
+      }
     });
   };
   window.addEventListener("scroll", onScroll, { passive: true });

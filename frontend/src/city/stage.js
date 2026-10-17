@@ -18,7 +18,7 @@ export function createStage() {
   mirror.rotation.x = -Math.PI / 2;
   group.add(mirror);
 
-  const veilU = { uFocus: { value: new THREE.Vector2() }, uBg: { value: new THREE.Color(COLORS.bg) }, uBase: { value: 0.6 }, uSpan: { value: 1 } };
+  const veilU = { uFocus: { value: new THREE.Vector2() }, uBg: { value: new THREE.Color(COLORS.horizon) }, uBase: { value: 0.6 }, uSpan: { value: 1 } };
   const veil = new THREE.Mesh(
     new THREE.PlaneGeometry(FLOOR, FLOOR),
     new THREE.ShaderMaterial({
@@ -39,6 +39,34 @@ export function createStage() {
   veil.rotation.x = -Math.PI / 2;
   veil.position.y = 0.004;
   group.add(veil);
+
+  // a faint blue grid on the floor, brightest around the subject, so the ground reads as a surface with scale rather than a black void
+  const gridU = { uFocus: { value: new THREE.Vector2() }, uSpan: { value: 1 }, uFade: { value: 1 } };
+  const grid = new THREE.Mesh(
+    new THREE.PlaneGeometry(FLOOR, FLOOR),
+    new THREE.ShaderMaterial({
+      transparent: true,
+      depthWrite: false,
+      blending: THREE.AdditiveBlending,
+      uniforms: gridU,
+      vertexShader: `varying vec2 vXZ; void main(){ vec4 wp = modelMatrix * vec4(position, 1.0); vXZ = wp.xz; gl_Position = projectionMatrix * viewMatrix * wp; }`,
+      fragmentShader: /* glsl */ `
+        uniform vec2 uFocus; uniform float uSpan, uFade; varying vec2 vXZ;
+        float line(float v, float w) { float d = abs(fract(v - 0.5) - 0.5) / max(fwidth(v), 1e-4); return 1.0 - clamp(d / w, 0.0, 1.0); }
+        void main() {
+          float fine = max(line(vXZ.x / 6.0, 1.0), line(vXZ.y / 6.0, 1.0));
+          float bold = max(line(vXZ.x / 36.0, 1.4), line(vXZ.y / 36.0, 1.4));
+          float d = length(vXZ - uFocus) * 0.8 / uSpan;
+          float fade = 1.0 - smoothstep(14.0, 70.0, d);
+          float a = (fine * 0.07 + bold * 0.14) * fade * uFade;
+          gl_FragColor = vec4(vec3(0.3, 0.58, 1.0) * a, a);
+          #include <colorspace_fragment>
+        }`,
+    }),
+  );
+  grid.rotation.x = -Math.PI / 2;
+  grid.position.y = 0.012;
+  group.add(grid);
 
   const shadow = new THREE.Mesh(new THREE.PlaneGeometry(FLOOR, FLOOR), new THREE.ShadowMaterial({ opacity: 0.55 }));
   shadow.rotation.x = -Math.PI / 2;
@@ -197,6 +225,8 @@ export function createStage() {
     setFocus(x, z, span = 1) {
       veilU.uFocus.value.set(x, z);
       veilU.uSpan.value = span;
+      gridU.uFocus.value.set(x, z);
+      gridU.uSpan.value = span;
       cone.position.set(x, 15.7, z);
     },
     /** over (0..1) is how far the ring has unfolded into the final lineup: the ring route, light cone and reflections give way to the ribbon. */
@@ -211,6 +241,7 @@ export function createStage() {
       ribbonU.uTime.value = t;
       ribbon.visible = ribbonU.uShow.value > 0.01;
       cone.visible = over < 0.25;
+      gridU.uFade.value = 1 - 0.45 * over;
       veilU.uBase.value = highQuality ? 0.6 + 0.4 * over : 1;
     },
     setQuality(high) {
@@ -219,11 +250,80 @@ export function createStage() {
       veilU.uBase.value = high ? 0.6 : 1;
     },
     dispose() {
-      [mirror, veil, shadow, route, ribbon].forEach((m) => {
+      [mirror, veil, grid, shadow, route, ribbon].forEach((m) => {
         m.geometry.dispose();
         m.material.dispose?.();
       });
       mirror.dispose?.();
+    },
+  };
+}
+
+/**
+ * The sky: a deep blue gradient that glows along the horizon, with slow aurora bands and a scatter of twinkling stars.
+ * It is a big inside-out sphere that follows the camera, drawn first, so the floor's far edge (the same horizon colour) melts into it.
+ */
+export function createSky() {
+  const uniforms = {
+    uTime: { value: 0 },
+    uZenith: { value: new THREE.Color(0x02050d) },
+    uMid: { value: new THREE.Color(0x061435) },
+    uHorizon: { value: new THREE.Color(COLORS.horizon) },
+  };
+  const mesh = new THREE.Mesh(
+    new THREE.SphereGeometry(600, 48, 24),
+    new THREE.ShaderMaterial({
+      side: THREE.BackSide,
+      depthWrite: false,
+      depthTest: false,
+      fog: false,
+      uniforms,
+      vertexShader: `varying vec3 vDir; void main(){ vDir = position; gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0); }`,
+      fragmentShader: /* glsl */ `
+        uniform float uTime; uniform vec3 uZenith, uMid, uHorizon; varying vec3 vDir;
+        float hash3(vec3 p) { p = fract(p * 0.3183099 + 0.1); p *= 17.0; return fract(p.x * p.y * p.z * (p.x + p.y + p.z)); }
+        float hash2(vec2 p) { return fract(sin(dot(p, vec2(127.1, 311.7))) * 43758.5453); }
+        float vnoise(vec2 p) {
+          vec2 i = floor(p); vec2 f = fract(p); f = f * f * (3.0 - 2.0 * f);
+          return mix(mix(hash2(i), hash2(i + vec2(1.0, 0.0)), f.x), mix(hash2(i + vec2(0.0, 1.0)), hash2(i + vec2(1.0, 1.0)), f.x), f.y);
+        }
+        float fbm(vec2 p) { float s = 0.0; float a = 0.5; for (int i = 0; i < 4; i++) { s += a * vnoise(p); p *= 2.03; a *= 0.5; } return s; }
+        void main() {
+          vec3 d = normalize(vDir);
+          float e = d.y;
+          float up = max(e, 0.0);
+          vec3 col = mix(uHorizon, uMid, smoothstep(0.0, 0.3, up));
+          col = mix(col, uZenith, smoothstep(0.22, 0.85, up));
+          // a thin glow where sky meets floor
+          col += vec3(0.01, 0.06, 0.17) * exp(-up * 16.0) * step(0.0, e) * 0.9;
+          // slow aurora bands
+          float az = atan(d.x, d.z);
+          float n = fbm(vec2(az * 1.7 + uTime * 0.012, up * 6.0 - uTime * 0.01));
+          float band = smoothstep(0.015, 0.16, up) * (1.0 - smoothstep(0.22, 0.7, up));
+          col += mix(vec3(0.0, 0.05, 0.18), vec3(0.02, 0.2, 0.3), n) * n * n * band * 1.5;
+          // stars, brighter and denser higher up
+          vec3 sp = d * 260.0;
+          vec3 id = floor(sp);
+          float h = hash3(id);
+          float star = step(0.9965, h) * (1.0 - smoothstep(0.0, 0.2, length(fract(sp) - 0.5)));
+          float tw = 0.55 + 0.45 * sin(uTime * (0.8 + h * 3.0) + h * 40.0);
+          col += vec3(0.7, 0.84, 1.0) * star * tw * smoothstep(0.02, 0.22, up) * 1.6;
+          gl_FragColor = vec4(col, 1.0);
+          #include <colorspace_fragment>
+        }`,
+    }),
+  );
+  mesh.frustumCulled = false;
+  mesh.renderOrder = -100;
+  return {
+    mesh,
+    update(t, camera) {
+      uniforms.uTime.value = t;
+      mesh.position.copy(camera.position);
+    },
+    dispose() {
+      mesh.geometry.dispose();
+      mesh.material.dispose();
     },
   };
 }

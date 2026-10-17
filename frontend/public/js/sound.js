@@ -1,25 +1,28 @@
-// The score for the home story, synthesised live with the Web Audio API (no audio files): a deep drone, a wide evolving pad, a breathing choir and shimmer,
-// a sparse generative bell line, ping-pong echoes and a long hall reverb. Each scene has its own harmony and tempo; scene changes get a riser, an impact and a landing chime.
+// The score for the home story, synthesised live with the Web Audio API (no audio files).
+// Layers: a warm drone, a mid-register pad, a breathing choir and shimmer, a plucked arpeggio that keeps the music moving, a sparse bell line,
+// ping-pong echoes and a long hall. Everything important sits between 200 Hz and 4 kHz so it is clear on laptop speakers and phones, not just headphones.
+// Each scene has its own harmony and tempo, and every scene change fires a "sonic" move: a rising sweep, a hit, and a bright chord that lands with the new scene.
 // Silent until the visitor chooses sound (browsers require a gesture); fades out away from the home page so it never mixes with a live call.
 
 const KEY = "sw_sound";
 
-// One entry per scene: the ringing phone, Ramesh picks up, the bank, the strain, the vaccine, the whole loop.
-// chord: six pad notes (Hz) low to high. scale: the bell line's notes. bpm: tempo of the eighth-note grid. density: how often a bell speaks.
-// cutoff: pad brightness. choir / shimmer / air: layer levels. pulse: a soft sub heartbeat that grows as the story gains purpose.
+// One entry per scene: Stallwart standing by, the call, the bank, the strain, the vaccine, the whole journey.
+// chord: six notes (Hz) low to high; the bass note feeds the drone, the rest the pad and the arpeggio. bells: the bell line's notes. bpm: tempo of the eighth-note grid.
+// arp / bell: how often the pluck and the bell speak (0..1). cutoff: pad brightness. choir / shimmer / air: layer levels. pulse: a soft heartbeat kick that grows with the story.
 const SCENES = [
-  { chord: [55.0, 82.41, 110.0, 130.81, 164.81, 246.94], scale: [440.0, 523.25, 587.33, 659.25, 783.99, 880.0], bpm: 62, density: 0.13, cutoff: 520, choir: 0.02, shimmer: 0.0, air: 0.02, pulse: 0 },
-  { chord: [87.31, 130.81, 174.61, 220.0, 329.63, 392.0], scale: [349.23, 392.0, 440.0, 523.25, 587.33, 659.25, 698.46], bpm: 66, density: 0.2, cutoff: 780, choir: 0.05, shimmer: 0.05, air: 0.016, pulse: 0 },
-  { chord: [73.42, 110.0, 146.83, 174.61, 261.63, 329.63], scale: [293.66, 349.23, 392.0, 440.0, 523.25, 587.33], bpm: 72, density: 0.24, cutoff: 900, choir: 0.05, shimmer: 0.06, air: 0.014, pulse: 0.35 },
-  { chord: [98.0, 146.83, 196.0, 220.0, 293.66, 392.0], scale: [392.0, 440.0, 493.88, 587.33, 659.25, 783.99], bpm: 76, density: 0.26, cutoff: 1050, choir: 0.06, shimmer: 0.1, air: 0.014, pulse: 0.45 },
-  { chord: [65.41, 130.81, 164.81, 196.0, 246.94, 329.63], scale: [523.25, 587.33, 659.25, 783.99, 880.0, 1046.5], bpm: 80, density: 0.3, cutoff: 1300, choir: 0.08, shimmer: 0.16, air: 0.016, pulse: 0.5 },
-  { chord: [65.41, 98.0, 130.81, 196.0, 261.63, 392.0], scale: [523.25, 659.25, 783.99, 880.0, 1046.5, 1318.5], bpm: 64, density: 0.2, cutoff: 1500, choir: 0.1, shimmer: 0.26, air: 0.03, pulse: 0.2 },
+  { chord: [55.0, 82.41, 110.0, 130.81, 164.81, 246.94], bells: [880.0, 987.77, 1046.5, 1318.5, 1567.98], bpm: 66, arp: 0.55, bell: 0.14, cutoff: 1500, choir: 0.05, shimmer: 0.03, air: 0.018, pulse: 0 },
+  { chord: [87.31, 130.81, 174.61, 220.0, 329.63, 392.0], bells: [698.46, 783.99, 880.0, 1046.5, 1174.66, 1318.5], bpm: 72, arp: 0.65, bell: 0.18, cutoff: 1900, choir: 0.07, shimmer: 0.06, air: 0.016, pulse: 0 },
+  { chord: [73.42, 110.0, 146.83, 174.61, 261.63, 329.63], bells: [587.33, 698.46, 783.99, 880.0, 1046.5, 1174.66], bpm: 78, arp: 0.72, bell: 0.2, cutoff: 2100, choir: 0.07, shimmer: 0.07, air: 0.014, pulse: 0.4 },
+  { chord: [98.0, 146.83, 196.0, 220.0, 293.66, 392.0], bells: [783.99, 880.0, 987.77, 1174.66, 1318.5, 1567.98], bpm: 82, arp: 0.78, bell: 0.22, cutoff: 2300, choir: 0.08, shimmer: 0.1, air: 0.014, pulse: 0.5 },
+  { chord: [65.41, 130.81, 164.81, 196.0, 246.94, 329.63], bells: [1046.5, 1174.66, 1318.5, 1567.98, 1760.0, 2093.0], bpm: 86, arp: 0.82, bell: 0.26, cutoff: 2700, choir: 0.1, shimmer: 0.16, air: 0.016, pulse: 0.55 },
+  { chord: [65.41, 98.0, 130.81, 196.0, 261.63, 392.0], bells: [1046.5, 1318.5, 1567.98, 1760.0, 2093.0, 2637.0], bpm: 68, arp: 0.6, bell: 0.2, cutoff: 3000, choir: 0.12, shimmer: 0.26, air: 0.03, pulse: 0.2 },
 ];
 
 const listeners = new Set();
 let ctx = null;
 let master = null;
 let analyser = null;
+let meter = null;
 let hallIn = null;
 let echoIn = null;
 let noise = null;
@@ -31,7 +34,9 @@ let current = -1;
 let timer = 0;
 let nextT = 0;
 let stepN = 0;
-let contour = 2;
+let bellAt = 2;
+let arpAt = 2;
+let arpDir = 1;
 let suspendTimer = 0;
 let lastStep = -1;
 const level = new Uint8Array(32);
@@ -49,6 +54,19 @@ const stored = () => {
 const rand = (a, b) => a + Math.random() * (b - a);
 const pick = (list) => list[Math.floor(Math.random() * list.length)];
 
+/** The arpeggio's notes for a chord: every chord tone folded into 220-880 Hz, plus an octave above, so it always sits where small speakers are loud. */
+function arpNotes(chord) {
+  const set = new Set();
+  for (let f of chord) {
+    while (f < 220) f *= 2;
+    while (f > 880) f /= 2;
+    set.add(+f.toFixed(2));
+    if (f * 2 <= 1100) set.add(+(f * 2).toFixed(2));
+  }
+  return [...set].sort((a, b) => a - b);
+}
+const ARPS = SCENES.map((s) => arpNotes(s.chord));
+
 function noiseBuffer(c, seconds) {
   const buf = c.createBuffer(1, Math.floor(c.sampleRate * seconds), c.sampleRate);
   const data = buf.getChannelData(0);
@@ -57,7 +75,7 @@ function noiseBuffer(c, seconds) {
 }
 
 /** A hall: stereo noise that decays, with the highs dying faster than the lows, like air absorbing a big room. */
-function hallImpulse(c, seconds = 5.2) {
+function hallImpulse(c, seconds = 4.8) {
   const rate = c.sampleRate;
   const len = Math.floor(rate * seconds);
   const buf = c.createBuffer(2, len, rate);
@@ -67,7 +85,7 @@ function hallImpulse(c, seconds = 5.2) {
     for (let i = 0; i < len; i++) {
       const k = i / len;
       const a = 0.9 - 0.8 * Math.pow(k, 0.45);
-      y += ((Math.random() * 2 - 1) - y) * a;
+      y += (Math.random() * 2 - 1 - y) * a;
       data[i] = y * Math.pow(1 - k, 2.6) * (i < 400 ? i / 400 : 1);
     }
   }
@@ -105,50 +123,58 @@ function lfo(rate, depth, target) {
 }
 
 function build() {
-  ctx = new (window.AudioContext || window.webkitAudioContext)({ latencyHint: "playback" });
+  ctx = new (window.AudioContext || window.webkitAudioContext)({ latencyHint: "interactive" });
   noise = noiseBuffer(ctx, 4);
 
-  // master: gentle tone shaping, glue compression, then a hard ceiling
+  // master: trim the sub-bass small speakers cannot play, add a little presence, glue everything together, then a hard ceiling
   master = ctx.createGain();
   master.gain.value = 0;
-  const low = ctx.createBiquadFilter();
-  low.type = "lowshelf";
-  low.frequency.value = 140;
-  low.gain.value = 2.5;
-  const high = ctx.createBiquadFilter();
-  high.type = "highshelf";
-  high.frequency.value = 8500;
-  high.gain.value = -2;
+  const trim = ctx.createBiquadFilter();
+  trim.type = "highpass";
+  trim.frequency.value = 55;
+  const body = ctx.createBiquadFilter();
+  body.type = "peaking";
+  body.frequency.value = 900;
+  body.Q.value = 0.7;
+  body.gain.value = 2.5;
+  const air = ctx.createBiquadFilter();
+  air.type = "highshelf";
+  air.frequency.value = 7000;
+  air.gain.value = 1.5;
   const glue = ctx.createDynamicsCompressor();
-  glue.threshold.value = -20;
-  glue.knee.value = 20;
-  glue.ratio.value = 3;
-  glue.attack.value = 0.03;
-  glue.release.value = 0.4;
+  glue.threshold.value = -22;
+  glue.knee.value = 18;
+  glue.ratio.value = 3.5;
+  glue.attack.value = 0.02;
+  glue.release.value = 0.35;
   const ceiling = ctx.createDynamicsCompressor();
-  ceiling.threshold.value = -3;
+  ceiling.threshold.value = -2;
   ceiling.knee.value = 0;
   ceiling.ratio.value = 20;
-  ceiling.attack.value = 0.003;
-  ceiling.release.value = 0.12;
+  ceiling.attack.value = 0.002;
+  ceiling.release.value = 0.1;
   analyser = ctx.createAnalyser();
   analyser.fftSize = 64;
   analyser.smoothingTimeConstant = 0.8;
-  master.connect(low);
-  low.connect(high);
-  high.connect(glue);
+  meter = ctx.createAnalyser();
+  meter.fftSize = 2048;
+  master.connect(trim);
+  trim.connect(body);
+  body.connect(air);
+  air.connect(glue);
   glue.connect(ceiling);
   ceiling.connect(analyser);
+  ceiling.connect(meter);
   ceiling.connect(ctx.destination);
 
   // the hall, pre-delayed so the dry sound stays in front
   hallIn = ctx.createGain();
   const pre = ctx.createDelay(0.2);
-  pre.delayTime.value = 0.035;
+  pre.delayTime.value = 0.03;
   const hall = ctx.createConvolver();
   hall.buffer = hallImpulse(ctx);
   const hallOut = ctx.createGain();
-  hallOut.gain.value = 0.9;
+  hallOut.gain.value = 0.85;
   hallIn.connect(pre);
   pre.connect(hall);
   hall.connect(hallOut);
@@ -162,16 +188,16 @@ function build() {
   dr.delayTime.value = 0.5;
   const fbL = ctx.createGain();
   const fbR = ctx.createGain();
-  fbL.gain.value = fbR.gain.value = 0.38;
+  fbL.gain.value = fbR.gain.value = 0.4;
   const tone = ctx.createBiquadFilter();
   tone.type = "lowpass";
-  tone.frequency.value = 2600;
+  tone.frequency.value = 3200;
   const panL = ctx.createStereoPanner();
   const panR = ctx.createStereoPanner();
   panL.pan.value = -0.85;
   panR.pan.value = 0.85;
   const echoOut = ctx.createGain();
-  echoOut.gain.value = 0.55;
+  echoOut.gain.value = 0.6;
   echoIn.connect(tone);
   tone.connect(dl);
   dl.connect(panL);
@@ -190,44 +216,44 @@ function build() {
 
   const first = SCENES[0];
 
-  // the drone: a sub sine and a dark saw, one octave up, under everything
+  // the drone: a sub sine and a warm saw an octave up, quiet but always there
   const droneBus = ctx.createGain();
-  droneBus.gain.value = 0.9;
-  const sub = osc("sine", first.chord[0] / 1);
+  droneBus.gain.value = 0.8;
+  const sub = osc("sine", first.chord[0]);
   const subGain = ctx.createGain();
-  subGain.gain.value = 0.2;
-  const dark = osc("sawtooth", first.chord[0] * 2, -4);
-  const darkLp = ctx.createBiquadFilter();
-  darkLp.type = "lowpass";
-  darkLp.frequency.value = 190;
-  const darkGain = ctx.createGain();
-  darkGain.gain.value = 0.05;
+  subGain.gain.value = 0.045;
+  const warm = osc("sawtooth", first.chord[0] * 2, -4);
+  const warmLp = ctx.createBiquadFilter();
+  warmLp.type = "lowpass";
+  warmLp.frequency.value = 420;
+  const warmGain = ctx.createGain();
+  warmGain.gain.value = 0.05;
   sub.connect(subGain);
   subGain.connect(droneBus);
-  dark.connect(darkLp);
-  darkLp.connect(darkGain);
-  darkGain.connect(droneBus);
-  lfo(0.06, 0.05, subGain.gain);
+  warm.connect(warmLp);
+  warmLp.connect(warmGain);
+  warmGain.connect(droneBus);
+  lfo(0.06, 0.015, subGain.gain);
   sub.start();
-  dark.start();
-  feed(droneBus, { dry: 1, hall: 0.12 });
+  warm.start();
+  feed(droneBus, { dry: 1, hall: 0.15 });
 
-  // the pad: six detuned voices spread across the stereo field, softened by a slowly breathing filter
+  // the pad: six detuned voices an octave above the bass, spread across the stereo field, softened by a slowly breathing filter
   const padBus = ctx.createGain();
-  padBus.gain.value = 0.52;
+  padBus.gain.value = 0.6;
   const padLp = ctx.createBiquadFilter();
   padLp.type = "lowpass";
   padLp.frequency.value = first.cutoff;
-  padLp.Q.value = 0.5;
-  lfo(0.045, 260, padLp.frequency);
+  padLp.Q.value = 0.6;
+  lfo(0.045, 380, padLp.frequency);
   padBus.connect(padLp);
   feed(padLp, { dry: 0.85, hall: 0.55 });
   const pans = [-0.65, -0.35, -0.1, 0.1, 0.35, 0.65];
   const padVoices = first.chord.map((f, i) => {
-    const a = osc("sawtooth", f, -6);
-    const b = osc(i % 2 ? "triangle" : "sawtooth", f, 6);
+    const a = osc("sawtooth", f * 2, -6);
+    const b = osc(i % 2 ? "triangle" : "sawtooth", f * 2, 6);
     const g = ctx.createGain();
-    g.gain.value = i < 2 ? 0.05 : 0.04;
+    g.gain.value = 0.045;
     const p = ctx.createStereoPanner();
     p.pan.value = pans[i];
     a.connect(g);
@@ -239,20 +265,20 @@ function build() {
     return { a, b };
   });
 
-  // the choir: soft breathy voices an octave up, with a slow vibrato
+  // the choir: soft breathy voices two octaves above the bass, with a slow vibrato
   const choirBus = ctx.createGain();
   choirBus.gain.value = first.choir;
   const choirLp = ctx.createBiquadFilter();
   choirLp.type = "lowpass";
-  choirLp.frequency.value = 1700;
+  choirLp.frequency.value = 2200;
   choirBus.connect(choirLp);
-  feed(choirLp, { dry: 0.5, hall: 0.9 });
+  feed(choirLp, { dry: 0.55, hall: 0.9 });
   const choirVoices = [3, 4, 5].map((k, i) => {
     const a = osc("triangle", first.chord[k] * 2, i * 4 - 4);
     const b = osc("sine", first.chord[k] * 2.004);
     lfo(5.1 + i * 0.3, 7, a.detune);
     const g = ctx.createGain();
-    g.gain.value = 0.35;
+    g.gain.value = 0.4;
     const p = ctx.createStereoPanner();
     p.pan.value = (i - 1) * 0.6;
     a.connect(g);
@@ -264,14 +290,14 @@ function build() {
     return { a, b };
   });
 
-  // the shimmer: glassy sines two octaves up, swelling and fading, almost all reverb
+  // the shimmer: glassy sines high above, swelling and fading, almost all reverb
   const shimBus = ctx.createGain();
   shimBus.gain.value = first.shimmer;
   const trem = ctx.createGain();
   trem.gain.value = 0.65;
   lfo(0.13, 0.35, trem.gain);
   trem.connect(shimBus);
-  feed(shimBus, { dry: 0.25, hall: 1.2 });
+  feed(shimBus, { dry: 0.3, hall: 1.2 });
   const shimVoices = [3, 4, 5].map((k, i) => {
     const o = osc("sine", first.chord[k] * 4, i * 5 - 5);
     const p = ctx.createStereoPanner();
@@ -283,9 +309,9 @@ function build() {
   });
 
   // air: breath of filtered noise whose colour drifts
-  const air = ctx.createBufferSource();
-  air.buffer = noise;
-  air.loop = true;
+  const airSrc = ctx.createBufferSource();
+  airSrc.buffer = noise;
+  airSrc.loop = true;
   const airBp = ctx.createBiquadFilter();
   airBp.type = "bandpass";
   airBp.frequency.value = 1500;
@@ -293,16 +319,16 @@ function build() {
   const airGain = ctx.createGain();
   airGain.gain.value = first.air;
   lfo(0.05, 700, airBp.frequency);
-  air.connect(airBp);
+  airSrc.connect(airBp);
   airBp.connect(airGain);
   feed(airGain, { dry: 0.6, hall: 0.7 });
-  air.start();
+  airSrc.start();
 
   heart = ctx.createGain();
   heart.gain.value = 0;
   heart.connect(master);
 
-  layers = { sub, dark, padVoices, padLp, padBus, choirVoices, choirBus, shimVoices, shimBus, airGain };
+  layers = { sub, warm, padVoices, padLp, padBus, choirVoices, choirBus, shimVoices, shimBus, airGain };
 }
 
 /** Glides every layer to a scene's harmony. */
@@ -310,13 +336,13 @@ function applyScene(i, quick = false) {
   if (!ctx || !layers) return;
   const sc = SCENES[Math.max(0, Math.min(SCENES.length - 1, i))];
   const t = ctx.currentTime;
-  const tc = quick ? 0.05 : 1.5;
+  const tc = quick ? 0.05 : 1.2;
   const L = layers;
   L.sub.frequency.setTargetAtTime(sc.chord[0], t, tc);
-  L.dark.frequency.setTargetAtTime(sc.chord[0] * 2, t, tc);
+  L.warm.frequency.setTargetAtTime(sc.chord[0] * 2, t, tc);
   L.padVoices.forEach((v, k) => {
-    v.a.frequency.setTargetAtTime(sc.chord[k], t, tc);
-    v.b.frequency.setTargetAtTime(sc.chord[k], t, tc);
+    v.a.frequency.setTargetAtTime(sc.chord[k] * 2, t, tc);
+    v.b.frequency.setTargetAtTime(sc.chord[k] * 2, t, tc);
   });
   L.choirVoices.forEach((v, k) => {
     v.a.frequency.setTargetAtTime(sc.chord[k + 3] * 2, t, tc);
@@ -328,10 +354,11 @@ function applyScene(i, quick = false) {
   L.shimBus.gain.setTargetAtTime(sc.shimmer, t, tc);
   L.airGain.gain.setTargetAtTime(sc.air, t, tc);
   current = i;
-  contour = Math.min(contour, sc.scale.length - 1);
+  bellAt = Math.min(bellAt, sc.bells.length - 1);
+  arpAt = Math.min(arpAt, ARPS[i].length - 1);
 }
 
-const out = () => (enabled && scene === "home" ? 0.5 : 0);
+const out = () => (enabled && scene === "home" ? 0.9 : 0);
 
 function applyMaster(seconds = 0.6) {
   if (!ctx) return;
@@ -339,7 +366,7 @@ function applyMaster(seconds = 0.6) {
   master.gain.setTargetAtTime(out(), ctx.currentTime, seconds);
 }
 
-// ---------------------------------------------------------------- the bell line and the pulse
+// ---------------------------------------------------------------- voices
 /** A struck bell: a pure tone with a bright inharmonic overtone that dies away fast. */
 function bell(freq, when, { gain = 0.14, pan = 0, dur = 3, echo = 0.5, hall = 0.8 } = {}) {
   const t = ctx.currentTime + Math.max(0, when - ctx.currentTime);
@@ -365,10 +392,40 @@ function bell(freq, when, { gain = 0.14, pan = 0, dur = 3, echo = 0.5, hall = 0.
   const p = ctx.createStereoPanner();
   p.pan.value = pan;
   g.connect(p);
-  feed(p, { dry: 0.7, hall, echo });
+  feed(p, { dry: 0.75, hall, echo });
   [carrier, mod, over].forEach((o) => {
     o.start(t);
     o.stop(t + dur + 0.1);
+  });
+}
+
+/** A plucked synth note: a saw through a filter that snaps shut, so it speaks clearly and then melts into the echoes. */
+function pluck(freq, when, { gain = 0.2, pan = 0, dur = 0.7, echo = 0.5, hall = 0.45, bright = 3600 } = {}) {
+  const t = ctx.currentTime + Math.max(0, when - ctx.currentTime);
+  const a = osc("sawtooth", freq, -5);
+  const b = osc("square", freq, 6);
+  const lp = ctx.createBiquadFilter();
+  lp.type = "lowpass";
+  lp.Q.value = 3;
+  lp.frequency.setValueAtTime(bright, t);
+  lp.frequency.exponentialRampToValueAtTime(Math.max(300, freq * 0.9), t + dur * 0.55);
+  const mix = ctx.createGain();
+  mix.gain.value = 0.5;
+  a.connect(mix);
+  b.connect(mix);
+  mix.connect(lp);
+  const g = ctx.createGain();
+  g.gain.setValueAtTime(0.0001, t);
+  g.gain.exponentialRampToValueAtTime(gain, t + 0.006);
+  g.gain.exponentialRampToValueAtTime(0.0001, t + dur);
+  lp.connect(g);
+  const p = ctx.createStereoPanner();
+  p.pan.value = pan;
+  g.connect(p);
+  feed(p, { dry: 0.9, hall, echo });
+  [a, b].forEach((o) => {
+    o.start(t);
+    o.stop(t + dur + 0.05);
   });
 }
 
@@ -377,14 +434,25 @@ function kick(when, amount) {
   const o = osc("sine", 86);
   o.frequency.setValueAtTime(86, t);
   o.frequency.exponentialRampToValueAtTime(40, t + 0.24);
+  const click = osc("triangle", 190);
+  click.frequency.setValueAtTime(190, t);
+  click.frequency.exponentialRampToValueAtTime(70, t + 0.09);
   const g = ctx.createGain();
   g.gain.setValueAtTime(0.0001, t);
-  g.gain.exponentialRampToValueAtTime(0.5 * amount, t + 0.012);
-  g.gain.exponentialRampToValueAtTime(0.0001, t + 0.42);
+  g.gain.exponentialRampToValueAtTime(0.45 * amount, t + 0.01);
+  g.gain.exponentialRampToValueAtTime(0.0001, t + 0.4);
+  const cg = ctx.createGain();
+  cg.gain.setValueAtTime(0.0001, t);
+  cg.gain.exponentialRampToValueAtTime(0.3 * amount, t + 0.006);
+  cg.gain.exponentialRampToValueAtTime(0.0001, t + 0.12);
   o.connect(g);
+  click.connect(cg);
   feed(g, { dry: 1, hall: 0.08 });
+  feed(cg, { dry: 1, hall: 0.05 });
   o.start(t);
+  click.start(t);
   o.stop(t + 0.5);
+  click.stop(t + 0.2);
 }
 
 function hat(when, amount) {
@@ -393,10 +461,10 @@ function hat(when, amount) {
   s.buffer = noise;
   const hp = ctx.createBiquadFilter();
   hp.type = "highpass";
-  hp.frequency.value = 7000;
+  hp.frequency.value = 6500;
   const g = ctx.createGain();
   g.gain.setValueAtTime(0.0001, t);
-  g.gain.exponentialRampToValueAtTime(0.05 * amount, t + 0.004);
+  g.gain.exponentialRampToValueAtTime(0.08 * amount, t + 0.004);
   g.gain.exponentialRampToValueAtTime(0.0001, t + 0.07);
   s.connect(hp);
   hp.connect(g);
@@ -408,26 +476,38 @@ function hat(when, amount) {
   s.stop(t + 0.1);
 }
 
-function playStep(sc, n, when) {
+function playStep(sc, idx, n, when) {
   const bar = n % 16;
   if (sc.pulse > 0 && bar % 8 === 0) kick(when, sc.pulse);
   if (sc.pulse > 0.3 && bar % 4 === 2) hat(when, sc.pulse);
+  // the arpeggio walks up and down the chord, louder on the beat
+  const notes = ARPS[idx];
+  if (Math.random() < sc.arp * (bar % 2 === 0 ? 1 : 0.8)) {
+    arpAt += arpDir * pick([1, 1, 2]);
+    if (arpAt >= notes.length - 1) {
+      arpAt = notes.length - 1;
+      arpDir = -1;
+    } else if (arpAt <= 0) {
+      arpAt = 0;
+      arpDir = 1;
+    }
+    pluck(notes[arpAt], when, { gain: bar % 4 === 0 ? 0.24 : 0.16, pan: ((arpAt / Math.max(1, notes.length - 1)) - 0.5) * 1.2, dur: rand(0.55, 0.9) });
+  }
+  // a bell now and then, high above it
   const downbeat = bar === 0 || bar === 8;
-  const chance = sc.density * (bar % 2 === 0 ? 1 : 0.4) + (downbeat ? sc.density * 0.6 : 0);
-  if (Math.random() > chance) return;
-  contour = Math.max(0, Math.min(sc.scale.length - 1, contour + pick([-2, -1, -1, 1, 1, 2])));
-  const f = sc.scale[contour];
-  bell(f, when, { gain: rand(0.07, 0.13), pan: rand(-0.7, 0.7), dur: rand(2.4, 3.6) });
-  if (Math.random() < 0.18) bell(f * 2, when + 0.02, { gain: 0.04, pan: rand(-0.9, 0.9), dur: 2, echo: 0.8 });
+  if (Math.random() < sc.bell * (downbeat ? 2.2 : bar % 2 === 0 ? 1 : 0.35)) {
+    bellAt = Math.max(0, Math.min(sc.bells.length - 1, bellAt + pick([-2, -1, -1, 1, 1, 2])));
+    bell(sc.bells[bellAt], when, { gain: rand(0.14, 0.22), pan: rand(-0.7, 0.7), dur: rand(2.4, 3.6) });
+  }
 }
 
 function schedule() {
   if (!ctx || !enabled || scene !== "home" || current < 0) return;
   const sc = SCENES[current];
   const stepDur = 60 / sc.bpm / 2;
-  if (nextT < ctx.currentTime) nextT = ctx.currentTime + 0.08;
-  while (nextT < ctx.currentTime + 0.7) {
-    playStep(sc, stepN, nextT);
+  if (nextT < ctx.currentTime) nextT = ctx.currentTime + 0.06;
+  while (nextT < ctx.currentTime + 0.6) {
+    playStep(sc, current, stepN, nextT);
     nextT += stepDur;
     stepN++;
   }
@@ -436,7 +516,7 @@ function schedule() {
 function startScheduler() {
   if (timer) return;
   nextT = 0;
-  timer = setInterval(schedule, 120);
+  timer = setInterval(schedule, 100);
 }
 
 function stopScheduler() {
@@ -445,57 +525,92 @@ function stopScheduler() {
 }
 
 // ---------------------------------------------------------------- scene changes
-/** A riser into the new scene, an impact as it lands, and a short chime on its chord. */
+/**
+ * The move that plays every time the scene changes: a pitch rising (or falling, going back) under a sweep of noise, a deep hit as the new scene lands,
+ * then its chord ringing out as a quick run of plucks and bells. Loud enough to be felt on a laptop, never harsh.
+ */
 function transition(from, to) {
   if (!ctx || !enabled || scene !== "home") return;
   const t = ctx.currentTime;
   const up = to > from;
-  const span = Math.min(3, Math.abs(to - from));
+  const span = Math.min(4, Math.abs(to - from));
+  const sc = SCENES[to];
+
+  // sweep: filtered noise and a gliding tone, panning across the field
   const s = ctx.createBufferSource();
   s.buffer = noise;
   const bp = ctx.createBiquadFilter();
   bp.type = "bandpass";
-  bp.Q.value = 1.3;
-  bp.frequency.setValueAtTime(up ? 260 : 3800, t);
-  bp.frequency.exponentialRampToValueAtTime(up ? 3800 : 260, t + 1.4);
-  const g = ctx.createGain();
-  g.gain.setValueAtTime(0.0001, t);
-  g.gain.exponentialRampToValueAtTime(0.13, t + 0.9);
-  g.gain.exponentialRampToValueAtTime(0.0001, t + 1.55);
-  const p = ctx.createStereoPanner();
-  p.pan.setValueAtTime(up ? -0.6 : 0.6, t);
-  p.pan.linearRampToValueAtTime(up ? 0.6 : -0.6, t + 1.4);
+  bp.Q.value = 2.2;
+  bp.frequency.setValueAtTime(up ? 240 : 5200, t);
+  bp.frequency.exponentialRampToValueAtTime(up ? 5200 : 240, t + 1.15);
+  const sg = ctx.createGain();
+  sg.gain.setValueAtTime(0.0001, t);
+  sg.gain.exponentialRampToValueAtTime(0.26, t + 0.95);
+  sg.gain.exponentialRampToValueAtTime(0.0001, t + 1.3);
+  const sp = ctx.createStereoPanner();
+  sp.pan.setValueAtTime(up ? -0.7 : 0.7, t);
+  sp.pan.linearRampToValueAtTime(up ? 0.7 : -0.7, t + 1.15);
   s.connect(bp);
-  bp.connect(g);
-  g.connect(p);
-  feed(p, { dry: 0.8, hall: 0.9 });
+  bp.connect(sg);
+  sg.connect(sp);
+  feed(sp, { dry: 0.9, hall: 0.7 });
   s.start(t, rand(0, 2));
-  s.stop(t + 1.7);
+  s.stop(t + 1.5);
 
-  // impact: a deep drop, a breath of noise, a bloom in the hall
-  const hit = t + 1.1;
-  const boom = osc("sine", 96);
-  boom.frequency.setValueAtTime(96, hit);
-  boom.frequency.exponentialRampToValueAtTime(32, hit + 1.2);
+  const glide = osc("triangle", up ? 170 : 1500);
+  glide.frequency.setValueAtTime(up ? 170 : 1500, t);
+  glide.frequency.exponentialRampToValueAtTime(up ? 1500 : 170, t + 1.1);
+  const gg = ctx.createGain();
+  gg.gain.setValueAtTime(0.0001, t);
+  gg.gain.exponentialRampToValueAtTime(0.16, t + 0.9);
+  gg.gain.exponentialRampToValueAtTime(0.0001, t + 1.25);
+  glide.connect(gg);
+  feed(gg, { dry: 0.9, hall: 0.8, echo: 0.4 });
+  glide.start(t);
+  glide.stop(t + 1.4);
+
+  // the hit
+  const hit = t + 1.05;
+  const boom = osc("sine", 120);
+  boom.frequency.setValueAtTime(120, hit);
+  boom.frequency.exponentialRampToValueAtTime(38, hit + 1.1);
   const bg = ctx.createGain();
   bg.gain.setValueAtTime(0.0001, hit);
-  bg.gain.exponentialRampToValueAtTime(up ? 0.42 : 0.26, hit + 0.02);
-  bg.gain.exponentialRampToValueAtTime(0.0001, hit + 1.5);
+  bg.gain.exponentialRampToValueAtTime(up ? 0.6 : 0.4, hit + 0.015);
+  bg.gain.exponentialRampToValueAtTime(0.0001, hit + 1.4);
   boom.connect(bg);
   feed(bg, { dry: 1, hall: 0.35 });
   boom.start(hit);
-  boom.stop(hit + 1.6);
+  boom.stop(hit + 1.5);
+  const thud = ctx.createBufferSource();
+  thud.buffer = noise;
+  const tl = ctx.createBiquadFilter();
+  tl.type = "lowpass";
+  tl.frequency.setValueAtTime(2600, hit);
+  tl.frequency.exponentialRampToValueAtTime(220, hit + 0.5);
+  const tg = ctx.createGain();
+  tg.gain.setValueAtTime(0.0001, hit);
+  tg.gain.exponentialRampToValueAtTime(0.32, hit + 0.01);
+  tg.gain.exponentialRampToValueAtTime(0.0001, hit + 0.55);
+  thud.connect(tl);
+  tl.connect(tg);
+  feed(tg, { dry: 1, hall: 0.6 });
+  thud.start(hit, rand(0, 2));
+  thud.stop(hit + 0.6);
 
   // the pad swells as the scene arrives
   const swell = layers.padBus.gain;
   swell.cancelScheduledValues(t);
-  swell.setTargetAtTime(0.52, t, 0.01);
-  swell.setTargetAtTime(0.52 * (1.3 + 0.1 * span), t + 0.5, 0.5);
-  swell.setTargetAtTime(0.52, t + 2.0, 0.9);
+  swell.setTargetAtTime(0.6, t, 0.01);
+  swell.setTargetAtTime(0.6 * (1.45 + 0.08 * span), t + 0.6, 0.45);
+  swell.setTargetAtTime(0.6, t + 2.1, 0.9);
 
-  // landing chime: three notes from the new scene's line
-  const sc = SCENES[to];
-  [0, 2, 4].forEach((k, i) => bell(sc.scale[Math.min(sc.scale.length - 1, k)] * (i === 2 ? 2 : 1), hit + 0.05 + i * 0.16, { gain: 0.1, pan: (i - 1) * 0.5, dur: 3.2, hall: 1, echo: 0.6 }));
+  // the new scene's chord, spelled out: plucks from its arpeggio then bells above
+  const notes = ARPS[to];
+  const run = up ? notes : [...notes].reverse();
+  run.slice(0, 6).forEach((f, i) => pluck(f, hit + 0.02 + i * 0.075, { gain: 0.26, pan: (i / 5 - 0.5) * 1.1, dur: 0.9, echo: 0.6, hall: 0.6, bright: 4200 }));
+  [0, 2, 4].forEach((k, i) => bell(sc.bells[Math.min(sc.bells.length - 1, k)], hit + 0.1 + i * 0.14, { gain: 0.2, pan: (i - 1) * 0.5, dur: 3.4, hall: 1, echo: 0.6 }));
 }
 
 // ---------------------------------------------------------------- one-shot sounds
@@ -539,46 +654,49 @@ function burst({ dur = 0.3, gain = 0.15, from = 800, to = 4000, q = 1.2, when = 
 const SOUNDS = {
   ring() {
     [0, 0.52].forEach((w) => {
-      tone(440, { dur: 0.42, gain: 0.07, when: w, hall: 0.5 });
-      tone(480, { dur: 0.42, gain: 0.07, when: w, hall: 0.5 });
-      tone(1320, { dur: 0.3, gain: 0.02, when: w, hall: 0.8, echo: 0.4 });
+      tone(440, { dur: 0.42, gain: 0.13, when: w, hall: 0.5 });
+      tone(480, { dur: 0.42, gain: 0.13, when: w, hall: 0.5 });
+      tone(1320, { dur: 0.3, gain: 0.04, when: w, hall: 0.8, echo: 0.4 });
     });
   },
   pickup() {
-    burst({ dur: 0.08, gain: 0.12, from: 2500, to: 900, type: "highpass" });
-    bell(523.25, ctx.currentTime + 0.06, { gain: 0.1, dur: 1.8 });
-    bell(783.99, ctx.currentTime + 0.18, { gain: 0.09, dur: 2.4, pan: 0.3 });
+    burst({ dur: 0.08, gain: 0.2, from: 2500, to: 900, type: "highpass" });
+    bell(523.25, ctx.currentTime + 0.06, { gain: 0.2, dur: 1.8 });
+    bell(783.99, ctx.currentTime + 0.18, { gain: 0.18, dur: 2.4, pan: 0.3 });
   },
   lock() {
-    tone(190, { dur: 0.4, gain: 0.34, glide: 0.35, hall: 0.12 });
-    burst({ dur: 0.07, gain: 0.2, from: 3000, to: 1200, type: "highpass" });
-    bell(1760, ctx.currentTime + 0.05, { gain: 0.06, dur: 2.2, echo: 0.7 });
-    bell(2637, ctx.currentTime + 0.05, { gain: 0.035, dur: 1.8, echo: 0.7, pan: -0.4 });
+    tone(190, { dur: 0.4, gain: 0.4, glide: 0.35, hall: 0.12 });
+    burst({ dur: 0.07, gain: 0.3, from: 3000, to: 1200, type: "highpass" });
+    bell(1760, ctx.currentTime + 0.05, { gain: 0.14, dur: 2.2, echo: 0.7 });
+    bell(2637, ctx.currentTime + 0.05, { gain: 0.08, dur: 1.8, echo: 0.7, pan: -0.4 });
   },
   mark() {
-    tone(329.63, { type: "triangle", dur: 0.4, gain: 0.1, echo: 0.3 });
-    tone(246.94, { type: "triangle", dur: 0.55, gain: 0.09, when: 0.12, echo: 0.3 });
+    tone(329.63, { type: "triangle", dur: 0.4, gain: 0.2, echo: 0.3 });
+    tone(246.94, { type: "triangle", dur: 0.55, gain: 0.18, when: 0.12, echo: 0.3 });
   },
   card() {
-    bell(1318.5, ctx.currentTime, { gain: 0.07, dur: 2.6, hall: 1, echo: 0.7 });
-    bell(1975.5, ctx.currentTime + 0.09, { gain: 0.05, dur: 2.2, hall: 1, echo: 0.7, pan: 0.5 });
+    bell(1318.5, ctx.currentTime, { gain: 0.16, dur: 2.6, hall: 1, echo: 0.7 });
+    bell(1975.5, ctx.currentTime + 0.09, { gain: 0.11, dur: 2.2, hall: 1, echo: 0.7, pan: 0.5 });
   },
   redact() {
-    burst({ dur: 0.6, gain: 0.1, from: 600, to: 5200, q: 2.2 });
+    burst({ dur: 0.6, gain: 0.18, from: 600, to: 5200, q: 2.2 });
   },
   protect() {
-    [261.63, 329.63, 392.0, 523.25, 659.25, 783.99, 1046.5].forEach((f, i) => bell(f, ctx.currentTime + i * 0.11, { gain: 0.085, dur: 3.4, hall: 1.1, echo: 0.6, pan: (i - 3) * 0.25 }));
-    burst({ dur: 1.4, gain: 0.05, from: 400, to: 7000, q: 0.7, when: 0.05, hall: 1 });
+    [261.63, 329.63, 392.0, 523.25, 659.25, 783.99, 1046.5].forEach((f, i) => bell(f, ctx.currentTime + i * 0.11, { gain: 0.17, dur: 3.4, hall: 1.1, echo: 0.6, pan: (i - 3) * 0.25 }));
+    burst({ dur: 1.4, gain: 0.1, from: 400, to: 7000, q: 0.7, when: 0.05, hall: 1 });
   },
   tick() {
-    tone(2100, { dur: 0.05, gain: 0.035, hall: 0.1 });
+    tone(2100, { dur: 0.05, gain: 0.05, hall: 0.1 });
   },
   click() {
-    tone(660, { type: "triangle", dur: 0.12, gain: 0.07, glide: 0.7, hall: 0.2 });
-    tone(990, { dur: 0.18, gain: 0.04, when: 0.03, hall: 0.3 });
+    tone(660, { type: "triangle", dur: 0.12, gain: 0.12, glide: 0.7, hall: 0.2 });
+    tone(990, { dur: 0.18, gain: 0.07, when: 0.03, hall: 0.3 });
   },
+  /** The moment sound is switched on: a bright rising run, so there is no doubt it works. */
   on() {
-    [392.0, 523.25, 659.25, 783.99].forEach((f, i) => bell(f, ctx.currentTime + i * 0.1, { gain: 0.08, dur: 3, hall: 1, echo: 0.5, pan: (i - 1.5) * 0.3 }));
+    [293.66, 392.0, 493.88, 587.33, 783.99].forEach((f, i) => pluck(f, ctx.currentTime + 0.03 + i * 0.08, { gain: 0.3, pan: (i - 2) * 0.3, dur: 1.1, echo: 0.6, hall: 0.7, bright: 4600 }));
+    [783.99, 987.77, 1174.66, 1567.98].forEach((f, i) => bell(f, ctx.currentTime + 0.28 + i * 0.1, { gain: 0.2, dur: 3.2, hall: 1, echo: 0.5, pan: (i - 1.5) * 0.35 }));
+    burst({ dur: 0.9, gain: 0.12, from: 500, to: 6000, q: 0.8, hall: 1 });
   },
 };
 
@@ -594,14 +712,20 @@ function pulseHeart() {
     const o = osc("sine", 70);
     o.frequency.setValueAtTime(70, t + w);
     o.frequency.exponentialRampToValueAtTime(42, t + w + 0.16);
+    const o2 = osc("triangle", 150);
+    o2.frequency.setValueAtTime(150, t + w);
+    o2.frequency.exponentialRampToValueAtTime(80, t + w + 0.12);
     const g = ctx.createGain();
     g.gain.setValueAtTime(0.0001, t + w);
-    g.gain.exponentialRampToValueAtTime(i ? 0.16 : 0.22, t + w + 0.02);
+    g.gain.exponentialRampToValueAtTime(i ? 0.22 : 0.3, t + w + 0.02);
     g.gain.exponentialRampToValueAtTime(0.0001, t + w + 0.2);
     o.connect(g);
+    o2.connect(g);
     g.connect(heart);
     o.start(t + w);
+    o2.start(t + w);
     o.stop(t + w + 0.25);
+    o2.stop(t + w + 0.25);
   });
 }
 
@@ -624,7 +748,19 @@ export const sound = {
   async enable() {
     if (!ctx) build();
     clearTimeout(suspendTimer);
-    if (ctx.state === "suspended") await ctx.resume();
+    if (ctx.state !== "running") {
+      try {
+        await ctx.resume();
+      } catch {
+        /* the browser may refuse until the next gesture */
+      }
+    }
+    if (ctx.state !== "running") {
+      // still blocked: the next click or key press starts it
+      const retry = () => ctx?.resume();
+      window.addEventListener("pointerdown", retry, { once: true });
+      window.addEventListener("keydown", retry, { once: true });
+    }
     enabled = true;
     try {
       localStorage.setItem(KEY, "1");
@@ -634,7 +770,7 @@ export const sound = {
     heart.gain.value = 1;
     applyScene(current < 0 ? 0 : current, true);
     startScheduler();
-    applyMaster(1.6);
+    applyMaster(0.5);
     SOUNDS.on();
     emit();
   },
@@ -657,12 +793,39 @@ export const sound = {
   /** "home" plays the score; any other page fades it out. */
   setScene(name) {
     scene = name;
-    applyMaster(name === "home" ? 1.2 : 0.3);
+    applyMaster(name === "home" ? 0.8 : 0.3);
     if (!ctx) return;
     if (name === "home" && enabled) startScheduler();
     else stopScheduler();
   },
   play,
+  /** Output level in dBFS (rms and peak) and how much of the signal sits between 200 Hz and 4 kHz; for checking the mix. */
+  meter() {
+    const info = { state: ctx?.state, enabled, scene, current, master: master ? +master.gain.value.toFixed(3) : null, rms: -Infinity, peak: -Infinity, mid: null };
+    if (!meter) return info;
+    const buf = new Float32Array(meter.fftSize);
+    meter.getFloatTimeDomainData(buf);
+    let sum = 0;
+    let peak = 0;
+    for (const v of buf) {
+      sum += v * v;
+      peak = Math.max(peak, Math.abs(v));
+    }
+    info.rms = +(20 * Math.log10(Math.sqrt(sum / buf.length) + 1e-9)).toFixed(1);
+    info.peak = +(20 * Math.log10(peak + 1e-9)).toFixed(1);
+    const spec = new Float32Array(meter.frequencyBinCount);
+    meter.getFloatFrequencyData(spec);
+    const bin = (hz) => Math.round((hz / (ctx.sampleRate / 2)) * spec.length);
+    let all = 0;
+    let mid = 0;
+    spec.forEach((db, i) => {
+      const p = Math.pow(10, db / 10);
+      all += p;
+      if (i >= bin(200) && i <= bin(4000)) mid += p;
+    });
+    info.mid = +(mid / (all || 1)).toFixed(2);
+    return info;
+  },
   /** 0..1 loudness for the title-bar waveform. */
   level() {
     if (!analyser || !enabled) return 0;

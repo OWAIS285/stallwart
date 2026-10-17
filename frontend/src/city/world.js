@@ -15,11 +15,12 @@ const polar = (deg, r = RING) => {
 
 export const STATION = Object.fromEntries(Object.entries(ANGLE).map(([name, deg]) => [name, polar(deg)]));
 
-// The last scene's lineup: left to right in story order along a gentle arc that bows toward the viewer, each station a little larger than on the ring.
-export const ARC_X = { phone: -43, orb: -21.5, bank: 0, card: 21.5, families: 43 };
+// The last scene's lineup: Stallwart AI at the heart, the catching side (scam call, bank alert) on its left and the protecting side (strain, families) on its right,
+// along a gentle arc that bows toward the viewer, each station a little larger than on the ring and the AI the largest.
+export const ARC_X = { phone: -43, bank: -21.5, orb: 0, card: 21.5, families: 43 };
 export const arcZ = (x) => 9 - 0.0066 * x * x;
 export const OVERVIEW = Object.fromEntries(Object.entries(ARC_X).map(([name, x]) => [name, { x, z: arcZ(x) }]));
-export const OVERVIEW_SCALE = { phone: 1.3, orb: 1.3, bank: 1.08, card: 1.3, families: 0.86 };
+export const OVERVIEW_SCALE = { phone: 1.3, orb: 1.55, bank: 1.08, card: 1.3, families: 0.86 };
 
 const at = (name, y) => [STATION[name].x, y, STATION[name].z];
 
@@ -34,6 +35,7 @@ export const AIR = {
 
 export const COLORS = {
   bg: 0x04070f,
+  horizon: 0x081a3c,
   clay: 0xeef1f8,
   cobalt: 0x3d6bff,
   sky: 0x7db2ff,

@@ -13,7 +13,7 @@ uniform float uNear, uFar, uFocus, uSlab, uRange, uMaxBlur;
 varying vec2 vUv;
 
 float viewDist(vec2 uv) { return -perspectiveDepthToViewZ(texture2D(tDepth, uv).x, uNear, uFar); }
-float blurAt(float z) { return smoothstep(0.0, 1.0, (abs(z - uFocus) - uSlab) / uRange); }
+float blurAt(float z) { return z > uFar * 0.9 ? 0.0 : smoothstep(0.0, 1.0, (abs(z - uFocus) - uSlab) / uRange); }
 
 void main() {
   float c0 = blurAt(viewDist(vUv));

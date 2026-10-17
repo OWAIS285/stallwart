@@ -25,26 +25,26 @@
 
 /* the call chip, above the mark */
 .ix-chip {
-  left: 0; right: 0; margin-inline: auto; width: max-content; top: calc(50% - 212px); display: flex; align-items: center; gap: 12px; padding: 9px 18px; white-space: nowrap; opacity: 0;
+  left: 0; right: 0; margin-inline: auto; width: max-content; top: calc(50% - 246px * var(--sc, 1)); display: flex; align-items: center; gap: 12px; padding: 9px 18px; white-space: nowrap; opacity: 0;
   border-radius: 999px; background: rgba(255, 255, 255, 0.06); border: 1px solid rgba(255, 255, 255, 0.14); -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px);
   font: 600 12px/1 var(--mono); letter-spacing: 0.08em; text-transform: uppercase; color: #cfd8ee;
 }
 .p-ring .ix-chip { animation: ix-up 0.7s 0.2s var(--ease) forwards; }
 .ix .ic-dot { width: 8px; height: 8px; border-radius: 50%; background: #ff6b7d; box-shadow: 0 0 12px #ff6b7d; animation: blink 0.7s infinite; }
-.ix.p-pick .ic-dot { background: #37e0a0; box-shadow: 0 0 12px #37e0a0; animation: none; }
+.ix.p-pick .ic-dot { background: #38bdf8; box-shadow: 0 0 12px #38bdf8; animation: none; }
 .ix .ic-flag { padding: 3px 9px; border-radius: 999px; font-size: 10.5px; letter-spacing: 0.1em; background: rgba(255, 93, 115, 0.16); color: #ff9aa9; }
-.ix.p-pick .ic-flag { background: rgba(55, 224, 160, 0.16); color: #8df3c9; }
+.ix.p-pick .ic-flag { background: rgba(56, 189, 248, 0.16); color: #9bdcff; }
 @keyframes ix-up { from { opacity: 0; transform: translate3d(0, 10px, 0); } to { opacity: 1; transform: none; } }
 
 /* the mark: rings and shakes while the phone rings, then settles */
-.ix-mark { inset: 0; margin: auto; width: 72px; height: 72px; opacity: 0; scale: 0.7; transition: scale 0.7s var(--ease), opacity 0.5s; }
+.ix-mark { inset: 0; margin: auto; width: calc(124px * var(--sc, 1)); height: calc(124px * var(--sc, 1)); opacity: 0; scale: 0.7; transition: scale 0.7s var(--ease), opacity 0.5s; }
 .ix-mark svg { width: 100%; height: 100%; filter: drop-shadow(0 0 22px rgba(121, 169, 255, 0.8)); }
 .p-ring .ix-mark { opacity: 1; scale: 0.9; animation: ix-shake 1.6s ease-in-out 0.3s infinite; }
 .p-pick .ix-mark { scale: 1.12; animation: none; }
 @keyframes ix-shake { 0%, 55%, 100% { rotate: 0deg; } 60% { rotate: -9deg; } 66% { rotate: 9deg; } 72% { rotate: -6deg; } 78% { rotate: 5deg; } 84% { rotate: -2deg; } }
 
 /* the name, the line, and the choice */
-.ix-text { left: 0; right: 0; top: calc(50% + 152px); display: grid; justify-items: center; gap: 14px; padding: 0 16px; }
+.ix-text { left: 0; right: 0; top: calc(50% + 206px * var(--sc, 1)); display: grid; justify-items: center; gap: 14px; padding: 0 16px; }
 .ix-name { display: flex; flex-wrap: wrap; justify-content: center; margin: 0; font-size: clamp(2.5rem, 7.6vw, 5rem); line-height: 1.08; font-weight: 800; letter-spacing: -0.04em; }
 .ix .il { display: inline-block; opacity: 0; color: var(--ivory); text-shadow: 0 0 38px rgba(121, 169, 255, 0.5); }
 .p-name .il { animation: ix-letter 0.8s var(--ease) calc(var(--i) * 48ms) forwards; }
@@ -74,8 +74,7 @@
 .ix-fill { position: absolute; inset: 0; transform-origin: 0 50%; transform: scaleX(0); background: linear-gradient(90deg, #38bdf8, #cfe6ff); }
 
 @media (max-width: 720px) {
-  .ix-chip { top: calc(50% - 176px); font-size: 11px; padding: 8px 14px; gap: 9px; }
-  .ix-text { top: calc(50% + 104px); }
+  .ix-chip { font-size: 11px; padding: 8px 14px; gap: 9px; }
   .ix-name { font-size: clamp(2.3rem, 13vw, 3.4rem); }
   .ix-tag { letter-spacing: 0.2em; font-size: 11px; }
   .ix-top { left: 18px; right: 18px; }
@@ -83,8 +82,7 @@
   .ix-meter { left: 18px; right: 18px; }
 }
 @media (max-height: 620px) {
-  .ix-chip { top: calc(50% - 150px); }
-  .ix-text { top: calc(50% + 112px); gap: 8px; }
+  .ix-text { gap: 8px; }
   .ix-actions { margin-top: 8px; }
 }
 @media (prefers-reduced-motion: reduce) {

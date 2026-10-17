@@ -88,10 +88,10 @@ const SCENES = [
     spec: ["Protection spreading", false],
   },
   {
-    label: "All clear",
-    kicker: "Every call counts",
-    title: "One scam stopped protects the next family.",
-    line: "That is the whole loop: trap the scammer, warn the bank, teach the family. Try the first step yourself in under a minute.",
+    label: "Overview",
+    kicker: "Stallwart in one view",
+    title: "Turn every scam call into a dead end.",
+    line: "Stallwart answers the call, stalls the scammer, warns the bank and teaches the family. Try it yourself in under a minute.",
     finale: true,
     spec: ["All clear", true],
   },
@@ -107,12 +107,12 @@ const TAGS = [
   { id: "bank", tone: "ice", title: "Account frozen", when: (p) => seg(0.552, 0.572, p) * (1 - seg(0.66, 0.7, p)), sub: () => "Bank fraud team notified" },
   { id: "card", tone: "blue", title: "Strain captured", when: (p) => seg(0.62, 0.65, p) * (1 - seg(0.72, 0.75, p)), sub: () => "Identifiers removed" },
   { id: "families", tone: "ice", title: "Family drills", when: (p) => seg(0.82, 0.85, p) * (1 - seg(0.97, 1, p)), sub: () => "Practice call, with consent" },
-  // the last scene names every station on the loop
-  { id: "s_phone", tone: "red", title: "01 \u00B7 Scam call", compact: true, when: (p) => seg(0.97, 1, p) },
-  { id: "s_orb", tone: "blue", title: "02 \u00B7 Ramesh (AI)", compact: true, when: (p) => seg(0.97, 1, p) },
-  { id: "s_bank", tone: "ice", title: "03 \u00B7 Bank", compact: true, when: (p) => seg(0.97, 1, p) },
-  { id: "s_card", tone: "ice", title: "04 \u00B7 Strain", compact: true, when: (p) => seg(0.97, 1, p) },
-  { id: "s_families", tone: "ice", title: "05 \u00B7 Families", compact: true, when: (p) => seg(0.97, 1, p) },
+  // the last scene names every station: Stallwart AI at the heart, the catching side on its left, the protecting side on its right
+  { id: "s_phone", tone: "red", title: "Scam call", compact: true, when: (p) => seg(0.97, 1, p) },
+  { id: "s_bank", tone: "ice", title: "Bank alert", compact: true, when: (p) => seg(0.97, 1, p) },
+  { id: "s_orb", tone: "blue", title: "Stallwart AI", compact: true, hub: true, when: (p) => seg(0.97, 1, p) },
+  { id: "s_card", tone: "ice", title: "Scam strain", compact: true, when: (p) => seg(0.97, 1, p) },
+  { id: "s_families", tone: "ice", title: "Family drills", compact: true, when: (p) => seg(0.97, 1, p) },
 ];
 
 function clock(seconds) {
@@ -168,7 +168,7 @@ export function createJourney({ onFail } = {}) {
   );
   const tags = TAGS.map((t) => {
     const small = t.compact ? null : h("small", {}, "");
-    const tagEl = h("div", { class: `hud-tag tone-${t.tone}${t.compact ? " compact" : ""}`, "aria-hidden": "true" }, h("i", { class: "ht-dot" }), h("div", {}, h("b", {}, t.title), small));
+    const tagEl = h("div", { class: `hud-tag tone-${t.tone}${t.compact ? " compact" : ""}${t.hub ? " hub" : ""}`, "aria-hidden": "true" }, h("i", { class: "ht-dot" }), h("div", {}, h("b", {}, t.title), small));
     return { ...t, el: tagEl, small, last: "" };
   });
 
@@ -322,11 +322,12 @@ export function createJourney({ onFail } = {}) {
     for (const tag of tags) {
       const k = tag.when(p);
       const at = k > 0.01 ? project(tag.id) : null;
-      const showTag = !!at && at.visible && at.x > 60 && at.x < w - 60 && at.y > 90 && at.y < hgt - 90;
+      const lift = tag.compact ? (tag.hub ? 100 : 66) : 96;
+      const showTag = !!at && at.visible && at.x > 60 && at.x < w - 60 && at.y - lift > 84 && at.y < hgt - 90;
       tag.el.classList.toggle("on", showTag && k > 0.02);
       if (!showTag) continue;
       tag.el.style.opacity = String(clamp(k * 1.2));
-      tag.el.style.transform = `translate3d(${at.x.toFixed(1)}px, ${at.y.toFixed(1)}px, 0)`;
+      tag.el.style.transform = `translate(${Math.round(at.x)}px, ${Math.round(at.y)}px)`;
       if (!tag.small) continue;
       const text = tag.sub(p, idle);
       if (text !== tag.last) {
@@ -369,6 +370,10 @@ export function createJourney({ onFail } = {}) {
 
   return {
     el,
+    /** The page calls this while it scrolls over the scene, so nothing is drawn behind it. */
+    setPaused(flag) {
+      city?.pause(flag);
+    },
     destroy() {
       dead = true;
       timers.forEach(clearTimeout);

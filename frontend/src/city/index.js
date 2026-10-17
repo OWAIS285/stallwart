@@ -7,7 +7,7 @@ import { createArc } from "./arcs.js";
 import { createBank, createCard, createFamilies, createOrb, createPhone } from "./objects.js";
 import { createFocus } from "./focus.js";
 import { clamp01, easeInOut, easeOut, lerp, seg, sstep } from "./math.js";
-import { ROUTE_END, ROUTE_FULL, createPlinth, createStage } from "./stage.js";
+import { ROUTE_END, ROUTE_FULL, createPlinth, createSky, createStage } from "./stage.js";
 import { AIR, ANGLE, COLORS, OVERVIEW, OVERVIEW_SCALE, STATION } from "./world.js";
 
 const D2R = Math.PI / 180;
@@ -26,17 +26,17 @@ const callMid = between("phone", "orb");
 const IN = 180;
 const SHIFT = 0.17;
 const VIEWS = [
-  [ANGLE.orb + IN - 10, 11, 42, S.orb.x, 4.2, S.orb.z, SHIFT],
+  [ANGLE.orb + IN - 10, 11, 50, S.orb.x, 6.2, S.orb.z, SHIFT],
   [(ANGLE.phone + ANGLE.orb) / 2 + IN, 12, 82, callMid.x, 6.4, callMid.z, SHIFT],
   [ANGLE.bank + IN - 10, 11, 54, S.bank.x, 7.6, S.bank.z, SHIFT],
   [ANGLE.card + IN - 12, 10, 48, S.card.x, 5.2, S.card.z, SHIFT],
   [ANGLE.families + IN - 14, 14, 62, S.families.x, 3.8, S.families.z, SHIFT],
-  [360, 11, 158, 0, 15, 4, 0],
+  [360, 11, 158, 0, 21, 4, 0],
 ];
 
 const bump = (a, b, c, d, p) => sstep(a, b, p) * (1 - sstep(c, d, p));
 // how high above each station its label hangs in the last scene
-const PIN_Y = { phone: 11.4, orb: 10.2, bank: 8.6, card: 10.6, families: 9.4 };
+const PIN_Y = { phone: 11.4, orb: 12.2, bank: 8.6, card: 10.6, families: 9.4 };
 
 export function createCity({ host, onFrame } = {}) {
   const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
@@ -53,7 +53,7 @@ export function createCity({ host, onFrame } = {}) {
 
   const scene = new THREE.Scene();
   scene.background = new THREE.Color(COLORS.bg);
-  scene.fog = new THREE.Fog(COLORS.bg, 110, 330);
+  scene.fog = new THREE.Fog(COLORS.horizon, 110, 330);
   const pmrem = new THREE.PMREMGenerator(renderer);
   const envTex = pmrem.fromScene(new RoomEnvironment(), 0.04).texture;
   scene.environment = envTex;
@@ -72,6 +72,8 @@ export function createCity({ host, onFrame } = {}) {
   scene.add(key, key.target, rim, rim.target);
 
   const stage = createStage();
+  const sky = createSky();
+  scene.add(sky.mesh);
   const phone = createPhone();
   const orb = createOrb();
   const bank = createBank();
@@ -144,6 +146,7 @@ export function createCity({ host, onFrame } = {}) {
   let arriveAt = null;
   let visible = true;
   let running = true;
+  let paused = false;
   let raf = 0;
   let last = performance.now();
   let clock = 0;
@@ -254,7 +257,7 @@ export function createCity({ host, onFrame } = {}) {
     raf = requestAnimationFrame(frame);
     const dt = Math.max(0, Math.min(0.05, (now - last) / 1000));
     last = now;
-    if (!visible || !running) return;
+    if (!visible || !running || paused) return;
     clock += dt;
     if (travel < 1) travel = Math.min(1, travel + dt / travelFor);
     // story events play at an even pace while the camera eases in and out
@@ -268,6 +271,7 @@ export function createCity({ host, onFrame } = {}) {
     world.position.y = -(1 - arrive) * 9;
 
     placeCamera(clock, dt);
+    sky.update(clock, camera);
     s.over = spread;
     // in the last scene the ring unfolds into a wide arc and every station turns to face the viewer, a little larger, so all five read clearly
     const ov = easeInOut(spread);
@@ -390,6 +394,11 @@ export function createCity({ host, onFrame } = {}) {
     get step() {
       return step;
     },
+    /** Stops drawing while the page scrolls over the scene (nothing to see, nothing to spend). */
+    pause(flag) {
+      paused = !!flag;
+      last = performance.now();
+    },
     arrive() {
       if (arriveAt === null) arriveAt = clock + 0.05;
     },
@@ -408,7 +417,7 @@ export function createCity({ host, onFrame } = {}) {
       ro.disconnect();
       io.disconnect();
       window.removeEventListener("pointermove", onMove);
-      [stage, arcCall, arcBank, arcStrain, arcFamily, card, fx, ...Object.values(plinths)].forEach((m) => m?.dispose?.());
+      [stage, sky, arcCall, arcBank, arcStrain, arcFamily, card, fx, ...Object.values(plinths)].forEach((m) => m?.dispose?.());
       envTex.dispose();
       pmrem.dispose();
       renderer.dispose();
