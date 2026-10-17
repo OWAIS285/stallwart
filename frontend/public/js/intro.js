@@ -1,13 +1,14 @@
-// Cinematic opening: an unknown number rings, the decoy picks up, a voice ring wakes and the name resolves.
-// Plays once per browser session on the landing page; any key, click or the Skip button ends it.
+// Opening sequence: an unknown number rings while the page really loads, the decoy picks up, a voice ring wakes and the name resolves.
+// Plays once per browser session on the landing page. Enter (with sound), Escape, a click anywhere or Skip ends it.
 
 import { BRAND } from "./brand.js";
+import { sound } from "./sound.js";
 import { h, logo, reducedMotion } from "./util.js";
+import { canUseCity } from "./views/journey.js";
 
 const SEEN_KEY = "intro-seen";
-const T_PICK = 1.9; // seconds: the decoy picks up
-const T_NAME = 2.55; // the name resolves
-const T_OUT = 4.5; // the curtain lifts
+const MIN_RING = 2.1; // seconds the phone rings at the very least
+const AUTO_MS = 7000; // after the name resolves, continue silently if nobody chooses
 
 export function shouldPlayIntro() {
   const flag = new URLSearchParams(location.search).get("intro");
@@ -22,31 +23,67 @@ export function shouldPlayIntro() {
   }
 }
 
+const STATUS = ["Fetching assets", "Warming the decoy", "Tuning the line", "Line ready"];
+const pad3 = (n) => String(Math.round(n)).padStart(3, "0");
+const ease = (k) => 1 - Math.pow(1 - Math.max(0, Math.min(1, k)), 3);
+
 export function playIntro({ onReveal } = {}) {
   return new Promise((resolve) => {
-    const canvas = h("canvas", { class: "intro-canvas", "aria-hidden": "true" });
-    const status = h("span", { class: "ic-status" }, "Incoming call · Unknown number");
-    const flag = h("span", { class: "ic-flag" }, "Possible scam");
-    const chip = h("div", { class: "intro-chip" }, h("span", { class: "ic-dot" }), status, flag);
+    const canvas = h("canvas", { class: "ix-canvas", "aria-hidden": "true" });
+    const chipText = h("span", { class: "ic-status" }, "Incoming call \u00B7 Unknown number");
+    const chipFlag = h("span", { class: "ic-flag" }, "Possible scam");
+    const chip = h("div", { class: "ix-chip" }, h("span", { class: "ic-dot" }), chipText, chipFlag);
+    const mark = h("div", { class: "ix-mark", "aria-hidden": "true" }, logo());
     const letters = [...BRAND.name].map((ch, i) => h("span", { class: "il", "aria-hidden": "true", style: { "--i": i } }, ch === " " ? "\u00a0" : ch));
-    const name = h("h1", { class: "intro-name", "aria-label": BRAND.name }, letters);
-    const tag = h("p", { class: "intro-tag" }, BRAND.introLine);
-    const mark = h("div", { class: "intro-mark", "aria-hidden": "true" }, logo());
-    const skip = h("button", { class: "intro-skip", type: "button" }, "Skip intro");
-    const root = h("div", { class: "intro", role: "dialog", "aria-label": `${BRAND.name} intro` }, canvas, h("div", { class: "intro-core" }, chip, mark, h("div", { class: "intro-text" }, name, tag)), skip);
+    const name = h("h1", { class: "ix-name", "aria-label": BRAND.name }, letters);
+    const tag = h("p", { class: "ix-tag" }, BRAND.introLine);
+    const withSound = h("button", { class: "ix-btn primary", type: "button" }, h("span", {}, "Enter with sound"));
+    const silent = h("button", { class: "ix-btn", type: "button" }, h("span", {}, "Without sound"));
+    const auto = h("i", { class: "ix-auto" });
+    const actions = h("div", { class: "ix-actions", "aria-hidden": "true" }, withSound, silent, auto);
+    const label = h("span", { class: "ix-label" }, STATUS[0]);
+    const count = h("b", { class: "ix-count" }, "000");
+    const fill = h("i", { class: "ix-fill" });
+    const skip = h("button", { class: "ix-skip", type: "button" }, "Skip intro \u2198");
+    const root = h(
+      "div",
+      { class: "ix is-loading", role: "dialog", "aria-label": `${BRAND.name} intro` },
+      canvas,
+      h("header", { class: "ix-top" }, h("span", {}, `${BRAND.name} \u2014 AI decoy`), h("span", {}, "AI Builder Cup 2026")),
+      h("div", { class: "ix-core" }, chip, mark, h("div", { class: "ix-text" }, name, tag, actions)),
+      h("footer", { class: "ix-meter" }, label, count, skip),
+      h("div", { class: "ix-line", "aria-hidden": "true" }, fill),
+    );
 
     document.body.classList.add("intro-active");
     document.body.append(root);
     skip.focus({ preventScroll: true });
 
+    // the real work behind the counter: fonts, the 3D bundle, and a minimum ring time
+    const t0 = performance.now();
+    const tasks = { fonts: false, scene: !canUseCity(), time: false };
+    document.fonts?.ready?.then(() => (tasks.fonts = true), () => (tasks.fonts = true));
+    if (!tasks.scene) {
+      import("./vendor/city.js").then(
+        () => (tasks.scene = true),
+        () => (tasks.scene = true),
+      );
+    }
+    setTimeout(() => (tasks.time = true), MIN_RING * 1000);
+
     const g = canvas.getContext("2d");
+    const stars = Array.from({ length: 84 }, (_, i) => ({ x: Math.random(), y: Math.random(), r: 0.4 + Math.random() * 1.1, v: 0.004 + Math.random() * 0.014, ph: Math.random() * 6.28, hue: i % 9 === 0 ? 1 : 0 }));
     let dpr = 1;
     let width = 0;
     let height = 0;
     let raf = 0;
     let finished = false;
+    let picked = false;
+    let tPick = Infinity;
+    let shown = 0;
+    let loaded = false;
+    let lastNow = t0;
     const timers = [];
-    const t0 = performance.now();
 
     function resize() {
       dpr = Math.min(window.devicePixelRatio || 1, 2);
@@ -56,80 +93,138 @@ export function playIntro({ onReveal } = {}) {
       canvas.height = Math.round(height * dpr);
     }
 
-    const ease = (k) => 1 - Math.pow(1 - Math.max(0, Math.min(1, k)), 3);
-
     function draw(now) {
       const t = (now - t0) / 1000;
+      const dt = Math.min(0.05, (now - lastNow) / 1000);
+      lastNow = now;
+
+      // loading: the counter eases toward what is really done
+      const real = (Number(tasks.fonts) + Number(tasks.scene) + Number(tasks.time)) / 3;
+      const target = real >= 1 ? 100 : Math.min(94, 100 * (0.1 + 0.9 * Math.min(real + 0.15, t / MIN_RING)));
+      shown += (target - shown) * 0.07;
+      if (target >= 100 && shown > 99.3) shown = 100;
+      count.textContent = pad3(shown);
+      fill.style.transform = `scaleX(${(shown / 100).toFixed(3)})`;
+      if (!picked) label.textContent = STATUS[Math.min(3, Math.floor(shown / 34))];
+      if (shown >= 100 && !loaded) loaded = true;
+      if (loaded && !picked && t >= MIN_RING) pickUp(t);
+
       g.setTransform(dpr, 0, 0, dpr, 0, 0);
       g.clearRect(0, 0, width, height);
       const cx = width / 2;
       const cy = height / 2;
-      const scale = Math.min(1, Math.min(width, height) / 620);
+      const scale = Math.min(1, Math.min(width, height) / 640);
 
-      // Ringing: soft rings leave the phone.
-      for (const start of [0.1, 0.62, 1.14]) {
-        const life = (t - start) / 1.6;
-        if (life <= 0 || life >= 1) continue;
-        g.strokeStyle = `rgba(${start === 0.62 ? "90,169,255" : "56,189,248"},${(1 - life) * 0.5})`;
-        g.lineWidth = 1.6;
+      // a slow field of dust behind everything
+      for (const s of stars) {
+        s.y -= s.v * dt;
+        if (s.y < -0.02) s.y = 1.02;
+        const tw = 0.45 + 0.55 * Math.sin(t * 0.9 + s.ph);
+        g.fillStyle = s.hue ? `rgba(232,190,125,${0.5 * tw})` : `rgba(190,208,255,${0.38 * tw})`;
         g.beginPath();
-        g.arc(cx, cy, (34 + life * 250) * scale, 0, Math.PI * 2);
-        g.stroke();
+        g.arc(s.x * width, s.y * height, s.r, 0, Math.PI * 2);
+        g.fill();
       }
 
-      // Pick-up: a bright burst.
-      const burst = (t - T_PICK) / 0.9;
+      // ringing: soft rings leave the phone, one after another, until it is answered
+      if (!picked || t - tPick < 0.5) {
+        const fade = picked ? 1 - (t - tPick) / 0.5 : 1;
+        for (let k = 0; k < 3; k++) {
+          const life = (((t * 0.62 - k * 0.34 + 3) % 1) + 1) % 1;
+          if (t * 0.62 - k * 0.34 < 0) continue;
+          g.strokeStyle = k === 1 ? `rgba(232,190,125,${(1 - life) * 0.38 * fade})` : `rgba(121,169,255,${(1 - life) * 0.5 * fade})`;
+          g.lineWidth = 1.4;
+          g.beginPath();
+          g.arc(cx, cy, (40 + life * 270) * scale, 0, Math.PI * 2);
+          g.stroke();
+        }
+      }
+
+      // the loading ring around the mark: it closes when everything is ready
+      const arcR = 54 * scale;
+      const prog = shown / 100;
+      g.lineWidth = 1.4;
+      g.strokeStyle = "rgba(255,255,255,0.1)";
+      g.beginPath();
+      g.arc(cx, cy, arcR, 0, Math.PI * 2);
+      g.stroke();
+      g.strokeStyle = "rgba(232,190,125,0.95)";
+      g.lineWidth = 2.2;
+      g.beginPath();
+      g.arc(cx, cy, arcR, -Math.PI / 2, -Math.PI / 2 + Math.PI * 2 * prog);
+      g.stroke();
+      if (prog < 1) {
+        const a = -Math.PI / 2 + Math.PI * 2 * prog;
+        g.fillStyle = "#f6dcae";
+        g.beginPath();
+        g.arc(cx + Math.cos(a) * arcR, cy + Math.sin(a) * arcR, 3, 0, Math.PI * 2);
+        g.fill();
+      }
+
+      // pick-up: a bright burst
+      const burst = (t - tPick) / 0.95;
       if (burst > 0 && burst < 1) {
-        g.strokeStyle = `rgba(255,255,255,${(1 - burst) * 0.7})`;
+        g.strokeStyle = `rgba(255,255,255,${(1 - burst) * 0.75})`;
         g.lineWidth = 3 * (1 - burst) + 0.5;
         g.beginPath();
-        g.arc(cx, cy, (40 + ease(burst) * 420) * scale, 0, Math.PI * 2);
+        g.arc(cx, cy, (46 + ease(burst) * 440) * scale, 0, Math.PI * 2);
         g.stroke();
-        const flash = g.createRadialGradient(cx, cy, 0, cx, cy, 260 * scale);
-        flash.addColorStop(0, `rgba(110,180,255,${(1 - burst) * 0.35})`);
-        flash.addColorStop(1, "rgba(110,180,255,0)");
+        const flash = g.createRadialGradient(cx, cy, 0, cx, cy, 280 * scale);
+        flash.addColorStop(0, `rgba(140,190,255,${(1 - burst) * 0.34})`);
+        flash.addColorStop(1, "rgba(140,190,255,0)");
         g.fillStyle = flash;
         g.fillRect(0, 0, width, height);
       }
 
-      // The voice ring.
-      const since = t - T_PICK;
+      // the voice ring and its ticks
+      const since = t - tPick;
       if (since > 0) {
-        const env = ease(since / 0.8) * (t > T_OUT - 0.2 ? Math.max(0, 1 - (t - (T_OUT - 0.2)) / 0.4) : 1);
-        const base = (58 + 22 * ease(since / 0.9) + (t > T_NAME ? Math.sin(t * 5) * 1.6 : 0)) * scale;
-        const points = 132;
+        const env = ease(since / 0.8);
+        const base = (66 + 20 * ease(since / 0.9) + Math.sin(t * 5) * 1.4) * scale;
+        const points = 140;
         const gradient = g.createLinearGradient(cx - base, cy - base, cx + base, cy + base);
-        gradient.addColorStop(0, "#38bdf8");
-        gradient.addColorStop(0.5, "#5aa9ff");
-        gradient.addColorStop(1, "#2563eb");
-        for (const [mult, alpha, width2] of [[1, 1, 2.6], [1.2, 0.3, 1.4]]) {
+        gradient.addColorStop(0, "#9cc4ff");
+        gradient.addColorStop(0.55, "#79a9ff");
+        gradient.addColorStop(1, "#f1efe9");
+        for (const [mult, alpha, lw] of [[1, 1, 2.4], [1.18, 0.28, 1.2]]) {
           g.beginPath();
           for (let i = 0; i <= points; i++) {
             const a = (i / points) * Math.PI * 2 + t * 0.35;
             const wobble = (0.5 + 0.5 * Math.sin(i * 0.41 + t * 5.2)) * (0.6 + 0.4 * Math.sin(i * 0.13 - t * 3.3));
-            const r = (base + wobble * 26 * env * scale) * mult;
-            const x = cx + Math.cos(a) * r;
-            const y = cy + Math.sin(a) * r;
-            if (i === 0) g.moveTo(x, y);
-            else g.lineTo(x, y);
+            const r = (base + wobble * 24 * env * scale) * mult;
+            if (i === 0) g.moveTo(cx + Math.cos(a) * r, cy + Math.sin(a) * r);
+            else g.lineTo(cx + Math.cos(a) * r, cy + Math.sin(a) * r);
           }
           g.closePath();
           g.globalAlpha = alpha * Math.min(1, env * 1.4);
           g.strokeStyle = gradient;
-          g.lineWidth = width2;
-          g.shadowColor = "rgba(90,169,255,0.9)";
-          g.shadowBlur = 18;
+          g.lineWidth = lw;
+          g.shadowColor = "rgba(121,169,255,0.85)";
+          g.shadowBlur = 16;
           g.stroke();
         }
         g.globalAlpha = 1;
         g.shadowBlur = 0;
+        const ticks = 72;
+        for (let i = 0; i < ticks; i++) {
+          const a = (i / ticks) * Math.PI * 2 - t * 0.18;
+          const wave = 0.5 + 0.5 * Math.sin(i * 0.9 + t * 4.4) * Math.sin(i * 0.27 - t * 1.9);
+          const r0 = base + 34 * scale;
+          const len = (3 + wave * 15 * env) * scale;
+          g.strokeStyle = i % 9 === 0 ? `rgba(232,190,125,${0.85 * env})` : `rgba(226,234,255,${0.5 * env})`;
+          g.lineWidth = 1.3;
+          g.beginPath();
+          g.moveTo(cx + Math.cos(a) * r0, cy + Math.sin(a) * r0);
+          g.lineTo(cx + Math.cos(a) * (r0 + len), cy + Math.sin(a) * (r0 + len));
+          g.stroke();
+        }
         for (let k = 0; k < 3; k++) {
           const a = t * (0.9 + k * 0.25) + (k * Math.PI * 2) / 3;
-          const r = (base + 38 * scale) * (1 + k * 0.08);
-          g.fillStyle = ["#38bdf8", "#5aa9ff", "#2563eb"][k];
+          const r = (base + 60 * scale) * (1 + k * 0.05);
+          g.fillStyle = ["#9cc4ff", "#f1efe9", "#e8be7d"][k];
           g.globalAlpha = 0.85 * env;
           g.beginPath();
-          g.arc(cx + Math.cos(a) * r, cy + Math.sin(a) * r, 2.6, 0, Math.PI * 2);
+          g.arc(cx + Math.cos(a) * r, cy + Math.sin(a) * r, 2.4, 0, Math.PI * 2);
           g.fill();
         }
         g.globalAlpha = 1;
@@ -141,47 +236,85 @@ export function playIntro({ onReveal } = {}) {
       timers.push(setTimeout(fn, seconds * 1000));
     }
 
-    function finish() {
+    // everything is ready: the decoy answers, the name resolves, then the choice appears
+    function pickUp(t) {
+      picked = true;
+      tPick = t;
+      root.classList.remove("is-loading");
+      root.classList.add("p-pick");
+      chipText.textContent = "Decoy picked up";
+      chipFlag.textContent = "Recording";
+      label.textContent = STATUS[3];
+      at(0.65, () => root.classList.add("p-name"));
+      at(1.75, () => {
+        root.classList.add("is-ready");
+        actions.removeAttribute("aria-hidden");
+        withSound.focus({ preventScroll: true });
+        timers.push(setTimeout(() => enter(false), AUTO_MS));
+      });
+    }
+
+    async function enter(wantSound) {
       if (finished) return;
       finished = true;
       timers.forEach(clearTimeout);
-      root.classList.add("p-out");
+      window.removeEventListener("keydown", onKey);
+      root.classList.add("is-leaving");
+      if (wantSound) {
+        try {
+          await sound.enable();
+        } catch {
+          /* audio unavailable: carry on silently */
+        }
+      } else if (sound.enabled) sound.disable();
       try {
         sessionStorage.setItem(SEEN_KEY, "1");
       } catch {
         /* private mode: the intro may play again, which is harmless */
       }
+      count.textContent = "100";
+      root.classList.add("p-out");
       onReveal?.();
-      document.body.classList.remove("intro-active");
+      setTimeout(() => document.body.classList.remove("intro-active"), 520);
       window.removeEventListener("resize", resize);
-      window.removeEventListener("keydown", onKey);
       setTimeout(() => {
         cancelAnimationFrame(raf);
         root.remove();
         resolve();
-      }, 900);
+      }, 1300);
     }
 
     const onKey = (event) => {
-      if (["Escape", "Enter", " "].includes(event.key)) {
+      if (event.key === "Escape") {
         event.preventDefault();
-        finish();
+        enter(false);
+      } else if (event.key === "Enter" || event.key === " ") {
+        if (event.target instanceof Element && event.target.closest("button")) return;
+        event.preventDefault();
+        enter(root.classList.contains("is-ready"));
       }
     };
 
     resize();
     window.addEventListener("resize", resize);
     window.addEventListener("keydown", onKey);
-    root.addEventListener("pointerdown", finish);
-    raf = requestAnimationFrame(draw);
-
-    root.classList.add("p-ring");
-    at(T_PICK, () => {
-      root.classList.add("p-pick");
-      status.textContent = "Decoy picked up";
-      flag.textContent = "Recording";
+    withSound.addEventListener("click", (e) => {
+      e.stopPropagation();
+      enter(true);
     });
-    at(T_NAME, () => root.classList.add("p-name"));
-    at(T_OUT, finish);
+    silent.addEventListener("click", (e) => {
+      e.stopPropagation();
+      enter(false);
+    });
+    skip.addEventListener("click", (e) => {
+      e.stopPropagation();
+      enter(false);
+    });
+    root.addEventListener("pointerdown", (e) => {
+      if (e.target instanceof Element && e.target.closest("button")) return;
+      enter(false);
+    });
+    raf = requestAnimationFrame(draw);
+    root.classList.add("p-ring");
   });
 }

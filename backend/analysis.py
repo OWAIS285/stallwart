@@ -203,7 +203,53 @@ DEMO_STRAINS = [
             "Do not tell anyone, send the deposit to redacted@upi within one hour.",
         ],
         "language": "hinglish",
-    }
+    },
+    {
+        "strainId": "demo_bank_kyc_block",
+        "demo": True,
+        "scamType": "bank_kyc_block",
+        "impersonatedEntity": "Bank KYC / account security team",
+        "steps": [
+            "Caller says they are from the victim's bank and the account will be blocked today because KYC has expired.",
+            "Sends a link or asks the victim to install a 'verification' app that gives the caller control of the phone.",
+            "Asks for the OTP that arrives by SMS, calling it a routine check.",
+            "Uses the OTP to move money out and tells the victim the account is now safe.",
+        ],
+        "redFlags": [
+            "A bank never asks you to share an OTP, PIN or CVV on a call.",
+            "A link or app sent during a call is how phones get taken over. Banks do not do this.",
+            "Pressure to act 'today or the account is blocked' is meant to stop you from calling the bank yourself.",
+        ],
+        "paymentMethod": "No payment asked: money is taken from the account using the OTP the victim reads out",
+        "scriptExcerpts": [
+            "Your KYC has expired and your account will be blocked in two hours.",
+            "Please read me the six digit code that just came on your phone.",
+        ],
+        "language": "english",
+    },
+    {
+        "strainId": "demo_family_emergency",
+        "demo": True,
+        "scamType": "family_emergency",
+        "impersonatedEntity": "A grandchild or relative in trouble",
+        "steps": [
+            "Caller says 'Nani, it is me' in a rushed, crying voice and lets the victim guess the name.",
+            "Claims an accident, an arrest or a hospital bill and begs the victim not to tell the parents.",
+            "Hands the phone to a 'lawyer' or 'police officer' who explains the amount needed right now.",
+            "Asks for an immediate UPI transfer, with promises to repay later.",
+        ],
+        "redFlags": [
+            "A real relative can answer a question only your family knows. Ask one before doing anything.",
+            "Being told to keep it secret from the rest of the family is a trap.",
+            "Hang up and call the relative back on the number you already have.",
+        ],
+        "paymentMethod": "Urgent UPI transfer to a stranger's account described as a lawyer or hospital",
+        "scriptExcerpts": [
+            "Please do not tell Papa, I am in trouble and need the money right now.",
+            "The officer will give you the account, send it before they take me away.",
+        ],
+        "language": "hinglish",
+    },
 ]
 
 

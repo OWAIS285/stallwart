@@ -1,0 +1,17 @@
+{
+  "name": "stallwart-frontend",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "description": "Build step for the 3D home-page scene only. The rest of the site is plain ES modules served from public/.",
+  "scripts": {
+    "build": "esbuild src/city/index.js --bundle --minify --format=esm --target=es2020 --legal-comments=linked --outfile=public/js/vendor/city.js",
+    "watch": "esbuild src/city/index.js --bundle --format=esm --target=es2020 --sourcemap=inline --outfile=public/js/vendor/city.js --watch"
+  },
+  "dependencies": {
+    "three": "^0.186.1"
+  },
+  "devDependencies": {
+    "esbuild": "^0.28.2"
+  }
+}

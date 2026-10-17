@@ -3,6 +3,7 @@ import { initSplit, pinnedStory, velocityMarquee } from "../motion.js";
 import { createOrb } from "../orb3d.js";
 import { scriptPanel } from "../scripts.js";
 import { SCAM_LABELS, countUp, h, icon, observeReveal, reducedMotion } from "../util.js";
+import { canUseCity, createJourney } from "./journey.js";
 
 const link = (href, cls, ...children) => h("a", { href, class: cls }, ...children);
 
@@ -143,7 +144,7 @@ function story() {
   return { el, destroy: control.destroy };
 }
 
-export function HomeView() {
+function classicHero() {
   const stage = heroStage();
   const hero = h(
     "section",
@@ -156,7 +157,7 @@ export function HomeView() {
       h(
         "p",
         { class: "lead reveal" },
-        `${BRAND.name} is an AI decoy that answers scam calls in English, हिन्दी and Hinglish. It plays a worried 68-year-old, wastes the scammer's time, quietly collects the UPI IDs and bank details they ask you to pay, and saves the call as evidence.`,
+        `${BRAND.name} is an AI decoy that answers scam calls in English and हिन्दी. It plays a worried 68-year-old, wastes the scammer's time, quietly collects the UPI IDs and bank details they ask you to pay, and saves the call as evidence.`,
       ),
       h(
         "div",
@@ -170,26 +171,59 @@ export function HomeView() {
     stage.el,
     h("div", { class: "scroll-cue", "aria-hidden": "true" }, h("i"), "Scroll"),
   );
+  return { hero, stage };
+}
+
+export function HomeView() {
+  // The 3D journey is the hero when the browser can run it; otherwise (or if it fails to load) the classic hero and story take over.
+  const topSlot = h("div", { class: "home-top" });
+  const storySlot = h("div", { class: "home-story" });
+  let classic = null;
+  let pinned = null;
+  let journey = null;
+  const mountClassic = () => {
+    classic = classicHero();
+    pinned = story();
+    topSlot.replaceChildren(classic.hero);
+    storySlot.replaceChildren(pinned.el);
+    queueMicrotask(() => {
+      observeReveal(topSlot);
+      initSplit(topSlot);
+      observeReveal(storySlot);
+    });
+  };
+  if (canUseCity()) {
+    journey = createJourney({
+      onFail() {
+        journey?.destroy();
+        journey = null;
+        mountClassic();
+      },
+    });
+    topSlot.append(journey.el);
+  } else mountClassic();
 
   const tick = ticker();
   const stopTicker = velocityMarquee(tick.track, { speed: 46 });
 
-  const stat = (value, label, sub, formatter) => {
+  const stat = (value, label, sub, formatter, usd) => {
     const num = h("b", { class: "stat-n" }, "0");
-    const cell = h("div", { class: "stat-cell reveal" }, num, h("span", {}, label), sub ? h("small", {}, sub) : null);
-    cell._count = () => countUp(num, value, { format: formatter });
+    const usdEl = usd ? h("em", { class: "stat-usd" }, "") : null;
+    const cell = h("div", { class: "stat-cell reveal" }, num, usdEl, h("span", {}, label), sub ? h("small", {}, sub) : null);
+    cell._count = () => {
+      countUp(num, value, { format: formatter });
+      if (usd) countUp(usdEl, usd.value, { format: usd.format });
+    };
     return cell;
   };
   const stats = [
-    stat(22495, "crore rupees reported lost to cyber fraud in 2025", "Source: National Cybercrime Reporting Portal (NCRP) data", (n) => `₹${Math.round(n).toLocaleString("en-IN")}`),
-    stat(3, "languages understood on the line", "English, Hindi and Hinglish", (n) => String(Math.round(n))),
+    stat(22495, "crore rupees reported lost to cyber fraud in 2025", "Source: National Cybercrime Reporting Portal (NCRP) data. Converted at about \u20B990 per US dollar.", (n) => `₹${Math.round(n).toLocaleString("en-IN")}`, { value: 2.5, format: (n) => `\u2248 $${n.toFixed(1)} billion` }),
+    stat(2, "languages understood on the line", "English and Hindi", (n) => String(Math.round(n))),
     stat(2, "independent checks before a detail counts as confirmed", "A live tool call plus a second AI pass", (n) => String(Math.round(n))),
   ];
   const statsBand = h("section", { class: "stats-band" }, stats);
   const io = "IntersectionObserver" in window ? new IntersectionObserver((entries) => entries.forEach((e) => e.isIntersecting && (e.target._count?.(), io.unobserve(e.target))), { threshold: 0.4 }) : null;
   stats.forEach((cell) => (io ? io.observe(cell) : cell._count()));
-
-  const pinned = story();
 
   const tryIt = h(
     "section",
@@ -232,15 +266,15 @@ export function HomeView() {
     ),
   );
 
-  const el = h("div", { class: "home" }, hero, tick.el, statsBand, pinned.el, marquee(), tryIt, trust, finale);
+  const el = h("div", { class: "home" }, topSlot, tick.el, statsBand, storySlot, marquee(), tryIt, trust, finale);
 
   let queued = false;
   const onScroll = () => {
-    if (queued) return;
+    if (queued || !classic) return;
     queued = true;
     requestAnimationFrame(() => {
       queued = false;
-      hero.style.setProperty("--sy", Math.min(1.2, window.scrollY / Math.max(1, window.innerHeight)).toFixed(3));
+      classic?.hero.style.setProperty("--sy", Math.min(1.2, window.scrollY / Math.max(1, window.innerHeight)).toFixed(3));
     });
   };
   window.addEventListener("scroll", onScroll, { passive: true });
@@ -254,8 +288,9 @@ export function HomeView() {
     destroy() {
       io?.disconnect();
       stopTicker();
-      pinned.destroy();
-      stage.destroy();
+      journey?.destroy();
+      pinned?.destroy();
+      classic?.stage.destroy();
       window.removeEventListener("scroll", onScroll);
     },
   };
