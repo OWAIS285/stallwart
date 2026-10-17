@@ -94,27 +94,27 @@ const rr = (g, x, y, w, h, r) => {
 // ---------------------------------------------------------------- 1. the scammer's phone
 function drawPhone(g, w, h, mode, clock) {
   const grad = g.createLinearGradient(0, 0, 0, h);
-  grad.addColorStop(0, mode === "off" ? "#12151f" : "#2a0f18");
-  grad.addColorStop(1, mode === "off" ? "#0b0d14" : "#12060b");
+  grad.addColorStop(0, mode === "off" ? "#1a2236" : "#2a0f18");
+  grad.addColorStop(1, mode === "off" ? "#0f1626" : "#12060b");
   g.fillStyle = grad;
   g.fillRect(0, 0, w, h);
   g.textAlign = "center";
   g.textBaseline = "alphabetic";
   const on = mode !== "off";
-  g.fillStyle = on ? "#ff8a98" : "#4a5166";
+  g.fillStyle = on ? "#ff8a98" : "#8c9bbb";
   g.font = "700 30px Inter, Segoe UI, sans-serif";
   g.fillText(mode === "connected" ? "CALL CONNECTED" : mode === "off" ? "CALL ENDED" : "INCOMING CALL", w / 2, 120);
   g.fillStyle = on ? "rgba(255,84,104,0.18)" : "rgba(120,130,160,0.12)";
   g.beginPath();
   g.arc(w / 2, 330, 120, 0, Math.PI * 2);
   g.fill();
-  g.fillStyle = on ? "#ff5468" : "#4a5166";
+  g.fillStyle = on ? "#ff5468" : "#8c9bbb";
   g.font = "800 150px Inter, Segoe UI, sans-serif";
   g.fillText("?", w / 2, 385);
-  g.fillStyle = on ? "#ffffff" : "#6d7590";
+  g.fillStyle = on ? "#ffffff" : "#b4c1dd";
   g.font = "800 50px Inter, Segoe UI, sans-serif";
   g.fillText("Unknown number", w / 2, 540);
-  g.fillStyle = on ? "#ffb3bd" : "#4a5166";
+  g.fillStyle = on ? "#ffb3bd" : "#8c9bbb";
   g.font = "600 32px Inter, Segoe UI, sans-serif";
   g.fillText(mode === "connected" ? clock : "\u201CCBI officer\u201D \u00B7 not verified", w / 2, 592);
   if (on) {
@@ -125,11 +125,11 @@ function drawPhone(g, w, h, mode, clock) {
     g.font = "700 28px Inter, Segoe UI, sans-serif";
     g.fillText("\u26A0  Possible scam", w / 2, 692);
   }
-  g.fillStyle = mode === "off" ? "#2a3045" : "#e0364a";
+  g.fillStyle = mode === "off" ? "#3a4666" : "#e0364a";
   g.beginPath();
   g.arc(w / 2 - 120, 880, 64, 0, Math.PI * 2);
   g.fill();
-  g.fillStyle = mode === "off" ? "#2a3045" : "#16a870";
+  g.fillStyle = mode === "off" ? "#3a4666" : "#16a870";
   g.beginPath();
   g.arc(w / 2 + 120, 880, 64, 0, Math.PI * 2);
   g.fill();
@@ -168,16 +168,16 @@ export function createPhone() {
       const power = 1 - s.scamDim;
       holder.position.y = 5.4 + Math.sin(t * 1.2) * 0.14;
       const ringing = s.dialling * power;
-      holder.rotation.z = -0.05 + Math.sin(t * 34) * 0.012 * ringing * (1 - s.wake);
+      holder.rotation.z = -0.05 + Math.sin(t * 34) * 0.012 * ringing * (1 - s.answered);
       const sec = Math.round(Math.max(0, (s.p - 0.28) / 0.22) * 167);
       const clock = `${String(Math.floor(sec / 60)).padStart(2, "0")}:${String(sec % 60).padStart(2, "0")}`;
-      const mode = s.scamDim > 0.55 ? "off" : s.wake > 0.5 ? "connected" : "ring";
+      const mode = s.scamDim > 0.55 ? "off" : s.answered > 0.5 ? "connected" : "ring";
       screen.redraw(mode + (mode === "connected" ? clock : ""), mode, clock);
       arcs.forEach((a, i) => {
         a.material.opacity = ringing * Math.max(0, Math.sin(t * 5 - i * 0.9)) * 0.9;
       });
       rings.update(t, ringing * 0.9, 9, 0.45);
-      face.material.color.setScalar(0.55 + 0.45 * power);
+      face.material.color.setScalar(0.85 + 0.15 * power);
     },
     ring: rings,
   };
@@ -262,7 +262,7 @@ export function createOrb() {
       orbU.uTime.value = t;
       orbU.uEnergy.value = s.energy;
       orbU.uWake.value = s.wake;
-      const ring = s.ringing * (1 - s.wake);
+      const ring = s.ringing * (1 - s.answered);
       orbGroup.position.y = AIR.orb[1] + Math.sin(t * 1.3) * 0.16 + ring * Math.sin(t * 28) * 0.05;
       orbGroup.scale.setScalar(lerp(0.9, 1.15, s.wake) + s.energy * 0.12);
       // a radial equalizer that always faces the viewer (the camera's turn, expressed in the station's own space)
@@ -339,7 +339,7 @@ export function createBank() {
     anchor: new THREE.Vector3(at.x, AIR.bankMarker[1] + 4, at.z),
     update(s, t) {
       const pop = easeBack(clamp01(s.mark));
-      marker.visible = s.mark > 0.01;
+      marker.visible = s.mark > 0.01 && s.over < 0.5;
       marker.scale.setScalar(Math.max(0.001, pop));
       marker.position.y = AIR.bankMarker[1] + Math.sin(t * 1.6) * 0.18;
       core.rotation.y = t * 1.2;

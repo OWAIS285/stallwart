@@ -1,6 +1,7 @@
 // Layout and palette for "the loop": five stations on a ring, in story order, each facing the middle. Units are roughly metres.
-// The camera stands inside the ring and turns to each station in turn; at the end it lifts out to show the whole loop.
-// Palette: near-black stage, matte white clay, one cobalt accent; coral only for the scammer, emerald only for protection.
+// The camera stands inside the ring and turns to each station in turn. In the last scene the ring unfolds into one wide, shallow arc
+// (OVERVIEW) so all five stations stand side by side, in story order, facing the viewer.
+// Palette follows the site: black and blue, silver for the caller. Coral appears only on the scammer's phone.
 
 export const RING = 27;
 
@@ -13,6 +14,12 @@ const polar = (deg, r = RING) => {
 };
 
 export const STATION = Object.fromEntries(Object.entries(ANGLE).map(([name, deg]) => [name, polar(deg)]));
+
+// The last scene's lineup: left to right in story order along a gentle arc that bows toward the viewer, each station a little larger than on the ring.
+export const ARC_X = { phone: -43, orb: -21.5, bank: 0, card: 21.5, families: 43 };
+export const arcZ = (x) => 9 - 0.0066 * x * x;
+export const OVERVIEW = Object.fromEntries(Object.entries(ARC_X).map(([name, x]) => [name, { x, z: arcZ(x) }]));
+export const OVERVIEW_SCALE = { phone: 1.3, orb: 1.3, bank: 1.08, card: 1.3, families: 0.86 };
 
 const at = (name, y) => [STATION[name].x, y, STATION[name].z];
 
@@ -31,8 +38,7 @@ export const COLORS = {
   cobalt: 0x3d6bff,
   sky: 0x7db2ff,
   coral: 0xff5468,
-  emerald: 0x2fe0a3,
-  safe: 0xf3dcae,
+  safe: 0xbfe0ff,
   amber: 0xffb454,
   ice: 0xa9e2ff,
 };

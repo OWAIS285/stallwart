@@ -5,7 +5,7 @@
 
 /* ============================================================ opening sequence */
 .ix {
-  --ivory: #f1efe9; --azure: #79a9ff; --gold: #e8be7d; --mut: #8493b2;
+  --ivory: #eef4ff; --azure: #5aa9ff; --gold: #7dd3fc; --mut: #8493b2;
   position: fixed; inset: 0; z-index: 2000; overflow: hidden; cursor: pointer; color: var(--ivory); font-family: var(--display);
   background: radial-gradient(900px 640px at 50% 46%, #0c1c40 0%, #060d20 55%, #030611 100%);
   clip-path: inset(0 0 0 0); transition: clip-path 1.05s cubic-bezier(0.76, 0, 0.24, 1);
@@ -61,7 +61,7 @@
 .ix-btn.primary::before { content: ""; position: absolute; inset: -6px; pointer-events: none; transition: inset 0.35s var(--ease); background: linear-gradient(var(--ivory), var(--ivory)) 0 0 / 9px 1px no-repeat, linear-gradient(var(--ivory), var(--ivory)) 0 0 / 1px 9px no-repeat, linear-gradient(var(--ivory), var(--ivory)) 100% 0 / 9px 1px no-repeat, linear-gradient(var(--ivory), var(--ivory)) 100% 0 / 1px 9px no-repeat, linear-gradient(var(--ivory), var(--ivory)) 0 100% / 9px 1px no-repeat, linear-gradient(var(--ivory), var(--ivory)) 0 100% / 1px 9px no-repeat, linear-gradient(var(--ivory), var(--ivory)) 100% 100% / 9px 1px no-repeat, linear-gradient(var(--ivory), var(--ivory)) 100% 100% / 1px 9px no-repeat; }
 .ix-btn.primary:hover::before { inset: -10px; }
 .ix-btn:focus-visible, .ix-skip:focus-visible { outline: 2px solid var(--azure); outline-offset: 4px; }
-.ix-auto { position: absolute; left: 0; right: 0; bottom: 0; height: 1px; background: rgba(232, 190, 125, 0.7); transform-origin: 0 50%; transform: scaleX(1); }
+.ix-auto { position: absolute; left: 0; right: 0; bottom: 0; height: 1px; background: rgba(125, 211, 252, 0.7); transform-origin: 0 50%; transform: scaleX(1); }
 .ix.is-ready .ix-auto { animation: ix-auto 7s linear forwards; }
 @keyframes ix-auto { to { transform: scaleX(0); } }
 
@@ -71,7 +71,7 @@
 .ix-skip { margin-left: auto; padding: 4px 0; border: 0; border-bottom: 1px solid transparent; background: none; color: #8f9fc4; font: 600 11px/1 var(--mono); letter-spacing: 0.16em; text-transform: uppercase; cursor: pointer; transition: color 0.2s, border-color 0.2s; }
 .ix-skip:hover { color: #fff; border-color: rgba(255, 255, 255, 0.5); }
 .ix-line { left: 0; right: 0; bottom: 0; height: 2px; background: rgba(255, 255, 255, 0.07); }
-.ix-fill { position: absolute; inset: 0; transform-origin: 0 50%; transform: scaleX(0); background: linear-gradient(90deg, var(--gold), #f6e6c8); }
+.ix-fill { position: absolute; inset: 0; transform-origin: 0 50%; transform: scaleX(0); background: linear-gradient(90deg, #38bdf8, #cfe6ff); }
 
 @media (max-width: 720px) {
   .ix-chip { top: calc(50% - 176px); font-size: 11px; padding: 8px 14px; gap: 9px; }
@@ -111,4 +111,5 @@ a:hover > .roll > span, button:hover > .roll > span, a:focus-visible > .roll > s
 .btn.bracket { overflow: visible; }
 .btn.bracket::before { content: ""; position: absolute; inset: -6px; pointer-events: none; transition: inset 0.35s var(--ease); background: linear-gradient(#cfe0ff, #cfe0ff) 0 0 / 9px 1px no-repeat, linear-gradient(#cfe0ff, #cfe0ff) 0 0 / 1px 9px no-repeat, linear-gradient(#cfe0ff, #cfe0ff) 100% 0 / 9px 1px no-repeat, linear-gradient(#cfe0ff, #cfe0ff) 100% 0 / 1px 9px no-repeat, linear-gradient(#cfe0ff, #cfe0ff) 0 100% / 9px 1px no-repeat, linear-gradient(#cfe0ff, #cfe0ff) 0 100% / 1px 9px no-repeat, linear-gradient(#cfe0ff, #cfe0ff) 100% 100% / 9px 1px no-repeat, linear-gradient(#cfe0ff, #cfe0ff) 100% 100% / 1px 9px no-repeat; opacity: 0.7; }
 .btn.bracket:hover::before { inset: -10px; opacity: 1; }
+.btn.bracket::after { display: none; }
 

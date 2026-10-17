@@ -698,12 +698,12 @@ export const sound = {
     cue("card", 0.6, "card");
     cue("redact", 0.66, "redact");
     cue("protect", 0.775, "protect");
-    // the phone rings from the first scene until Ramesh answers, with a tense heartbeat under it
-    if (p > 0.05 && p < 0.27 && now - lastRing > 2.4) {
+    // the phone rings as the call comes in, until Ramesh answers, with a tense heartbeat under it
+    if (p > 0.17 && p < 0.27 && now - lastRing > 2.4) {
       lastRing = now;
       play("ring");
     }
-    const beating = p > 0.05 && p < 0.3;
+    const beating = p > 0.15 && p < 0.3;
     if (beating && now - heartTimer > 0.95) {
       heartTimer = now;
       pulseHeart();

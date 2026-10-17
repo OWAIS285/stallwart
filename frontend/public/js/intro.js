@@ -120,7 +120,7 @@ export function playIntro({ onReveal } = {}) {
         s.y -= s.v * dt;
         if (s.y < -0.02) s.y = 1.02;
         const tw = 0.45 + 0.55 * Math.sin(t * 0.9 + s.ph);
-        g.fillStyle = s.hue ? `rgba(232,190,125,${0.5 * tw})` : `rgba(190,208,255,${0.38 * tw})`;
+        g.fillStyle = s.hue ? `rgba(125,211,252,${0.5 * tw})` : `rgba(190,208,255,${0.38 * tw})`;
         g.beginPath();
         g.arc(s.x * width, s.y * height, s.r, 0, Math.PI * 2);
         g.fill();
@@ -132,7 +132,7 @@ export function playIntro({ onReveal } = {}) {
         for (let k = 0; k < 3; k++) {
           const life = (((t * 0.62 - k * 0.34 + 3) % 1) + 1) % 1;
           if (t * 0.62 - k * 0.34 < 0) continue;
-          g.strokeStyle = k === 1 ? `rgba(232,190,125,${(1 - life) * 0.38 * fade})` : `rgba(121,169,255,${(1 - life) * 0.5 * fade})`;
+          g.strokeStyle = k === 1 ? `rgba(125,211,252,${(1 - life) * 0.38 * fade})` : `rgba(121,169,255,${(1 - life) * 0.5 * fade})`;
           g.lineWidth = 1.4;
           g.beginPath();
           g.arc(cx, cy, (40 + life * 270) * scale, 0, Math.PI * 2);
@@ -148,14 +148,14 @@ export function playIntro({ onReveal } = {}) {
       g.beginPath();
       g.arc(cx, cy, arcR, 0, Math.PI * 2);
       g.stroke();
-      g.strokeStyle = "rgba(232,190,125,0.95)";
+      g.strokeStyle = "rgba(125,211,252,0.95)";
       g.lineWidth = 2.2;
       g.beginPath();
       g.arc(cx, cy, arcR, -Math.PI / 2, -Math.PI / 2 + Math.PI * 2 * prog);
       g.stroke();
       if (prog < 1) {
         const a = -Math.PI / 2 + Math.PI * 2 * prog;
-        g.fillStyle = "#f6dcae";
+        g.fillStyle = "#cfe6ff";
         g.beginPath();
         g.arc(cx + Math.cos(a) * arcR, cy + Math.sin(a) * arcR, 3, 0, Math.PI * 2);
         g.fill();
@@ -185,7 +185,7 @@ export function playIntro({ onReveal } = {}) {
         const gradient = g.createLinearGradient(cx - base, cy - base, cx + base, cy + base);
         gradient.addColorStop(0, "#9cc4ff");
         gradient.addColorStop(0.55, "#79a9ff");
-        gradient.addColorStop(1, "#f1efe9");
+        gradient.addColorStop(1, "#eef4ff");
         for (const [mult, alpha, lw] of [[1, 1, 2.4], [1.18, 0.28, 1.2]]) {
           g.beginPath();
           for (let i = 0; i <= points; i++) {
@@ -211,7 +211,7 @@ export function playIntro({ onReveal } = {}) {
           const wave = 0.5 + 0.5 * Math.sin(i * 0.9 + t * 4.4) * Math.sin(i * 0.27 - t * 1.9);
           const r0 = base + 34 * scale;
           const len = (3 + wave * 15 * env) * scale;
-          g.strokeStyle = i % 9 === 0 ? `rgba(232,190,125,${0.85 * env})` : `rgba(226,234,255,${0.5 * env})`;
+          g.strokeStyle = i % 9 === 0 ? `rgba(125,211,252,${0.85 * env})` : `rgba(226,234,255,${0.5 * env})`;
           g.lineWidth = 1.3;
           g.beginPath();
           g.moveTo(cx + Math.cos(a) * r0, cy + Math.sin(a) * r0);
@@ -221,7 +221,7 @@ export function playIntro({ onReveal } = {}) {
         for (let k = 0; k < 3; k++) {
           const a = t * (0.9 + k * 0.25) + (k * Math.PI * 2) / 3;
           const r = (base + 60 * scale) * (1 + k * 0.05);
-          g.fillStyle = ["#9cc4ff", "#f1efe9", "#e8be7d"][k];
+          g.fillStyle = ["#9cc4ff", "#eef4ff", "#38bdf8"][k];
           g.globalAlpha = 0.85 * env;
           g.beginPath();
           g.arc(cx + Math.cos(a) * r, cy + Math.sin(a) * r, 2.4, 0, Math.PI * 2);

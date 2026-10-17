@@ -1,5 +1,5 @@
-// "The loop": five stations on a ring of dark mirror floor, each facing the middle. The page plays the story in steps: go(i) glides to scene i,
-// and the last scene lifts the camera high above the ring to show the whole loop at once.
+// "The loop": five stations on a ring of dark floor, each facing the middle. The page plays the story in steps: go(i) glides to scene i,
+// and in the last scene the ring unfolds into one wide arc so all five stations stand side by side, facing you.
 // createCity() returns a controller; the page calls go(step) and reads back screen anchors for its labels.
 import * as THREE from "three";
 import { RoomEnvironment } from "three/examples/jsm/environments/RoomEnvironment.js";
@@ -8,30 +8,35 @@ import { createBank, createCard, createFamilies, createOrb, createPhone } from "
 import { createFocus } from "./focus.js";
 import { clamp01, easeInOut, easeOut, lerp, seg, sstep } from "./math.js";
 import { ROUTE_END, ROUTE_FULL, createPlinth, createStage } from "./stage.js";
-import { AIR, ANGLE, COLORS, STATION } from "./world.js";
+import { AIR, ANGLE, COLORS, OVERVIEW, OVERVIEW_SCALE, STATION } from "./world.js";
 
 const D2R = Math.PI / 180;
 
 // Story progress where each scene is fully resolved (everything that scene shows has finished playing).
-// 0 the ringing phone · 1 Ramesh picks up · 2 the bank · 3 the strain · 4 the vaccine · 5 the whole loop
-const REST = [0.12, 0.41, 0.58, 0.71, 0.93, 1];
+// 0 Stallwart standing by · 1 the call comes in and Ramesh answers · 2 the bank · 3 the strain · 4 the vaccine · 5 the whole journey
+const REST = [0.04, 0.41, 0.58, 0.71, 0.93, 1];
 
 const S = STATION;
+const between = (a, b) => ({ x: (S[a].x + S[b].x) / 2, z: (S[a].z + S[b].z) / 2 });
+const callMid = between("phone", "orb");
 
 // Where the camera rests in each scene: [yaw deg, pitch deg, distance, targetX, targetY, targetZ, shift].
 // The camera stands inside the ring, looking out at each station front on (yaw = the station's angle + 180).
-// The last view settles low and wide on the bank side of the loop, so all five stations sit in one clear arc.
+// Shift slides the subject toward the right-hand side, clear of the copy column; the last view is straight on, low and wide, with nothing shifted.
 const IN = 180;
+const SHIFT = 0.17;
 const VIEWS = [
-  [ANGLE.phone + IN - 12, 10, 36, S.phone.x, 6.2, S.phone.z, 0],
-  [ANGLE.orb + IN - 10, 11, 46, S.orb.x, 5.4, S.orb.z, 0],
-  [ANGLE.bank + IN - 10, 11, 42, S.bank.x, 7.8, S.bank.z, 0],
-  [ANGLE.card + IN - 12, 10, 42, S.card.x, 5.6, S.card.z, 0],
-  [ANGLE.families + IN - 14, 14, 58, S.families.x, 4.4, S.families.z, 0],
-  [348, 27, 126, 0, 4.5, 0, 0],
+  [ANGLE.orb + IN - 10, 11, 42, S.orb.x, 4.2, S.orb.z, SHIFT],
+  [(ANGLE.phone + ANGLE.orb) / 2 + IN, 12, 82, callMid.x, 6.4, callMid.z, SHIFT],
+  [ANGLE.bank + IN - 10, 11, 54, S.bank.x, 7.6, S.bank.z, SHIFT],
+  [ANGLE.card + IN - 12, 10, 48, S.card.x, 5.2, S.card.z, SHIFT],
+  [ANGLE.families + IN - 14, 14, 62, S.families.x, 3.8, S.families.z, SHIFT],
+  [360, 11, 158, 0, 15, 4, 0],
 ];
 
 const bump = (a, b, c, d, p) => sstep(a, b, p) * (1 - sstep(c, d, p));
+// how high above each station its label hangs in the last scene
+const PIN_Y = { phone: 11.4, orb: 10.2, bank: 8.6, card: 10.6, families: 9.4 };
 
 export function createCity({ host, onFrame } = {}) {
   const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
@@ -109,12 +114,12 @@ export function createCity({ host, onFrame } = {}) {
     bank: bank.anchor,
     card: card.anchor,
     families: families.anchor,
-    // fixed points above each station, for the labels in the zoomed-out view
-    s_phone: new THREE.Vector3(S.phone.x, 12.8, S.phone.z),
-    s_orb: new THREE.Vector3(S.orb.x, 11.2, S.orb.z),
-    s_bank: new THREE.Vector3(S.bank.x, 13.6, S.bank.z),
-    s_card: new THREE.Vector3(S.card.x, 11.4, S.card.z),
-    s_families: new THREE.Vector3(S.families.x, 11.6, S.families.z),
+    // fixed points above each station, for the labels in the last scene (kept in step with the stations as they move)
+    s_phone: new THREE.Vector3(S.phone.x, PIN_Y.phone, S.phone.z),
+    s_orb: new THREE.Vector3(S.orb.x, PIN_Y.orb, S.orb.z),
+    s_bank: new THREE.Vector3(S.bank.x, PIN_Y.bank, S.bank.z),
+    s_card: new THREE.Vector3(S.card.x, PIN_Y.card, S.card.z),
+    s_families: new THREE.Vector3(S.families.x, PIN_Y.families, S.families.z),
   };
   let fx = null;
   try {
@@ -182,11 +187,12 @@ export function createCity({ host, onFrame } = {}) {
 
   /** Everything that happens in the story, as a pure function of scroll progress. */
   function stateAt(p, t) {
-    const wake = sstep(0.255, 0.3, p);
+    const wake = 0.6 + 0.4 * sstep(0.255, 0.3, p);
     const speech = Math.max(0, Math.sin(t * 2.3) * Math.sin(t * 0.7 + 1)) * 0.55 * (1 - sstep(0.43, 0.46, p)) * sstep(0.29, 0.32, p);
     return {
       p,
-      dialling: sstep(0.04, 0.07, p) * (1 - sstep(0.3, 0.33, p)),
+      answered: sstep(0.255, 0.3, p),
+      dialling: sstep(0.14, 0.17, p) * (1 - sstep(0.3, 0.33, p)),
       ringing: sstep(0.18, 0.2, p),
       wake,
       energy: Math.min(1, 0.12 + wake * 0.14 + speech + 0.1 * seg(0.46, 0.52, p) * (1 - seg(0.52, 0.58, p))),
@@ -262,15 +268,25 @@ export function createCity({ host, onFrame } = {}) {
     world.position.y = -(1 - arrive) * 9;
 
     placeCamera(clock, dt);
-    // in the zoomed-out view every station turns to face the viewer, so all five read clearly
+    s.over = spread;
+    // in the last scene the ring unfolds into a wide arc and every station turns to face the viewer, a little larger, so all five read clearly
+    const ov = easeInOut(spread);
     for (const [name, g] of stationGroups) {
       const base = S[name].face + Math.PI;
+      const px = lerp(S[name].x, OVERVIEW[name].x, ov);
+      const pz = lerp(S[name].z, OVERVIEW[name].z, ov);
+      const sc = lerp(1, OVERVIEW_SCALE[name], ov);
+      g.position.set(px, 0, pz);
+      g.scale.setScalar(sc);
       g.rotation.y = base + Math.atan2(Math.sin(camYaw - base), Math.cos(camYaw - base)) * spread;
+      plinths[name].group.position.set(px, 0, pz);
+      plinths[name].group.scale.setScalar(sc);
+      anchors[`s_${name}`].set(px, PIN_Y[name] * sc, pz);
     }
     const tx = camVals[3];
     const tz = camVals[5];
     stage.setFocus(tx, tz, 1 + spread * 3);
-    stage.update(clock, dpr, s.tone);
+    stage.update(clock, dpr, s.tone, ov);
     // the lights ride with the camera, so every station, whichever way it faces, is lit from the viewer's upper left with a cool rim behind
     const sy = Math.sin(camYaw);
     const cy = Math.cos(camYaw);
@@ -278,7 +294,7 @@ export function createCity({ host, onFrame } = {}) {
     key.target.position.set(tx, 0, tz);
     rim.position.set(tx + 34 * cy - 34 * sy, 20, tz - 34 * sy - 34 * cy);
     rim.target.position.set(tx, 4, tz);
-    const ext = 26 + spread * 52;
+    const ext = 26 + spread * 76;
     if (Math.abs(key.shadow.camera.right - ext) > 0.5) {
       Object.assign(key.shadow.camera, { left: -ext, right: ext, top: ext * 0.85, bottom: -ext * 0.85 });
       key.shadow.camera.updateProjectionMatrix();
@@ -289,8 +305,8 @@ export function createCity({ host, onFrame } = {}) {
     // plinth rings: dim, except for the scene's subject
     const hero = 0.3 * (1 - sstep(0.1, 0.15, p));
     const litOf = {
-      phone: Math.max(hero, bump(0.04, 0.08, 0.3, 0.35, p)),
-      orb: Math.max(hero + 0.1, bump(0.26, 0.3, 0.5, 0.54, p)),
+      phone: Math.max(hero, bump(0.14, 0.18, 0.3, 0.35, p)),
+      orb: Math.max(hero * 3, bump(0.26, 0.3, 0.5, 0.54, p)),
       bank: Math.max(hero, bump(0.45, 0.5, 0.6, 0.64, p)),
       card: Math.max(hero, bump(0.58, 0.62, 0.74, 0.78, p)),
       families: Math.max(hero, bump(0.72, 0.78, 1.01, 1.02, p)),
@@ -313,10 +329,11 @@ export function createCity({ host, onFrame } = {}) {
     orb.update(s, clock, camera);
     bank.update(s, clock);
     families.update(s, clock);
-    arcCall.update(clock, s.arcCall, s.arcCallLevel, 0.1 + 0.08 * s.wake);
-    arcBank.update(clock, s.arcBank, s.arcBankLevel, 0.14);
-    arcStrain.update(clock, s.arcStrain, s.arcStrainLevel, 0.18);
-    arcFamily.update(clock, s.arcFamily, s.arcFamilyLevel, 0.14);
+    const arcFade = 1 - sstep(0, 0.25, spread);
+    arcCall.update(clock, s.arcCall, s.arcCallLevel * arcFade, 0.1 + 0.08 * s.wake);
+    arcBank.update(clock, s.arcBank, s.arcBankLevel * arcFade, 0.14);
+    arcStrain.update(clock, s.arcStrain, s.arcStrainLevel * arcFade, 0.18);
+    arcFamily.update(clock, s.arcFamily, s.arcFamilyLevel * arcFade, 0.14);
     card.update(s, clock, camera, arcFamily.curve);
 
     wave.visible = s.waveOn > 0.01 && s.wave < 0.995;

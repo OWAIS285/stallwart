@@ -1,7 +1,7 @@
 // The stage: a dark mirror floor that fades into the page, one plinth per station, and a route ring that lights up as the story advances.
 import * as THREE from "three";
 import { Reflector } from "three/examples/jsm/objects/Reflector.js";
-import { COLORS, RING, STATION } from "./world.js";
+import { COLORS, RING, STATION, arcZ } from "./world.js";
 
 const FLOOR = 520;
 
@@ -80,7 +80,7 @@ export function createStage() {
       void main() {
         float d = length(gl_PointCoord - 0.5);
         float a = (1.0 - smoothstep(0.0, 0.5, d)) * vA * 0.7;
-        gl_FragColor = vec4(mix(vec3(0.7, 0.82, 1.0), vec3(1.0, 0.9, 0.7), uTone), a);
+        gl_FragColor = vec4(mix(vec3(0.7, 0.82, 1.0), vec3(0.78, 0.92, 1.0), uTone), a);
         #include <colorspace_fragment>
       }`,
   });
@@ -108,7 +108,7 @@ export function createStage() {
   group.add(cone);
 
   // route: a dashed track around the ring with a lit section that follows the story, then closes the loop
-  const routeU = { uLit: { value: ROUTE_START }, uStart: { value: ROUTE_START }, uTone: { value: 0 } };
+  const routeU = { uLit: { value: ROUTE_START }, uStart: { value: ROUTE_START }, uTone: { value: 0 }, uFade: { value: 1 } };
   const route = new THREE.Mesh(
     new THREE.RingGeometry(RING - 0.14, RING + 0.14, 720, 1),
     new THREE.ShaderMaterial({
@@ -117,17 +117,17 @@ export function createStage() {
       uniforms: routeU,
       vertexShader: `varying vec2 vXZ; void main(){ vec4 wp = modelMatrix * vec4(position, 1.0); vXZ = wp.xz; gl_Position = projectionMatrix * viewMatrix * wp; }`,
       fragmentShader: /* glsl */ `
-        uniform float uLit, uStart, uTone; varying vec2 vXZ;
+        uniform float uLit, uStart, uTone, uFade; varying vec2 vXZ;
         void main() {
           float ang = atan(vXZ.x, vXZ.y);
           if (ang < uStart) ang += 6.2831853;
           float lit = 1.0 - smoothstep(uLit - 0.03, uLit + 0.03, ang);
           float head = exp(-pow((ang - uLit) / 0.05, 2.0));
           float dash = step(0.5, fract(ang * ${RING.toFixed(1)} * 0.55));
-          vec3 cobalt = vec3(0.91, 0.75, 0.49);
-          vec3 green = vec3(0.98, 0.90, 0.72);
-          vec3 c = mix(cobalt, green, uTone);
-          float a = 0.16 * dash + lit * 0.85 + head * 0.5;
+          vec3 azure = vec3(0.35, 0.66, 1.0);
+          vec3 ice = vec3(0.75, 0.9, 1.0);
+          vec3 c = mix(azure, ice, uTone);
+          float a = (0.16 * dash + lit * 0.85 + head * 0.5) * uFade;
           gl_FragColor = vec4(mix(vec3(0.6, 0.68, 0.9), c, clamp(lit + head, 0.0, 1.0)), a);
           #include <colorspace_fragment>
         }`,
@@ -136,6 +136,57 @@ export function createStage() {
   route.rotation.x = -Math.PI / 2;
   route.position.y = 0.03;
   group.add(route);
+
+  // the last scene's path: a glowing ribbon along the lineup, with a pulse that keeps travelling along it
+  const ribbonU = { uShow: { value: 0 }, uTime: { value: 0 } };
+  const RIBBON_N = 220;
+  const rp = new Float32Array((RIBBON_N + 1) * 2 * 3);
+  const ru = new Float32Array((RIBBON_N + 1) * 2 * 2);
+  const ri = [];
+  for (let i = 0; i <= RIBBON_N; i++) {
+    const x = -60 + (120 * i) / RIBBON_N;
+    const dz = -0.0132 * x;
+    const len = Math.hypot(1, dz);
+    const nx = -dz / len;
+    const nz = 1 / len;
+    for (const side of [-1, 1]) {
+      const k = i * 2 + (side > 0 ? 1 : 0);
+      rp.set([x + nx * 0.75 * side, 0.035, arcZ(x) + nz * 0.75 * side], k * 3);
+      ru.set([x, side], k * 2);
+    }
+    if (i < RIBBON_N) ri.push(i * 2, i * 2 + 1, i * 2 + 2, i * 2 + 1, i * 2 + 3, i * 2 + 2);
+  }
+  const ribbonGeo = new THREE.BufferGeometry();
+  ribbonGeo.setAttribute("position", new THREE.BufferAttribute(rp, 3));
+  ribbonGeo.setAttribute("uv", new THREE.BufferAttribute(ru, 2));
+  ribbonGeo.setIndex(ri);
+  const ribbon = new THREE.Mesh(
+    ribbonGeo,
+    new THREE.ShaderMaterial({
+      transparent: true,
+      depthWrite: false,
+      uniforms: ribbonU,
+      vertexShader: `varying vec2 vUv; void main(){ vUv = uv; gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0); }`,
+      fragmentShader: /* glsl */ `
+        uniform float uShow, uTime; varying vec2 vUv;
+        void main() {
+          float x = vUv.x;
+          float side = abs(vUv.y);
+          float core = 1.0 - smoothstep(0.12, 0.3, side);
+          float glow = exp(-side * 3.2) * 0.4;
+          float pulse = exp(-pow((x - (fract(uTime * 0.11) * 150.0 - 75.0)) / 3.4, 2.0));
+          float ends = smoothstep(-58.0, -50.0, x) * (1.0 - smoothstep(50.0, 58.0, x));
+          float a = (core * 0.7 + glow + pulse * (core + 0.35)) * ends * uShow;
+          vec3 c = mix(vec3(0.35, 0.66, 1.0), vec3(0.85, 0.95, 1.0), clamp(pulse * 1.4, 0.0, 1.0));
+          gl_FragColor = vec4(c, a);
+          #include <colorspace_fragment>
+        }`,
+    }),
+  );
+  ribbon.frustumCulled = false;
+  group.add(ribbon);
+
+  let highQuality = true;
 
   return {
     group,
@@ -148,18 +199,27 @@ export function createStage() {
       veilU.uSpan.value = span;
       cone.position.set(x, 15.7, z);
     },
-    update(t, px, tone) {
+    /** over (0..1) is how far the ring has unfolded into the final lineup: the ring route, light cone and reflections give way to the ribbon. */
+    update(t, px, tone, over = 0) {
       dustMat.uniforms.uTime.value = t;
       dustMat.uniforms.uPx.value = px;
       dustMat.uniforms.uTone.value = tone;
-      coneMat.uniforms.uColor.value.setHex(tone > 0.5 ? 0xf3dcae : 0x7aa6ff);
+      coneMat.uniforms.uColor.value.setHex(tone > 0.5 ? 0xbfe0ff : 0x7aa6ff);
+      routeU.uFade.value = 1 - Math.min(1, over * 2.2);
+      route.visible = routeU.uFade.value > 0.01;
+      ribbonU.uShow.value = Math.max(0, Math.min(1, (over - 0.35) / 0.5));
+      ribbonU.uTime.value = t;
+      ribbon.visible = ribbonU.uShow.value > 0.01;
+      cone.visible = over < 0.25;
+      veilU.uBase.value = highQuality ? 0.6 + 0.4 * over : 1;
     },
     setQuality(high) {
+      highQuality = high;
       mirror.visible = high;
       veilU.uBase.value = high ? 0.6 : 1;
     },
     dispose() {
-      [mirror, veil, shadow, route].forEach((m) => {
+      [mirror, veil, shadow, route, ribbon].forEach((m) => {
         m.geometry.dispose();
         m.material.dispose?.();
       });

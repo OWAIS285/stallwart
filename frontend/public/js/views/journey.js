@@ -49,11 +49,11 @@ export function canUseCity() {
 
 // Six scenes: the opening, then one full scene for each step of the loop, then the close.
 const SCENES = [
-  { label: "Start", spec: ["Incoming call", false] },
+  { label: "Start", spec: ["Standing by", true] },
   {
     label: "The call",
-    kicker: "The call",
-    title: "Ramesh picks up and stalls.",
+    kicker: "The call comes in",
+    title: "A scammer calls. Ramesh stalls.",
     line: "Stallwart answers as Ramesh, a fictional 68-year-old. He keeps the scammer talking and quietly writes down the UPI ID they want paid.",
     href: "#/call",
     cta: "Try a call",
@@ -100,18 +100,19 @@ const LAST = SCENES.length - 1;
 
 // Labels pinned to things in the scene: where, when they show (by story progress), and what they say.
 const TAGS = [
-  { id: "scam", tone: "red", title: "Scam call centre", when: (p) => seg(0.06, 0.09, p) * (1 - seg(0.2, 0.26, p)), sub: () => "Calling a stranger\u2026" },
+  { id: "orb", tone: "blue", title: "Stallwart AI", when: (p) => 1 - seg(0.08, 0.14, p), sub: () => "Standing by for the next call" },
+  { id: "scam", tone: "red", title: "Scam call centre", when: (p) => seg(0.15, 0.18, p) * (1 - seg(0.45, 0.5, p)), sub: (p) => (p < 0.24 ? "Dialling a stranger\u2026" : "Call connected") },
   { id: "orb", tone: "blue", title: "Ramesh (AI)", when: (p) => seg(0.17, 0.2, p) * (1 - seg(0.52, 0.56, p)), sub: (p, idle) => (p < 0.27 ? "Phone ringing\u2026" : `Scammer's time wasted ${clock(14 + seg(0.28, 0.41, p) * 26 + idle)}`) },
   { id: "bank", tone: "red", title: "Mule account caught", when: (p) => seg(0.5, 0.52, p) * (1 - seg(0.535, 0.55, p)), sub: () => "SBIN0001234 \u2192 State Bank of India" },
   { id: "bank", tone: "ice", title: "Account frozen", when: (p) => seg(0.552, 0.572, p) * (1 - seg(0.66, 0.7, p)), sub: () => "Bank fraud team notified" },
   { id: "card", tone: "blue", title: "Strain captured", when: (p) => seg(0.62, 0.65, p) * (1 - seg(0.72, 0.75, p)), sub: () => "Identifiers removed" },
-  { id: "families", tone: "gold", title: "Family drills", when: (p) => seg(0.82, 0.85, p) * (1 - seg(0.97, 1, p)), sub: () => "Practice call, with consent" },
+  { id: "families", tone: "ice", title: "Family drills", when: (p) => seg(0.82, 0.85, p) * (1 - seg(0.97, 1, p)), sub: () => "Practice call, with consent" },
   // the last scene names every station on the loop
   { id: "s_phone", tone: "red", title: "01 \u00B7 Scam call", compact: true, when: (p) => seg(0.97, 1, p) },
   { id: "s_orb", tone: "blue", title: "02 \u00B7 Ramesh (AI)", compact: true, when: (p) => seg(0.97, 1, p) },
   { id: "s_bank", tone: "ice", title: "03 \u00B7 Bank", compact: true, when: (p) => seg(0.97, 1, p) },
-  { id: "s_card", tone: "gold", title: "04 \u00B7 Strain", compact: true, when: (p) => seg(0.97, 1, p) },
-  { id: "s_families", tone: "gold", title: "05 \u00B7 Families", compact: true, when: (p) => seg(0.97, 1, p) },
+  { id: "s_card", tone: "ice", title: "04 \u00B7 Strain", compact: true, when: (p) => seg(0.97, 1, p) },
+  { id: "s_families", tone: "ice", title: "05 \u00B7 Families", compact: true, when: (p) => seg(0.97, 1, p) },
 ];
 
 function clock(seconds) {
