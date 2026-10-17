@@ -1,0 +1,2808 @@
+{
+ "summary": {
+  "dataset": "ICFD-31k (synthetic; evaluation only): full test split (4,500 calls) and cross-domain split (1,000 calls)",
+  "excluded_dev_ids": 100,
+  "population": {
+   "calls": 5400,
+   "non_fraud": 62,
+   "test": {
+    "calls": 4500,
+    "non_fraud": 23
+   },
+   "cross_domain": {
+    "calls": 900,
+    "non_fraud": 39
+   }
+  },
+  "sample": {
+   "static": 162,
+   "static_fraud": 100,
+   "static_non_fraud": 62,
+   "per_test_domain": 0,
+   "per_cross_domain_type": 20,
+   "streaming": 92,
+   "seed": 11
+  },
+  "keyword_baseline_all_calls": {
+   "all": {
+    "n": 5400,
+    "tp": 3218,
+    "fp": 16,
+    "tn": 46,
+    "fn": 2120,
+    "accuracy": 0.604,
+    "precision": 0.995,
+    "recall": 0.603,
+    "f1": 0.751,
+    "specificity": 0.742,
+    "false_positive_rate": 0.258,
+    "balanced_accuracy": 0.672,
+    "mcc": 0.075,
+    "recall_ci95": [
+     0.59,
+     0.616
+    ],
+    "specificity_ci95": [
+     0.621,
+     0.834
+    ],
+    "precision_ci95": [
+     0.992,
+     0.997
+    ]
+   },
+   "test": {
+    "n": 4500,
+    "tp": 2930,
+    "fp": 10,
+    "tn": 13,
+    "fn": 1547,
+    "accuracy": 0.654,
+    "precision": 0.997,
+    "recall": 0.654,
+    "f1": 0.79,
+    "specificity": 0.565,
+    "false_positive_rate": 0.435,
+    "balanced_accuracy": 0.61,
+    "mcc": 0.033,
+    "recall_ci95": [
+     0.64,
+     0.668
+    ],
+    "specificity_ci95": [
+     0.368,
+     0.744
+    ],
+    "precision_ci95": [
+     0.994,
+     0.998
+    ]
+   },
+   "cross_domain": {
+    "n": 900,
+    "tp": 288,
+    "fp": 6,
+    "tn": 33,
+    "fn": 573,
+    "accuracy": 0.357,
+    "precision": 0.98,
+    "recall": 0.334,
+    "f1": 0.499,
+    "specificity": 0.846,
+    "false_positive_rate": 0.154,
+    "balanced_accuracy": 0.59,
+    "mcc": 0.078,
+    "recall_ci95": [
+     0.304,
+     0.367
+    ],
+    "specificity_ci95": [
+     0.703,
+     0.928
+    ],
+    "precision_ci95": [
+     0.956,
+     0.991
+    ]
+   }
+  },
+  "keyword_baseline_sample": {
+   "n": 162,
+   "tp": 33,
+   "fp": 16,
+   "tn": 46,
+   "fn": 67,
+   "accuracy": 0.488,
+   "precision": 0.673,
+   "recall": 0.33,
+   "f1": 0.443,
+   "specificity": 0.742,
+   "false_positive_rate": 0.258,
+   "balanced_accuracy": 0.536,
+   "mcc": 0.076,
+   "recall_ci95": [
+    0.246,
+    0.427
+   ],
+   "specificity_ci95": [
+    0.621,
+    0.834
+   ],
+   "precision_ci95": [
+    0.534,
+    0.788
+   ]
+  },
+  "classifier_runs": [
+   {
+    "all": {
+     "n": 161,
+     "tp": 75,
+     "fp": 7,
+     "tn": 55,
+     "fn": 24,
+     "accuracy": 0.807,
+     "precision": 0.915,
+     "recall": 0.758,
+     "f1": 0.829,
+     "specificity": 0.887,
+     "false_positive_rate": 0.113,
+     "balanced_accuracy": 0.822,
+     "mcc": 0.628,
+     "recall_ci95": [
+      0.665,
+      0.831
+     ],
+     "specificity_ci95": [
+      0.785,
+      0.944
+     ],
+     "precision_ci95": [
+      0.834,
+      0.958
+     ]
+    },
+    "errors": 1,
+    "test": {
+     "n": 23,
+     "tp": 0,
+     "fp": 7,
+     "tn": 16,
+     "fn": 0,
+     "accuracy": 0.696,
+     "precision": 0.0,
+     "recall": 0.0,
+     "f1": 0.0,
+     "specificity": 0.696,
+     "false_positive_rate": 0.304,
+     "balanced_accuracy": 0.348,
+     "mcc": 0.0,
+     "recall_ci95": null,
+     "specificity_ci95": [
+      0.491,
+      0.844
+     ],
+     "precision_ci95": [
+      0.0,
+      0.354
+     ]
+    },
+    "cross_domain": {
+     "n": 138,
+     "tp": 75,
+     "fp": 0,
+     "tn": 39,
+     "fn": 24,
+     "accuracy": 0.826,
+     "precision": 1.0,
+     "recall": 0.758,
+     "f1": 0.862,
+     "specificity": 1.0,
+     "false_positive_rate": 0.0,
+     "balanced_accuracy": 0.879,
+     "mcc": 0.685,
+     "recall_ci95": [
+      0.665,
+      0.831
+     ],
+     "specificity_ci95": [
+      0.91,
+      1.0
+     ],
+     "precision_ci95": [
+      0.951,
+      1.0
+     ]
+    },
+    "recall_by_domain": {
+     "cross_domain_1": "17/19",
+     "cross_domain_2": "8/20",
+     "cross_domain_3": "17/20",
+     "cross_domain_4": "18/20",
+     "cross_domain_5": "15/20",
+     "ecommerce_marketplace": "0/0",
+     "insurance_healthcare": "0/0",
+     "personal_emergency_extortion": "0/0",
+     "travel_lottery": "0/0"
+    },
+    "plausible_type_rate": null,
+    "legit_outcomes": {
+     "scam": 7,
+     "legitimate": 45,
+     "undetermined": 10
+    }
+   }
+  ],
+  "classifier_mean": {
+   "all": {
+    "recall": {
+     "mean": 0.758,
+     "min": 0.758,
+     "max": 0.758
+    },
+    "specificity": {
+     "mean": 0.887,
+     "min": 0.887,
+     "max": 0.887
+    },
+    "precision": {
+     "mean": 0.915,
+     "min": 0.915,
+     "max": 0.915
+    },
+    "f1": {
+     "mean": 0.829,
+     "min": 0.829,
+     "max": 0.829
+    },
+    "balanced_accuracy": {
+     "mean": 0.822,
+     "min": 0.822,
+     "max": 0.822
+    },
+    "mcc": {
+     "mean": 0.628,
+     "min": 0.628,
+     "max": 0.628
+    }
+   },
+   "test": {
+    "recall": {
+     "mean": 0.0,
+     "min": 0.0,
+     "max": 0.0
+    },
+    "specificity": {
+     "mean": 0.696,
+     "min": 0.696,
+     "max": 0.696
+    },
+    "precision": {
+     "mean": 0.0,
+     "min": 0.0,
+     "max": 0.0
+    },
+    "f1": {
+     "mean": 0.0,
+     "min": 0.0,
+     "max": 0.0
+    },
+    "balanced_accuracy": {
+     "mean": 0.348,
+     "min": 0.348,
+     "max": 0.348
+    },
+    "mcc": {
+     "mean": 0.0,
+     "min": 0.0,
+     "max": 0.0
+    }
+   },
+   "cross_domain": {
+    "recall": {
+     "mean": 0.758,
+     "min": 0.758,
+     "max": 0.758
+    },
+    "specificity": {
+     "mean": 1.0,
+     "min": 1.0,
+     "max": 1.0
+    },
+    "precision": {
+     "mean": 1.0,
+     "min": 1.0,
+     "max": 1.0
+    },
+    "f1": {
+     "mean": 0.862,
+     "min": 0.862,
+     "max": 0.862
+    },
+    "balanced_accuracy": {
+     "mean": 0.879,
+     "min": 0.879,
+     "max": 0.879
+    },
+    "mcc": {
+     "mean": 0.685,
+     "min": 0.685,
+     "max": 0.685
+    }
+   }
+  },
+  "classifier_ci95_run1": {
+   "all": {
+    "recall_ci95": [
+     0.665,
+     0.831
+    ],
+    "specificity_ci95": [
+     0.785,
+     0.944
+    ],
+    "precision_ci95": [
+     0.834,
+     0.958
+    ]
+   },
+   "test": {
+    "recall_ci95": null,
+    "specificity_ci95": [
+     0.491,
+     0.844
+    ],
+    "precision_ci95": [
+     0.0,
+     0.354
+    ]
+   },
+   "cross_domain": {
+    "recall_ci95": [
+     0.665,
+     0.831
+    ],
+    "specificity_ci95": [
+     0.91,
+     1.0
+    ],
+    "precision_ci95": [
+     0.951,
+     1.0
+    ]
+   }
+  },
+  "streaming": {
+   "fraud_calls": 0,
+   "fraud_flagged": 0,
+   "median_seconds_to_flag": null,
+   "median_share_of_call_at_flag": null,
+   "keyword_flagged": 0,
+   "keyword_median_seconds": null,
+   "dataset_first_yes_median_seconds": null,
+   "flagged_before_dataset_label": 0,
+   "call_length_median_seconds": null,
+   "non_fraud_calls": 0,
+   "non_fraud_false_alarms": 0,
+   "keyword_non_fraud_false_alarms": 0
+  },
+  "classifier_latency_seconds": {
+   "p50": 3.9220000000000255,
+   "p90": 22.702999999999975,
+   "requests": 189,
+   "failed_after_retries": 2
+  },
+  "caveats": [
+   "ICFD-31k is synthetic (LLM-generated); numbers say nothing about real-world accuracy.",
+   "Non-fraud calls are rare in ICFD (62 of 5,500), and most are reverse scenarios where the customer, not the agent, is the suspicious party; the specificity interval is therefore wide.",
+   "Fraud calls are a stratified random sample (seed recorded); the keyword baseline is run on every call.",
+   "Undetermined counts as not flagged. Plausible scam type uses our own domain-to-type mapping."
+  ]
+ },
+ "runs": [
+  {
+   "metrics": {
+    "all": {
+     "n": 161,
+     "tp": 75,
+     "fp": 7,
+     "tn": 55,
+     "fn": 24,
+     "accuracy": 0.807,
+     "precision": 0.915,
+     "recall": 0.758,
+     "f1": 0.829,
+     "specificity": 0.887,
+     "false_positive_rate": 0.113,
+     "balanced_accuracy": 0.822,
+     "mcc": 0.628,
+     "recall_ci95": [
+      0.665,
+      0.831
+     ],
+     "specificity_ci95": [
+      0.785,
+      0.944
+     ],
+     "precision_ci95": [
+      0.834,
+      0.958
+     ]
+    },
+    "errors": 1,
+    "test": {
+     "n": 23,
+     "tp": 0,
+     "fp": 7,
+     "tn": 16,
+     "fn": 0,
+     "accuracy": 0.696,
+     "precision": 0.0,
+     "recall": 0.0,
+     "f1": 0.0,
+     "specificity": 0.696,
+     "false_positive_rate": 0.304,
+     "balanced_accuracy": 0.348,
+     "mcc": 0.0,
+     "recall_ci95": null,
+     "specificity_ci95": [
+      0.491,
+      0.844
+     ],
+     "precision_ci95": [
+      0.0,
+      0.354
+     ]
+    },
+    "cross_domain": {
+     "n": 138,
+     "tp": 75,
+     "fp": 0,
+     "tn": 39,
+     "fn": 24,
+     "accuracy": 0.826,
+     "precision": 1.0,
+     "recall": 0.758,
+     "f1": 0.862,
+     "specificity": 1.0,
+     "false_positive_rate": 0.0,
+     "balanced_accuracy": 0.879,
+     "mcc": 0.685,
+     "recall_ci95": [
+      0.665,
+      0.831
+     ],
+     "specificity_ci95": [
+      0.91,
+      1.0
+     ],
+     "precision_ci95": [
+      0.951,
+      1.0
+     ]
+    },
+    "recall_by_domain": {
+     "cross_domain_1": "17/19",
+     "cross_domain_2": "8/20",
+     "cross_domain_3": "17/20",
+     "cross_domain_4": "18/20",
+     "cross_domain_5": "15/20",
+     "ecommerce_marketplace": "0/0",
+     "insurance_healthcare": "0/0",
+     "personal_emergency_extortion": "0/0",
+     "travel_lottery": "0/0"
+    },
+    "plausible_type_rate": null,
+    "legit_outcomes": {
+     "scam": 7,
+     "legitimate": 45,
+     "undetermined": 10
+    }
+   },
+   "predictions": [
+    {
+     "id": "batch_2025-10-12_19-54-00/SCENARIO_5_Clear_Fraud_0484_r1",
+     "split": "test",
+     "domain": "ecommerce_marketplace",
+     "fraud": false,
+     "error": false,
+     "verdict": "legitimate",
+     "type": "not_scam",
+     "confidence": 0.75,
+     "red_flags": [],
+     "windows": 2
+    },
+    {
+     "id": "batch_2025-10-12_19-54-00/SCENARIO_5_Clear_Fraud_0489_r1",
+     "split": "test",
+     "domain": "ecommerce_marketplace",
+     "fraud": false,
+     "error": false,
+     "verdict": "legitimate",
+     "type": "not_scam",
+     "confidence": 0.65,
+     "red_flags": [],
+     "windows": 2
+    },
+    {
+     "id": "batch_2025-10-12_19-54-00/SCENARIO_6_Clear_Fraud_0516_r1",
+     "split": "test",
+     "domain": "ecommerce_marketplace",
+     "fraud": false,
+     "error": false,
+     "verdict": "scam",
+     "type": "other_scam",
+     "confidence": 0.75,
+     "red_flags": [
+      "solicits_money_now",
+      "urgency_deadline"
+     ],
+     "windows": 1
+    },
+    {
+     "id": "batch_2025-10-12_19-54-00/SCENARIO_6_Clear_Fraud_0526_r1",
+     "split": "test",
+     "domain": "ecommerce_marketplace",
+     "fraud": false,
+     "error": false,
+     "verdict": "undetermined",
+     "type": "undetermined",
+     "confidence": 0.0,
+     "red_flags": [
+      "asks_full_identifier"
+     ],
+     "windows": 1
+    },
+    {
+     "id": "batch_2025-10-12_19-54-00/SCENARIO_6_Clear_Fraud_0566_r1",
+     "split": "test",
+     "domain": "ecommerce_marketplace",
+     "fraud": false,
+     "error": false,
+     "verdict": "scam",
+     "type": "fake_customer_care",
+     "confidence": 0.89,
+     "red_flags": [
+      "payment_to_personal_account",
+      "urgency_deadline",
+      "discourages_verification"
+     ],
+     "windows": 2
+    },
+    {
+     "id": "batch_2025-10-12_19-54-00/SCENARIO_6_Clear_Fraud_0590_r1",
+     "split": "test",
+     "domain": "ecommerce_marketplace",
+     "fraud": false,
+     "error": false,
+     "verdict": "undetermined",
+     "type": "undetermined",
+     "confidence": 0.0,
+     "red_flags": [],
+     "windows": 2
+    },
+    {
+     "id": "batch_2025-10-12_19-54-00/SCENARIO_6_Clear_Fraud_0599_r1",
+     "split": "test",
+     "domain": "ecommerce_marketplace",
+     "fraud": false,
+     "error": false,
+     "verdict": "legitimate",
+     "type": "not_scam",
+     "confidence": 0.75,
+     "red_flags": [],
+     "windows": 1
+    },
+    {
+     "id": "batch_2025-10-12_19-54-00/SCENARIO_9_Clear_Fraud_0802_r1",
+     "split": "test",
+     "domain": "ecommerce_marketplace",
+     "fraud": false,
+     "error": false,
+     "verdict": "legitimate",
+     "type": "not_scam",
+     "confidence": 0.65,
+     "red_flags": [],
+     "windows": 1
+    },
+    {
+     "id": "batch_2025-10-12_19-54-00/SCENARIO_9_Clear_Fraud_0805_r1",
+     "split": "test",
+     "domain": "ecommerce_marketplace",
+     "fraud": false,
+     "error": false,
+     "verdict": "legitimate",
+     "type": "not_scam",
+     "confidence": 0.65,
+     "red_flags": [],
+     "windows": 1
+    },
+    {
+     "id": "batch_2025-10-12_19-54-00/SCENARIO_9_Clear_Fraud_0806_r1",
+     "split": "test",
+     "domain": "ecommerce_marketplace",
+     "fraud": false,
+     "error": false,
+     "verdict": "undetermined",
+     "type": "undetermined",
+     "confidence": 0.0,
+     "red_flags": [
+      "urgency_deadline"
+     ],
+     "windows": 1
+    },
+    {
+     "id": "batch_2025-10-12_19-54-00/SCENARIO_9_Clear_Fraud_0828_r1",
+     "split": "test",
+     "domain": "ecommerce_marketplace",
+     "fraud": false,
+     "error": false,
+     "verdict": "legitimate",
+     "type": "not_scam",
+     "confidence": 0.65,
+     "red_flags": [],
+     "windows": 1
+    },
+    {
+     "id": "batch_2025-10-12_19-54-00/SCENARIO_9_Clear_Fraud_0876_r1",
+     "split": "test",
+     "domain": "ecommerce_marketplace",
+     "fraud": false,
+     "error": false,
+     "verdict": "legitimate",
+     "type": "not_scam",
+     "confidence": 0.65,
+     "red_flags": [],
+     "windows": 2
+    },
+    {
+     "id": "batch_2025-10-13_01-36-50/SCENARIO_6_Clear_Fraud_0576_r1",
+     "split": "test",
+     "domain": "personal_emergency_extortion",
+     "fraud": false,
+     "error": false,
+     "verdict": "legitimate",
+     "type": "not_scam",
+     "confidence": 0.75,
+     "red_flags": [],
+     "windows": 1
+    },
+    {
+     "id": "batch_2025-10-13_01-36-50/SCENARIO_8_Clear_Fraud_0778_r1",
+     "split": "test",
+     "domain": "personal_emergency_extortion",
+     "fraud": false,
+     "error": false,
+     "verdict": "legitimate",
+     "type": "not_scam",
+     "confidence": 0.65,
+     "red_flags": [],
+     "windows": 1
+    },
+    {
+     "id": "batch_2025-10-13_01-36-50/SCENARIO_9_Clear_Fraud_0829_r1",
+     "split": "test",
+     "domain": "personal_emergency_extortion",
+     "fraud": false,
+     "error": false,
+     "verdict": "legitimate",
+     "type": "not_scam",
+     "confidence": 0.65,
+     "red_flags": [],
+     "windows": 1
+    },
+    {
+     "id": "batch_2025-10-13_01-36-50/SCENARIO_9_Clear_Fraud_0876_r1",
+     "split": "test",
+     "domain": "personal_emergency_extortion",
+     "fraud": false,
+     "error": false,
+     "verdict": "legitimate",
+     "type": "not_scam",
+     "confidence": 0.75,
+     "red_flags": [],
+     "windows": 1
+    },
+    {
+     "id": "batch_2025-10-13_01-36-50/SCENARIO_9_Clear_Fraud_0878_r1",
+     "split": "test",
+     "domain": "personal_emergency_extortion",
+     "fraud": false,
+     "error": false,
+     "verdict": "legitimate",
+     "type": "not_scam",
+     "confidence": 0.65,
+     "red_flags": [],
+     "windows": 1
+    },
+    {
+     "id": "batch_2025-10-13_01-36-50/SCENARIO_9_Clear_Fraud_0889_r1",
+     "split": "test",
+     "domain": "personal_emergency_extortion",
+     "fraud": false,
+     "error": false,
+     "verdict": "undetermined",
+     "type": "undetermined",
+     "confidence": 0.0,
+     "red_flags": [],
+     "windows": 1
+    },
+    {
+     "id": "batch_2025-10-13_02-01-52/SCENARIO_6_Clear_Fraud_0536_r1",
+     "split": "test",
+     "domain": "insurance_healthcare",
+     "fraud": false,
+     "error": false,
+     "verdict": "scam",
+     "type": "fake_customer_care",
+     "confidence": 0.85,
+     "red_flags": [
+      "asks_secret_credential"
+     ],
+     "windows": 1
+    },
+    {
+     "id": "batch_2025-10-13_02-01-52/SCENARIO_6_Clear_Fraud_0546_r1",
+     "split": "test",
+     "domain": "insurance_healthcare",
+     "fraud": false,
+     "error": false,
+     "verdict": "scam",
+     "type": "fake_customer_care",
+     "confidence": 0.85,
+     "red_flags": [
+      "asks_secret_credential"
+     ],
+     "windows": 1
+    },
+    {
+     "id": "batch_2025-10-13_02-01-52/SCENARIO_6_Clear_Fraud_0576_r1",
+     "split": "test",
+     "domain": "insurance_healthcare",
+     "fraud": false,
+     "error": false,
+     "verdict": "scam",
+     "type": "fake_customer_care",
+     "confidence": 0.87,
+     "red_flags": [
+      "asks_secret_credential",
+      "link_or_unofficial_channel"
+     ],
+     "windows": 1
+    },
+    {
+     "id": "batch_2025-10-13_02-01-52/SCENARIO_6_Clear_Fraud_0586_r1",
+     "split": "test",
+     "domain": "insurance_healthcare",
+     "fraud": false,
+     "error": false,
+     "verdict": "scam",
+     "type": "fake_customer_care",
+     "confidence": 0.85,
+     "red_flags": [
+      "asks_secret_credential"
+     ],
+     "windows": 1
+    },
+    {
+     "id": "batch_2025-10-13_02-35-27/SCENARIO_6_Clear_Fraud_0526_r1",
+     "split": "test",
+     "domain": "travel_lottery",
+     "fraud": false,
+     "error": false,
+     "verdict": "scam",
+     "type": "other_scam",
+     "confidence": 0.9,
+     "red_flags": [
+      "link_or_unofficial_channel",
+      "asks_full_identifier",
+      "evades_credentials",
+      "discourages_verification"
+     ],
+     "windows": 1
+    },
+    {
+     "id": "batch_2025-10-15_04-59-55/SCENARIO_1_Clear_Fraud_0020_r1",
+     "split": "cross_domain",
+     "domain": "cross_domain_1",
+     "fraud": false,
+     "error": false,
+     "verdict": "legitimate",
+     "type": "not_scam",
+     "confidence": 0.65,
+     "red_flags": [],
+     "windows": 1
+    },
+    {
+     "id": "batch_2025-10-15_04-59-55/SCENARIO_3_Clear_Fraud_0060_r1",
+     "split": "cross_domain",
+     "domain": "cross_domain_1",
+     "fraud": false,
+     "error": false,
+     "verdict": "legitimate",
+     "type": "not_scam",
+     "confidence": 0.65,
+     "red_flags": [],
+     "windows": 1
+    },
+    {
+     "id": "batch_2025-10-15_04-59-55/SCENARIO_5_Clear_Fraud_0100_r1",
+     "split": "cross_domain",
+     "domain": "cross_domain_1",
+     "fraud": false,
+     "error": false,
+     "verdict": "legitimate",
+     "type": "not_scam",
+     "confidence": 0.75,
+     "red_flags": [],
+     "windows": 1
+    },
+    {
+     "id": "batch_2025-10-15_04-59-55/SCENARIO_7_Clear_Fraud_0132_r1",
+     "split": "cross_domain",
+     "domain": "cross_domain_1",
+     "fraud": false,
+     "error": false,
+     "verdict": "legitimate",
+     "type": "not_scam",
+     "confidence": 0.75,
+     "red_flags": [],
+     "windows": 1
+    },
+    {
+     "id": "batch_2025-10-15_04-59-55/SCENARIO_7_Clear_Fraud_0137_r1",
+     "split": "cross_domain",
+     "domain": "cross_domain_1",
+     "fraud": false,
+     "error": false,
+     "verdict": "legitimate",
+     "type": "not_scam",
+     "confidence": 0.75,
+     "red_flags": [],
+     "windows": 1
+    },
+    {
+     "id": "batch_2025-10-15_04-59-55/SCENARIO_7_Clear_Fraud_0138_r1",
+     "split": "cross_domain",
+     "domain": "cross_domain_1",
+     "fraud": false,
+     "error": false,
+     "verdict": "legitimate",
+     "type": "not_scam",
+     "confidence": 0.65,
+     "red_flags": [],
+     "windows": 1
+    },
+    {
+     "id": "batch_2025-10-15_04-59-55/SCENARIO_8_Subtle_Fraud_0157_r1",
+     "split": "cross_domain",
+     "domain": "cross_domain_1",
+     "fraud": false,
+     "error": false,
+     "verdict": "legitimate",
+     "type": "not_scam",
+     "confidence": 0.65,
+     "red_flags": [],
+     "windows": 2
+    },
+    {
+     "id": "batch_2025-10-15_05-02-25/SCENARIO_10_Subtle_Fraud_0197_r1",
+     "split": "cross_domain",
+     "domain": "cross_domain_2",
+     "fraud": false,
+     "error": false,
+     "verdict": "legitimate",
+     "type": "not_scam",
+     "confidence": 0.65,
+     "red_flags": [],
+     "windows": 1
+    },
+    {
+     "id": "batch_2025-10-15_05-02-25/SCENARIO_1_Clear_Fraud_0012_r1",
+     "split": "cross_domain",
+     "domain": "cross_domain_2",
+     "fraud": false,
+     "error": false,
+     "verdict": "legitimate",
+     "type": "not_scam",
+     "confidence": 0.65,
+     "red_flags": [],
+     "windows": 2
+    },
+    {
+     "id": "batch_2025-10-15_05-02-25/SCENARIO_4_Subtle_Fraud_0072_r1",
+     "split": "cross_domain",
+     "domain": "cross_domain_2",
+     "fraud": false,
+     "error": false,
+     "verdict": "legitimate",
+     "type": "not_scam",
+     "confidence": 0.65,
+     "red_flags": [],
+     "windows": 1
+    },
+    {
+     "id": "batch_2025-10-15_05-02-25/SCENARIO_4_Subtle_Fraud_0079_r1",
+     "split": "cross_domain",
+     "domain": "cross_domain_2",
+     "fraud": false,
+     "error": false,
+     "verdict": "legitimate",
+     "type": "not_scam",
+     "confidence": 0.85,
+     "red_flags": [],
+     "windows": 1
+    },
+    {
+     "id": "batch_2025-10-15_05-02-25/SCENARIO_4_Subtle_Fraud_0080_r1",
+     "split": "cross_domain",
+     "domain": "cross_domain_2",
+     "fraud": false,
+     "error": false,
+     "verdict": "legitimate",
+     "type": "not_scam",
+     "confidence": 0.65,
+     "red_flags": [],
+     "windows": 1
+    },
+    {
+     "id": "batch_2025-10-15_05-02-25/SCENARIO_5_Clear_Fraud_0096_r1",
+     "split": "cross_domain",
+     "domain": "cross_domain_2",
+     "fraud": false,
+     "error": false,
+     "verdict": "legitimate",
+     "type": "not_scam",
+     "confidence": 0.85,
+     "red_flags": [],
+     "windows": 2
+    },
+    {
+     "id": "batch_2025-10-15_05-02-25/SCENARIO_7_Clear_Fraud_0138_r1",
+     "split": "cross_domain",
+     "domain": "cross_domain_2",
+     "fraud": false,
+     "error": false,
+     "verdict": "legitimate",
+     "type": "not_scam",
+     "confidence": 0.65,
+     "red_flags": [],
+     "windows": 1
+    },
+    {
+     "id": "batch_2025-10-15_05-02-25/SCENARIO_8_Clear_Fraud_0142_r1",
+     "split": "cross_domain",
+     "domain": "cross_domain_2",
+     "fraud": false,
+     "error": false,
+     "verdict": "legitimate",
+     "type": "not_scam",
+     "confidence": 0.65,
+     "red_flags": [],
+     "windows": 1
+    },
+    {
+     "id": "batch_2025-10-15_05-02-25/SCENARIO_8_Clear_Fraud_0151_r1",
+     "split": "cross_domain",
+     "domain": "cross_domain_2",
+     "fraud": false,
+     "error": false,
+     "verdict": "undetermined",
+     "type": "undetermined",
+     "confidence": 0.0,
+     "red_flags": [
+      "evades_credentials"
+     ],
+     "windows": 1
+    },
+    {
+     "id": "batch_2025-10-15_05-04-26/SCENARIO_10_Clear_Fraud_0200_r1",
+     "split": "cross_domain",
+     "domain": "cross_domain_3",
+     "fraud": false,
+     "error": false,
+     "verdict": "legitimate",
+     "type": "not_scam",
+     "confidence": 0.65,
+     "red_flags": [],
+     "windows": 1
+    },
+    {
+     "id": "batch_2025-10-15_05-04-26/SCENARIO_1_Clear_Fraud_0008_r1",
+     "split": "cross_domain",
+     "domain": "cross_domain_3",
+     "fraud": false,
+     "error": false,
+     "verdict": "legitimate",
+     "type": "not_scam",
+     "confidence": 0.65,
+     "red_flags": [],
+     "windows": 1
+    },
+    {
+     "id": "batch_2025-10-15_05-04-26/SCENARIO_2_Clear_Fraud_0024_r1",
+     "split": "cross_domain",
+     "domain": "cross_domain_3",
+     "fraud": false,
+     "error": false,
+     "verdict": "legitimate",
+     "type": "not_scam",
+     "confidence": 0.75,
+     "red_flags": [],
+     "windows": 1
+    },
+    {
+     "id": "batch_2025-10-15_05-04-26/SCENARIO_2_Clear_Fraud_0028_r1",
+     "split": "cross_domain",
+     "domain": "cross_domain_3",
+     "fraud": false,
+     "error": false,
+     "verdict": "legitimate",
+     "type": "not_scam",
+     "confidence": 0.65,
+     "red_flags": [],
+     "windows": 2
+    },
+    {
+     "id": "batch_2025-10-15_05-04-26/SCENARIO_5_Clear_Fraud_0100_r1",
+     "split": "cross_domain",
+     "domain": "cross_domain_3",
+     "fraud": false,
+     "error": false,
+     "verdict": "legitimate",
+     "type": "not_scam",
+     "confidence": 0.65,
+     "red_flags": [],
+     "windows": 1
+    },
+    {
+     "id": "batch_2025-10-15_05-04-26/SCENARIO_8_Clear_Fraud_0158_r1",
+     "split": "cross_domain",
+     "domain": "cross_domain_3",
+     "fraud": false,
+     "error": false,
+     "verdict": "legitimate",
+     "type": "not_scam",
+     "confidence": 0.65,
+     "red_flags": [],
+     "windows": 2
+    },
+    {
+     "id": "batch_2025-10-15_05-06-26/SCENARIO_1_Clear_Fraud_0017_r1",
+     "split": "cross_domain",
+     "domain": "cross_domain_4",
+     "fraud": false,
+     "error": false,
+     "verdict": "legitimate",
+     "type": "not_scam",
+     "confidence": 0.65,
+     "red_flags": [],
+     "windows": 1
+    },
+    {
+     "id": "batch_2025-10-15_05-06-26/SCENARIO_4_Subtle_Fraud_0080_r1",
+     "split": "cross_domain",
+     "domain": "cross_domain_4",
+     "fraud": false,
+     "error": false,
+     "verdict": "legitimate",
+     "type": "not_scam",
+     "confidence": 0.65,
+     "red_flags": [],
+     "windows": 1
+    },
+    {
+     "id": "batch_2025-10-15_05-06-26/SCENARIO_6_Clear_Fraud_0118_r1",
+     "split": "cross_domain",
+     "domain": "cross_domain_4",
+     "fraud": false,
+     "error": false,
+     "verdict": "legitimate",
+     "type": "not_scam",
+     "confidence": 0.65,
+     "red_flags": [],
+     "windows": 1
+    },
+    {
+     "id": "batch_2025-10-15_05-06-26/SCENARIO_7_Subtle_Fraud_0138_r1",
+     "split": "cross_domain",
+     "domain": "cross_domain_4",
+     "fraud": false,
+     "error": false,
+     "verdict": "legitimate",
+     "type": "not_scam",
+     "confidence": 0.65,
+     "red_flags": [],
+     "windows": 1
+    },
+    {
+     "id": "batch_2025-10-15_05-06-26/SCENARIO_7_Subtle_Fraud_0140_r1",
+     "split": "cross_domain",
+     "domain": "cross_domain_4",
+     "fraud": false,
+     "error": false,
+     "verdict": "legitimate",
+     "type": "not_scam",
+     "confidence": 0.65,
+     "red_flags": [],
+     "windows": 1
+    },
+    {
+     "id": "batch_2025-10-15_05-06-26/SCENARIO_9_Subtle_Fraud_0165_r1",
+     "split": "cross_domain",
+     "domain": "cross_domain_4",
+     "fraud": false,
+     "error": false,
+     "verdict": "undetermined",
+     "type": "undetermined",
+     "confidence": 0.0,
+     "red_flags": [
+      "evades_credentials"
+     ],
+     "windows": 1
+    },
+    {
+     "id": "batch_2025-10-15_05-08-27/SCENARIO_10_Clear_Fraud_0197_r1",
+     "split": "cross_domain",
+     "domain": "cross_domain_5",
+     "fraud": false,
+     "error": false,
+     "verdict": "undetermined",
+     "type": "undetermined",
+     "confidence": 0.0,
+     "red_flags": [
+      "asks_full_identifier"
+     ],
+     "windows": 2
+    },
+    {
+     "id": "batch_2025-10-15_05-08-27/SCENARIO_10_Clear_Fraud_0199_r1",
+     "split": "cross_domain",
+     "domain": "cross_domain_5",
+     "fraud": false,
+     "error": false,
+     "verdict": "legitimate",
+     "type": "not_scam",
+     "confidence": 0.75,
+     "red_flags": [],
+     "windows": 1
+    },
+    {
+     "id": "batch_2025-10-15_05-08-27/SCENARIO_10_Clear_Fraud_0200_r1",
+     "split": "cross_domain",
+     "domain": "cross_domain_5",
+     "fraud": false,
+     "error": false,
+     "verdict": "undetermined",
+     "type": "undetermined",
+     "confidence": 0.0,
+     "red_flags": [
+      "asks_full_identifier"
+     ],
+     "windows": 1
+    },
+    {
+     "id": "batch_2025-10-15_05-08-27/SCENARIO_5_Clear_Fraud_0098_r1",
+     "split": "cross_domain",
+     "domain": "cross_domain_5",
+     "fraud": false,
+     "error": false,
+     "verdict": "legitimate",
+     "type": "not_scam",
+     "confidence": 0.65,
+     "red_flags": [],
+     "windows": 2
+    },
+    {
+     "id": "batch_2025-10-15_05-08-27/SCENARIO_5_Clear_Fraud_0100_r1",
+     "split": "cross_domain",
+     "domain": "cross_domain_5",
+     "fraud": false,
+     "error": false,
+     "verdict": "legitimate",
+     "type": "not_scam",
+     "confidence": 0.65,
+     "red_flags": [],
+     "windows": 1
+    },
+    {
+     "id": "batch_2025-10-15_05-08-27/SCENARIO_7_Clear_Fraud_0138_r1",
+     "split": "cross_domain",
+     "domain": "cross_domain_5",
+     "fraud": false,
+     "error": false,
+     "verdict": "legitimate",
+     "type": "not_scam",
+     "confidence": 0.65,
+     "red_flags": [],
+     "windows": 1
+    },
+    {
+     "id": "batch_2025-10-15_05-08-27/SCENARIO_7_Clear_Fraud_0140_r1",
+     "split": "cross_domain",
+     "domain": "cross_domain_5",
+     "fraud": false,
+     "error": false,
+     "verdict": "legitimate",
+     "type": "not_scam",
+     "confidence": 0.65,
+     "red_flags": [],
+     "windows": 1
+    },
+    {
+     "id": "batch_2025-10-15_05-08-27/SCENARIO_8_Clear_Fraud_0158_r1",
+     "split": "cross_domain",
+     "domain": "cross_domain_5",
+     "fraud": false,
+     "error": false,
+     "verdict": "legitimate",
+     "type": "not_scam",
+     "confidence": 0.75,
+     "red_flags": [],
+     "windows": 1
+    },
+    {
+     "id": "batch_2025-10-15_05-08-27/SCENARIO_8_Clear_Fraud_0160_r1",
+     "split": "cross_domain",
+     "domain": "cross_domain_5",
+     "fraud": false,
+     "error": false,
+     "verdict": "legitimate",
+     "type": "not_scam",
+     "confidence": 0.65,
+     "red_flags": [],
+     "windows": 1
+    },
+    {
+     "id": "batch_2025-10-15_05-08-27/SCENARIO_9_Subtle_Fraud_0178_r1",
+     "split": "cross_domain",
+     "domain": "cross_domain_5",
+     "fraud": false,
+     "error": false,
+     "verdict": "undetermined",
+     "type": "undetermined",
+     "confidence": 0.0,
+     "red_flags": [],
+     "windows": 1
+    },
+    {
+     "id": "batch_2025-10-15_05-08-27/SCENARIO_9_Subtle_Fraud_0180_r1",
+     "split": "cross_domain",
+     "domain": "cross_domain_5",
+     "fraud": false,
+     "error": false,
+     "verdict": "undetermined",
+     "type": "undetermined",
+     "confidence": 0.0,
+     "red_flags": [],
+     "windows": 1
+    },
+    {
+     "id": "batch_2025-10-15_04-59-55/SCENARIO_10_Subtle_Fraud_0193_r1",
+     "split": "cross_domain",
+     "domain": "cross_domain_1",
+     "fraud": true,
+     "error": false,
+     "verdict": "scam",
+     "type": "investment_trading",
+     "confidence": 0.87,
+     "red_flags": [
+      "guaranteed_returns",
+      "solicits_money_now"
+     ],
+     "windows": 1
+    },
+    {
+     "id": "batch_2025-10-15_04-59-55/SCENARIO_7_Clear_Fraud_0121_r1",
+     "split": "cross_domain",
+     "domain": "cross_domain_1",
+     "fraud": true,
+     "error": false,
+     "verdict": "scam",
+     "type": "investment_trading",
+     "confidence": 0.9,
+     "red_flags": [
+      "unexpected_windfall",
+      "too_good_to_be_true",
+      "urgency_deadline",
+      "link_or_unofficial_channel",
+      "evades_credentials"
+     ],
+     "windows": 2
+    },
+    {
+     "id": "batch_2025-10-15_04-59-55/SCENARIO_10_Subtle_Fraud_0192_r1",
+     "split": "cross_domain",
+     "domain": "cross_domain_1",
+     "fraud": true,
+     "error": false,
+     "verdict": "scam",
+     "type": "investment_trading",
+     "confidence": 0.87,
+     "red_flags": [
+      "guaranteed_returns",
+      "identity_inconsistency"
+     ],
+     "windows": 1
+    },
+    {
+     "id": "batch_2025-10-15_04-59-55/SCENARIO_4_Clear_Fraud_0074_r1",
+     "split": "cross_domain",
+     "domain": "cross_domain_1",
+     "fraud": true,
+     "error": false,
+     "verdict": "scam",
+     "type": "investment_trading",
+     "confidence": 0.96,
+     "red_flags": [
+      "guaranteed_returns",
+      "pay_to_receive",
+      "too_good_to_be_true",
+      "evades_credentials",
+      "urgency_deadline"
+     ],
+     "windows": 2
+    },
+    {
+     "id": "batch_2025-10-15_04-59-55/SCENARIO_9_Clear_Fraud_0175_r1",
+     "split": "cross_domain",
+     "domain": "cross_domain_1",
+     "fraud": true,
+     "error": false,
+     "verdict": "scam",
+     "type": "other_scam",
+     "confidence": 0.94,
+     "red_flags": [
+      "unexpected_windfall",
+      "asks_secret_credential",
+      "pay_to_receive",
+      "urgency_deadline"
+     ],
+     "windows": 1
+    },
+    {
+     "id": "batch_2025-10-15_04-59-55/SCENARIO_2_Clear_Fraud_0037_r1",
+     "split": "cross_domain",
+     "domain": "cross_domain_1",
+     "fraud": true,
+     "error": false,
+     "verdict": "legitimate",
+     "type": "not_scam",
+     "confidence": 0.65,
+     "red_flags": [],
+     "windows": 1
+    },
+    {
+     "id": "batch_2025-10-15_04-59-55/SCENARIO_6_Subtle_Fraud_0106_r1",
+     "split": "cross_domain",
+     "domain": "cross_domain_1",
+     "fraud": true,
+     "error": false,
+     "verdict": "scam",
+     "type": "investment_trading",
+     "confidence": 0.75,
+     "red_flags": [
+      "too_good_to_be_true",
+      "urgency_deadline"
+     ],
+     "windows": 1
+    },
+    {
+     "id": "batch_2025-10-15_04-59-55/SCENARIO_5_Clear_Fraud_0097_r1",
+     "split": "cross_domain",
+     "domain": "cross_domain_1",
+     "fraud": true,
+     "error": false,
+     "verdict": "scam",
+     "type": "other_scam",
+     "confidence": 0.89,
+     "red_flags": [
+      "asks_secret_credential",
+      "link_or_unofficial_channel",
+      "urgency_deadline"
+     ],
+     "windows": 1
+    },
+    {
+     "id": "batch_2025-10-15_04-59-55/SCENARIO_4_Clear_Fraud_0070_r1",
+     "split": "cross_domain",
+     "domain": "cross_domain_1",
+     "fraud": true,
+     "error": false,
+     "verdict": "scam",
+     "type": "investment_trading",
+     "confidence": 0.92,
+     "red_flags": [
+      "guaranteed_returns",
+      "pay_to_receive",
+      "evades_credentials"
+     ],
+     "windows": 2
+    },
+    {
+     "id": "batch_2025-10-15_04-59-55/SCENARIO_1_Clear_Fraud_0002_r1",
+     "split": "cross_domain",
+     "domain": "cross_domain_1",
+     "fraud": true,
+     "error": false,
+     "verdict": "scam",
+     "type": "investment_trading",
+     "confidence": 0.91,
+     "red_flags": [
+      "guaranteed_returns",
+      "solicits_money_now",
+      "evades_credentials",
+      "urgency_deadline"
+     ],
+     "windows": 1
+    },
+    {
+     "id": "batch_2025-10-15_04-59-55/SCENARIO_3_Clear_Fraud_0052_r1",
+     "split": "cross_domain",
+     "domain": "cross_domain_1",
+     "fraud": true,
+     "error": false,
+     "verdict": "scam",
+     "type": "investment_trading",
+     "confidence": 0.97,
+     "red_flags": [
+      "asks_secret_credential",
+      "guaranteed_returns",
+      "pay_to_receive",
+      "solicits_money_now"
+     ],
+     "windows": 1
+    },
+    {
+     "id": "batch_2025-10-15_04-59-55/SCENARIO_10_Subtle_Fraud_0198_r1",
+     "split": "cross_domain",
+     "domain": "cross_domain_1",
+     "fraud": true,
+     "error": false,
+     "verdict": "scam",
+     "type": "investment_trading",
+     "confidence": 0.87,
+     "red_flags": [
+      "guaranteed_returns",
+      "evades_credentials"
+     ],
+     "windows": 1
+    },
+    {
+     "id": "batch_2025-10-15_04-59-55/SCENARIO_5_Clear_Fraud_0099_r1",
+     "split": "cross_domain",
+     "domain": "cross_domain_1",
+     "fraud": true,
+     "error": false,
+     "verdict": "scam",
+     "type": "fake_customer_care",
+     "confidence": 0.89,
+     "red_flags": [
+      "link_or_unofficial_channel",
+      "urgency_deadline",
+      "asks_secret_credential"
+     ],
+     "windows": 1
+    },
+    {
+     "id": "batch_2025-10-15_04-59-55/SCENARIO_3_Clear_Fraud_0056_r1",
+     "split": "cross_domain",
+     "domain": "cross_domain_1",
+     "fraud": true,
+     "error": false,
+     "verdict": "scam",
+     "type": "other_scam",
+     "confidence": 0.99,
+     "red_flags": [
+      "asks_secret_credential",
+      "pay_to_receive",
+      "solicits_money_now",
+      "urgency_deadline",
+      "secrecy_or_isolation"
+     ],
+     "windows": 1
+    },
+    {
+     "id": "batch_2025-10-15_04-59-55/SCENARIO_1_Clear_Fraud_0014_r1",
+     "split": "cross_domain",
+     "domain": "cross_domain_1",
+     "fraud": true,
+     "error": false,
+     "verdict": "scam",
+     "type": "investment_trading",
+     "confidence": 0.91,
+     "red_flags": [
+      "guaranteed_returns",
+      "solicits_money_now",
+      "evades_credentials",
+      "urgency_deadline"
+     ],
+     "windows": 1
+    },
+    {
+     "id": "batch_2025-10-15_04-59-55/SCENARIO_6_Subtle_Fraud_0111_r1",
+     "split": "cross_domain",
+     "domain": "cross_domain_1",
+     "fraud": true,
+     "error": false,
+     "verdict": "scam",
+     "type": "investment_trading",
+     "confidence": 0.87,
+     "red_flags": [
+      "guaranteed_returns",
+      "solicits_money_now"
+     ],
+     "windows": 1
+    },
+    {
+     "id": "batch_2025-10-15_04-59-55/SCENARIO_8_Subtle_Fraud_0158_r1",
+     "split": "cross_domain",
+     "domain": "cross_domain_1",
+     "fraud": true,
+     "error": false,
+     "verdict": "legitimate",
+     "type": "not_scam",
+     "confidence": 0.65,
+     "red_flags": [],
+     "windows": 1
+    },
+    {
+     "id": "batch_2025-10-15_04-59-55/SCENARIO_9_Clear_Fraud_0168_r1",
+     "split": "cross_domain",
+     "domain": "cross_domain_1",
+     "fraud": true,
+     "error": false,
+     "verdict": "scam",
+     "type": "other_scam",
+     "confidence": 0.94,
+     "red_flags": [
+      "unexpected_windfall",
+      "asks_secret_credential",
+      "pay_to_receive",
+      "urgency_deadline"
+     ],
+     "windows": 1
+    },
+    {
+     "id": "batch_2025-10-15_04-59-55/SCENARIO_1_Clear_Fraud_0016_r1",
+     "split": "cross_domain",
+     "domain": "cross_domain_1",
+     "fraud": true,
+     "error": true
+    },
+    {
+     "id": "batch_2025-10-15_04-59-55/SCENARIO_5_Clear_Fraud_0091_r1",
+     "split": "cross_domain",
+     "domain": "cross_domain_1",
+     "fraud": true,
+     "error": false,
+     "verdict": "scam",
+     "type": "fake_customer_care",
+     "confidence": 0.75,
+     "red_flags": [
+      "link_or_unofficial_channel",
+      "urgency_deadline"
+     ],
+     "windows": 1
+    },
+    {
+     "id": "batch_2025-10-15_05-02-25/SCENARIO_1_Clear_Fraud_0007_r1",
+     "split": "cross_domain",
+     "domain": "cross_domain_2",
+     "fraud": true,
+     "error": false,
+     "verdict": "scam",
+     "type": "other_scam",
+     "confidence": 0.94,
+     "red_flags": [
+      "romance_money_request",
+      "payment_to_personal_account",
+      "evades_credentials",
+      "solicits_money_now"
+     ],
+     "windows": 1
+    },
+    {
+     "id": "batch_2025-10-15_05-02-25/SCENARIO_6_Clear_Fraud_0106_r1",
+     "split": "cross_domain",
+     "domain": "cross_domain_2",
+     "fraud": true,
+     "error": false,
+     "verdict": "scam",
+     "type": "other_scam",
+     "confidence": 0.93,
+     "red_flags": [
+      "unexpected_windfall",
+      "pay_to_receive",
+      "solicits_money_now",
+      "too_good_to_be_true",
+      "urgency_deadline"
+     ],
+     "windows": 2
+    },
+    {
+     "id": "batch_2025-10-15_05-02-25/SCENARIO_6_Clear_Fraud_0114_r1",
+     "split": "cross_domain",
+     "domain": "cross_domain_2",
+     "fraud": true,
+     "error": false,
+     "verdict": "scam",
+     "type": "other_scam",
+     "confidence": 0.89,
+     "red_flags": [
+      "pay_to_receive",
+      "unexpected_windfall",
+      "urgency_deadline"
+     ],
+     "windows": 1
+    },
+    {
+     "id": "batch_2025-10-15_05-02-25/SCENARIO_3_Clear_Fraud_0056_r1",
+     "split": "cross_domain",
+     "domain": "cross_domain_2",
+     "fraud": true,
+     "error": false,
+     "verdict": "scam",
+     "type": "other_scam",
+     "confidence": 0.85,
+     "red_flags": [
+      "too_good_to_be_true",
+      "asks_full_identifier",
+      "solicits_money_now"
+     ],
+     "windows": 1
+    },
+    {
+     "id": "batch_2025-10-15_05-02-25/SCENARIO_5_Clear_Fraud_0090_r1",
+     "split": "cross_domain",
+     "domain": "cross_domain_2",
+     "fraud": true,
+     "error": false,
+     "verdict": "legitimate",
+     "type": "not_scam",
+     "confidence": 0.75,
+     "red_flags": [],
+     "windows": 1
+    },
+    {
+     "id": "batch_2025-10-15_05-02-25/SCENARIO_10_Subtle_Fraud_0185_r1",
+     "split": "cross_domain",
+     "domain": "cross_domain_2",
+     "fraud": true,
+     "error": false,
+     "verdict": "undetermined",
+     "type": "undetermined",
+     "confidence": 0.0,
+     "red_flags": [
+      "asks_full_identifier"
+     ],
+     "windows": 1
+    },
+    {
+     "id": "batch_2025-10-15_05-02-25/SCENARIO_2_Clear_Fraud_0024_r1",
+     "split": "cross_domain",
+     "domain": "cross_domain_2",
+     "fraud": true,
+     "error": false,
+     "verdict": "legitimate",
+     "type": "not_scam",
+     "confidence": 0.65,
+     "red_flags": [],
+     "windows": 1
+    },
+    {
+     "id": "batch_2025-10-15_05-02-25/SCENARIO_8_Clear_Fraud_0150_r1",
+     "split": "cross_domain",
+     "domain": "cross_domain_2",
+     "fraud": true,
+     "error": false,
+     "verdict": "legitimate",
+     "type": "not_scam",
+     "confidence": 0.65,
+     "red_flags": [],
+     "windows": 1
+    },
+    {
+     "id": "batch_2025-10-15_05-02-25/SCENARIO_3_Clear_Fraud_0044_r1",
+     "split": "cross_domain",
+     "domain": "cross_domain_2",
+     "fraud": true,
+     "error": false,
+     "verdict": "scam",
+     "type": "bank_kyc_block",
+     "confidence": 0.93,
+     "red_flags": [
+      "asks_full_identifier",
+      "unexpected_windfall",
+      "pay_to_receive",
+      "discourages_verification",
+      "urgency_deadline"
+     ],
+     "windows": 1
+    },
+    {
+     "id": "batch_2025-10-15_05-02-25/SCENARIO_8_Clear_Fraud_0154_r1",
+     "split": "cross_domain",
+     "domain": "cross_domain_2",
+     "fraud": true,
+     "error": false,
+     "verdict": "scam",
+     "type": "family_emergency",
+     "confidence": 0.75,
+     "red_flags": [
+      "emotional_emergency",
+      "solicits_money_now"
+     ],
+     "windows": 2
+    },
+    {
+     "id": "batch_2025-10-15_05-02-25/SCENARIO_10_Subtle_Fraud_0200_r1",
+     "split": "cross_domain",
+     "domain": "cross_domain_2",
+     "fraud": true,
+     "error": false,
+     "verdict": "legitimate",
+     "type": "not_scam",
+     "confidence": 0.65,
+     "red_flags": [],
+     "windows": 1
+    },
+    {
+     "id": "batch_2025-10-15_05-02-25/SCENARIO_10_Subtle_Fraud_0194_r1",
+     "split": "cross_domain",
+     "domain": "cross_domain_2",
+     "fraud": true,
+     "error": false,
+     "verdict": "undetermined",
+     "type": "undetermined",
+     "confidence": 0.0,
+     "red_flags": [
+      "solicits_money_now"
+     ],
+     "windows": 1
+    },
+    {
+     "id": "batch_2025-10-15_05-02-25/SCENARIO_9_Clear_Fraud_0164_r1",
+     "split": "cross_domain",
+     "domain": "cross_domain_2",
+     "fraud": true,
+     "error": false,
+     "verdict": "legitimate",
+     "type": "not_scam",
+     "confidence": 0.65,
+     "red_flags": [],
+     "windows": 1
+    },
+    {
+     "id": "batch_2025-10-15_05-02-25/SCENARIO_6_Clear_Fraud_0108_r1",
+     "split": "cross_domain",
+     "domain": "cross_domain_2",
+     "fraud": true,
+     "error": false,
+     "verdict": "legitimate",
+     "type": "not_scam",
+     "confidence": 0.65,
+     "red_flags": [],
+     "windows": 1
+    },
+    {
+     "id": "batch_2025-10-15_05-02-25/SCENARIO_8_Clear_Fraud_0159_r1",
+     "split": "cross_domain",
+     "domain": "cross_domain_2",
+     "fraud": true,
+     "error": false,
+     "verdict": "legitimate",
+     "type": "not_scam",
+     "confidence": 0.65,
+     "red_flags": [],
+     "windows": 1
+    },
+    {
+     "id": "batch_2025-10-15_05-02-25/SCENARIO_5_Clear_Fraud_0082_r1",
+     "split": "cross_domain",
+     "domain": "cross_domain_2",
+     "fraud": true,
+     "error": false,
+     "verdict": "scam",
+     "type": "other_scam",
+     "confidence": 0.91,
+     "red_flags": [
+      "romance_money_request",
+      "solicits_money_now",
+      "discourages_verification",
+      "urgency_deadline"
+     ],
+     "windows": 2
+    },
+    {
+     "id": "batch_2025-10-15_05-02-25/SCENARIO_9_Clear_Fraud_0172_r1",
+     "split": "cross_domain",
+     "domain": "cross_domain_2",
+     "fraud": true,
+     "error": false,
+     "verdict": "legitimate",
+     "type": "not_scam",
+     "confidence": 0.65,
+     "red_flags": [],
+     "windows": 1
+    },
+    {
+     "id": "batch_2025-10-15_05-02-25/SCENARIO_10_Subtle_Fraud_0190_r1",
+     "split": "cross_domain",
+     "domain": "cross_domain_2",
+     "fraud": true,
+     "error": false,
+     "verdict": "undetermined",
+     "type": "undetermined",
+     "confidence": 0.0,
+     "red_flags": [],
+     "windows": 1
+    },
+    {
+     "id": "batch_2025-10-15_05-02-25/SCENARIO_8_Clear_Fraud_0144_r1",
+     "split": "cross_domain",
+     "domain": "cross_domain_2",
+     "fraud": true,
+     "error": false,
+     "verdict": "scam",
+     "type": "family_emergency",
+     "confidence": 0.75,
+     "red_flags": [
+      "urgency_deadline",
+      "discourages_verification"
+     ],
+     "windows": 1
+    },
+    {
+     "id": "batch_2025-10-15_05-02-25/SCENARIO_5_Clear_Fraud_0088_r1",
+     "split": "cross_domain",
+     "domain": "cross_domain_2",
+     "fraud": true,
+     "error": false,
+     "verdict": "legitimate",
+     "type": "not_scam",
+     "confidence": 0.65,
+     "red_flags": [],
+     "windows": 1
+    },
+    {
+     "id": "batch_2025-10-15_05-04-26/SCENARIO_4_Clear_Fraud_0076_r1",
+     "split": "cross_domain",
+     "domain": "cross_domain_3",
+     "fraud": true,
+     "error": false,
+     "verdict": "scam",
+     "type": "other_scam",
+     "confidence": 0.9,
+     "red_flags": [
+      "solicits_money_now",
+      "discourages_verification",
+      "link_or_unofficial_channel",
+      "evades_credentials"
+     ],
+     "windows": 1
+    },
+    {
+     "id": "batch_2025-10-15_05-04-26/SCENARIO_2_Clear_Fraud_0023_r1",
+     "split": "cross_domain",
+     "domain": "cross_domain_3",
+     "fraud": true,
+     "error": false,
+     "verdict": "scam",
+     "type": "other_scam",
+     "confidence": 0.75,
+     "red_flags": [
+      "urgency_deadline",
+      "discourages_verification"
+     ],
+     "windows": 1
+    },
+    {
+     "id": "batch_2025-10-15_05-04-26/SCENARIO_9_Subtle_Fraud_0180_r1",
+     "split": "cross_domain",
+     "domain": "cross_domain_3",
+     "fraud": true,
+     "error": false,
+     "verdict": "legitimate",
+     "type": "not_scam",
+     "confidence": 0.65,
+     "red_flags": [],
+     "windows": 1
+    },
+    {
+     "id": "batch_2025-10-15_05-04-26/SCENARIO_9_Subtle_Fraud_0161_r1",
+     "split": "cross_domain",
+     "domain": "cross_domain_3",
+     "fraud": true,
+     "error": false,
+     "verdict": "scam",
+     "type": "other_scam",
+     "confidence": 0.85,
+     "red_flags": [
+      "solicits_money_now",
+      "urgency_deadline",
+      "evades_credentials"
+     ],
+     "windows": 1
+    },
+    {
+     "id": "batch_2025-10-15_05-04-26/SCENARIO_3_Clear_Fraud_0046_r1",
+     "split": "cross_domain",
+     "domain": "cross_domain_3",
+     "fraud": true,
+     "error": false,
+     "verdict": "scam",
+     "type": "other_scam",
+     "confidence": 0.75,
+     "red_flags": [
+      "solicits_money_now",
+      "evades_credentials"
+     ],
+     "windows": 1
+    },
+    {
+     "id": "batch_2025-10-15_05-04-26/SCENARIO_6_Subtle_Fraud_0120_r1",
+     "split": "cross_domain",
+     "domain": "cross_domain_3",
+     "fraud": true,
+     "error": false,
+     "verdict": "scam",
+     "type": "other_scam",
+     "confidence": 0.9,
+     "red_flags": [
+      "solicits_money_now",
+      "evades_credentials",
+      "urgency_deadline",
+      "discourages_verification"
+     ],
+     "windows": 1
+    },
+    {
+     "id": "batch_2025-10-15_05-04-26/SCENARIO_5_Clear_Fraud_0082_r1",
+     "split": "cross_domain",
+     "domain": "cross_domain_3",
+     "fraud": true,
+     "error": false,
+     "verdict": "scam",
+     "type": "other_scam",
+     "confidence": 0.75,
+     "red_flags": [
+      "evades_credentials",
+      "urgency_deadline"
+     ],
+     "windows": 1
+    },
+    {
+     "id": "batch_2025-10-15_05-04-26/SCENARIO_3_Clear_Fraud_0057_r1",
+     "split": "cross_domain",
+     "domain": "cross_domain_3",
+     "fraud": true,
+     "error": false,
+     "verdict": "scam",
+     "type": "other_scam",
+     "confidence": 0.85,
+     "red_flags": [
+      "solicits_money_now",
+      "evades_credentials",
+      "urgency_deadline"
+     ],
+     "windows": 1
+    },
+    {
+     "id": "batch_2025-10-15_05-04-26/SCENARIO_10_Clear_Fraud_0191_r1",
+     "split": "cross_domain",
+     "domain": "cross_domain_3",
+     "fraud": true,
+     "error": false,
+     "verdict": "scam",
+     "type": "other_scam",
+     "confidence": 0.75,
+     "red_flags": [
+      "evades_credentials",
+      "solicits_money_now"
+     ],
+     "windows": 1
+    },
+    {
+     "id": "batch_2025-10-15_05-04-26/SCENARIO_10_Clear_Fraud_0185_r1",
+     "split": "cross_domain",
+     "domain": "cross_domain_3",
+     "fraud": true,
+     "error": false,
+     "verdict": "scam",
+     "type": "other_scam",
+     "confidence": 0.75,
+     "red_flags": [
+      "evades_credentials",
+      "solicits_money_now"
+     ],
+     "windows": 1
+    },
+    {
+     "id": "batch_2025-10-15_05-04-26/SCENARIO_4_Clear_Fraud_0073_r1",
+     "split": "cross_domain",
+     "domain": "cross_domain_3",
+     "fraud": true,
+     "error": false,
+     "verdict": "scam",
+     "type": "other_scam",
+     "confidence": 0.85,
+     "red_flags": [
+      "solicits_money_now",
+      "urgency_deadline",
+      "evades_credentials"
+     ],
+     "windows": 1
+    },
+    {
+     "id": "batch_2025-10-15_05-04-26/SCENARIO_6_Subtle_Fraud_0117_r1",
+     "split": "cross_domain",
+     "domain": "cross_domain_3",
+     "fraud": true,
+     "error": false,
+     "verdict": "scam",
+     "type": "other_scam",
+     "confidence": 0.9,
+     "red_flags": [
+      "solicits_money_now",
+      "asks_full_identifier",
+      "urgency_deadline",
+      "evades_credentials",
+      "discourages_verification"
+     ],
+     "windows": 1
+    },
+    {
+     "id": "batch_2025-10-15_05-04-26/SCENARIO_3_Clear_Fraud_0053_r1",
+     "split": "cross_domain",
+     "domain": "cross_domain_3",
+     "fraud": true,
+     "error": false,
+     "verdict": "scam",
+     "type": "other_scam",
+     "confidence": 0.85,
+     "red_flags": [
+      "evades_credentials",
+      "solicits_money_now",
+      "urgency_deadline"
+     ],
+     "windows": 1
+    },
+    {
+     "id": "batch_2025-10-15_05-04-26/SCENARIO_7_Clear_Fraud_0133_r1",
+     "split": "cross_domain",
+     "domain": "cross_domain_3",
+     "fraud": true,
+     "error": false,
+     "verdict": "scam",
+     "type": "other_scam",
+     "confidence": 0.89,
+     "red_flags": [
+      "solicits_money_now",
+      "pay_to_receive",
+      "urgency_deadline"
+     ],
+     "windows": 1
+    },
+    {
+     "id": "batch_2025-10-15_05-04-26/SCENARIO_4_Clear_Fraud_0062_r1",
+     "split": "cross_domain",
+     "domain": "cross_domain_3",
+     "fraud": true,
+     "error": false,
+     "verdict": "scam",
+     "type": "other_scam",
+     "confidence": 0.85,
+     "red_flags": [
+      "solicits_money_now",
+      "urgency_deadline",
+      "evades_credentials"
+     ],
+     "windows": 1
+    },
+    {
+     "id": "batch_2025-10-15_05-04-26/SCENARIO_1_Clear_Fraud_0004_r1",
+     "split": "cross_domain",
+     "domain": "cross_domain_3",
+     "fraud": true,
+     "error": false,
+     "verdict": "scam",
+     "type": "other_scam",
+     "confidence": 0.93,
+     "red_flags": [
+      "payment_to_personal_account",
+      "evades_credentials",
+      "discourages_verification",
+      "urgency_deadline",
+      "solicits_money_now"
+     ],
+     "windows": 1
+    },
+    {
+     "id": "batch_2025-10-15_05-04-26/SCENARIO_8_Clear_Fraud_0157_r1",
+     "split": "cross_domain",
+     "domain": "cross_domain_3",
+     "fraud": true,
+     "error": false,
+     "verdict": "legitimate",
+     "type": "not_scam",
+     "confidence": 0.65,
+     "red_flags": [],
+     "windows": 1
+    },
+    {
+     "id": "batch_2025-10-15_05-04-26/SCENARIO_10_Clear_Fraud_0186_r1",
+     "split": "cross_domain",
+     "domain": "cross_domain_3",
+     "fraud": true,
+     "error": false,
+     "verdict": "undetermined",
+     "type": "undetermined",
+     "confidence": 0.0,
+     "red_flags": [
+      "solicits_money_now"
+     ],
+     "windows": 1
+    },
+    {
+     "id": "batch_2025-10-15_05-04-26/SCENARIO_3_Clear_Fraud_0045_r1",
+     "split": "cross_domain",
+     "domain": "cross_domain_3",
+     "fraud": true,
+     "error": false,
+     "verdict": "scam",
+     "type": "other_scam",
+     "confidence": 0.85,
+     "red_flags": [
+      "evades_credentials",
+      "solicits_money_now",
+      "urgency_deadline"
+     ],
+     "windows": 1
+    },
+    {
+     "id": "batch_2025-10-15_05-04-26/SCENARIO_7_Clear_Fraud_0125_r1",
+     "split": "cross_domain",
+     "domain": "cross_domain_3",
+     "fraud": true,
+     "error": false,
+     "verdict": "scam",
+     "type": "other_scam",
+     "confidence": 0.75,
+     "red_flags": [
+      "solicits_money_now",
+      "urgency_deadline"
+     ],
+     "windows": 1
+    },
+    {
+     "id": "batch_2025-10-15_05-06-26/SCENARIO_5_Clear_Fraud_0095_r1",
+     "split": "cross_domain",
+     "domain": "cross_domain_4",
+     "fraud": true,
+     "error": false,
+     "verdict": "scam",
+     "type": "investment_trading",
+     "confidence": 0.87,
+     "red_flags": [
+      "guaranteed_returns",
+      "evades_credentials"
+     ],
+     "windows": 1
+    },
+    {
+     "id": "batch_2025-10-15_05-06-26/SCENARIO_8_Clear_Fraud_0151_r1",
+     "split": "cross_domain",
+     "domain": "cross_domain_4",
+     "fraud": true,
+     "error": false,
+     "verdict": "scam",
+     "type": "investment_trading",
+     "confidence": 0.75,
+     "red_flags": [
+      "evades_credentials",
+      "urgency_deadline"
+     ],
+     "windows": 1
+    },
+    {
+     "id": "batch_2025-10-15_05-06-26/SCENARIO_5_Clear_Fraud_0088_r1",
+     "split": "cross_domain",
+     "domain": "cross_domain_4",
+     "fraud": true,
+     "error": false,
+     "verdict": "scam",
+     "type": "investment_trading",
+     "confidence": 0.87,
+     "red_flags": [
+      "guaranteed_returns",
+      "evades_credentials"
+     ],
+     "windows": 1
+    },
+    {
+     "id": "batch_2025-10-15_05-06-26/SCENARIO_4_Subtle_Fraud_0067_r1",
+     "split": "cross_domain",
+     "domain": "cross_domain_4",
+     "fraud": true,
+     "error": false,
+     "verdict": "undetermined",
+     "type": "undetermined",
+     "confidence": 0.0,
+     "red_flags": [
+      "urgency_deadline"
+     ],
+     "windows": 1
+    },
+    {
+     "id": "batch_2025-10-15_05-06-26/SCENARIO_8_Clear_Fraud_0150_r1",
+     "split": "cross_domain",
+     "domain": "cross_domain_4",
+     "fraud": true,
+     "error": false,
+     "verdict": "scam",
+     "type": "investment_trading",
+     "confidence": 0.89,
+     "red_flags": [
+      "solicits_money_now",
+      "urgency_deadline",
+      "secrecy_or_isolation"
+     ],
+     "windows": 2
+    },
+    {
+     "id": "batch_2025-10-15_05-06-26/SCENARIO_2_Clear_Fraud_0034_r1",
+     "split": "cross_domain",
+     "domain": "cross_domain_4",
+     "fraud": true,
+     "error": false,
+     "verdict": "scam",
+     "type": "investment_trading",
+     "confidence": 0.89,
+     "red_flags": [
+      "guaranteed_returns",
+      "urgency_deadline",
+      "discourages_verification"
+     ],
+     "windows": 1
+    },
+    {
+     "id": "batch_2025-10-15_05-06-26/SCENARIO_10_Subtle_Fraud_0182_r1",
+     "split": "cross_domain",
+     "domain": "cross_domain_4",
+     "fraud": true,
+     "error": false,
+     "verdict": "scam",
+     "type": "investment_trading",
+     "confidence": 0.91,
+     "red_flags": [
+      "guaranteed_returns",
+      "too_good_to_be_true",
+      "urgency_deadline",
+      "solicits_money_now"
+     ],
+     "windows": 2
+    },
+    {
+     "id": "batch_2025-10-15_05-06-26/SCENARIO_6_Clear_Fraud_0116_r1",
+     "split": "cross_domain",
+     "domain": "cross_domain_4",
+     "fraud": true,
+     "error": false,
+     "verdict": "scam",
+     "type": "investment_trading",
+     "confidence": 0.91,
+     "red_flags": [
+      "guaranteed_returns",
+      "evades_credentials",
+      "urgency_deadline",
+      "solicits_money_now"
+     ],
+     "windows": 2
+    },
+    {
+     "id": "batch_2025-10-15_05-06-26/SCENARIO_6_Clear_Fraud_0101_r1",
+     "split": "cross_domain",
+     "domain": "cross_domain_4",
+     "fraud": true,
+     "error": false,
+     "verdict": "scam",
+     "type": "investment_trading",
+     "confidence": 0.89,
+     "red_flags": [
+      "guaranteed_returns",
+      "too_good_to_be_true",
+      "evades_credentials"
+     ],
+     "windows": 1
+    },
+    {
+     "id": "batch_2025-10-15_05-06-26/SCENARIO_3_Clear_Fraud_0053_r1",
+     "split": "cross_domain",
+     "domain": "cross_domain_4",
+     "fraud": true,
+     "error": false,
+     "verdict": "scam",
+     "type": "other_scam",
+     "confidence": 0.89,
+     "red_flags": [
+      "pay_to_receive",
+      "solicits_money_now",
+      "urgency_deadline"
+     ],
+     "windows": 1
+    },
+    {
+     "id": "batch_2025-10-15_05-06-26/SCENARIO_1_Clear_Fraud_0012_r1",
+     "split": "cross_domain",
+     "domain": "cross_domain_4",
+     "fraud": true,
+     "error": false,
+     "verdict": "scam",
+     "type": "investment_trading",
+     "confidence": 0.87,
+     "red_flags": [
+      "guaranteed_returns",
+      "evades_credentials"
+     ],
+     "windows": 2
+    },
+    {
+     "id": "batch_2025-10-15_05-06-26/SCENARIO_10_Subtle_Fraud_0193_r1",
+     "split": "cross_domain",
+     "domain": "cross_domain_4",
+     "fraud": true,
+     "error": false,
+     "verdict": "undetermined",
+     "type": "undetermined",
+     "confidence": 0.0,
+     "red_flags": [
+      "too_good_to_be_true"
+     ],
+     "windows": 2
+    },
+    {
+     "id": "batch_2025-10-15_05-06-26/SCENARIO_6_Clear_Fraud_0117_r1",
+     "split": "cross_domain",
+     "domain": "cross_domain_4",
+     "fraud": true,
+     "error": false,
+     "verdict": "scam",
+     "type": "investment_trading",
+     "confidence": 0.91,
+     "red_flags": [
+      "guaranteed_returns",
+      "evades_credentials",
+      "urgency_deadline",
+      "solicits_money_now"
+     ],
+     "windows": 2
+    },
+    {
+     "id": "batch_2025-10-15_05-06-26/SCENARIO_1_Clear_Fraud_0014_r1",
+     "split": "cross_domain",
+     "domain": "cross_domain_4",
+     "fraud": true,
+     "error": false,
+     "verdict": "scam",
+     "type": "investment_trading",
+     "confidence": 0.91,
+     "red_flags": [
+      "guaranteed_returns",
+      "too_good_to_be_true",
+      "evades_credentials",
+      "urgency_deadline"
+     ],
+     "windows": 1
+    },
+    {
+     "id": "batch_2025-10-15_05-06-26/SCENARIO_9_Subtle_Fraud_0177_r1",
+     "split": "cross_domain",
+     "domain": "cross_domain_4",
+     "fraud": true,
+     "error": false,
+     "verdict": "scam",
+     "type": "investment_trading",
+     "confidence": 0.87,
+     "red_flags": [
+      "guaranteed_returns",
+      "evades_credentials"
+     ],
+     "windows": 1
+    },
+    {
+     "id": "batch_2025-10-15_05-06-26/SCENARIO_7_Subtle_Fraud_0121_r1",
+     "split": "cross_domain",
+     "domain": "cross_domain_4",
+     "fraud": true,
+     "error": false,
+     "verdict": "scam",
+     "type": "investment_trading",
+     "confidence": 0.87,
+     "red_flags": [
+      "guaranteed_returns",
+      "solicits_money_now"
+     ],
+     "windows": 1
+    },
+    {
+     "id": "batch_2025-10-15_05-06-26/SCENARIO_9_Subtle_Fraud_0163_r1",
+     "split": "cross_domain",
+     "domain": "cross_domain_4",
+     "fraud": true,
+     "error": false,
+     "verdict": "scam",
+     "type": "investment_trading",
+     "confidence": 0.89,
+     "red_flags": [
+      "guaranteed_returns",
+      "evades_credentials",
+      "urgency_deadline"
+     ],
+     "windows": 1
+    },
+    {
+     "id": "batch_2025-10-15_05-06-26/SCENARIO_2_Clear_Fraud_0033_r1",
+     "split": "cross_domain",
+     "domain": "cross_domain_4",
+     "fraud": true,
+     "error": false,
+     "verdict": "scam",
+     "type": "investment_trading",
+     "confidence": 0.89,
+     "red_flags": [
+      "guaranteed_returns",
+      "discourages_verification",
+      "urgency_deadline"
+     ],
+     "windows": 1
+    },
+    {
+     "id": "batch_2025-10-15_05-06-26/SCENARIO_1_Clear_Fraud_0015_r1",
+     "split": "cross_domain",
+     "domain": "cross_domain_4",
+     "fraud": true,
+     "error": false,
+     "verdict": "scam",
+     "type": "investment_trading",
+     "confidence": 0.87,
+     "red_flags": [
+      "guaranteed_returns",
+      "too_good_to_be_true"
+     ],
+     "windows": 1
+    },
+    {
+     "id": "batch_2025-10-15_05-06-26/SCENARIO_6_Clear_Fraud_0111_r1",
+     "split": "cross_domain",
+     "domain": "cross_domain_4",
+     "fraud": true,
+     "error": false,
+     "verdict": "scam",
+     "type": "investment_trading",
+     "confidence": 0.89,
+     "red_flags": [
+      "guaranteed_returns",
+      "evades_credentials",
+      "urgency_deadline"
+     ],
+     "windows": 1
+    },
+    {
+     "id": "batch_2025-10-15_05-08-27/SCENARIO_4_Clear_Fraud_0073_r1",
+     "split": "cross_domain",
+     "domain": "cross_domain_5",
+     "fraud": true,
+     "error": false,
+     "verdict": "scam",
+     "type": "other_scam",
+     "confidence": 0.75,
+     "red_flags": [
+      "discourages_verification",
+      "urgency_deadline"
+     ],
+     "windows": 1
+    },
+    {
+     "id": "batch_2025-10-15_05-08-27/SCENARIO_5_Clear_Fraud_0083_r1",
+     "split": "cross_domain",
+     "domain": "cross_domain_5",
+     "fraud": true,
+     "error": false,
+     "verdict": "scam",
+     "type": "other_scam",
+     "confidence": 0.9,
+     "red_flags": [
+      "too_good_to_be_true",
+      "urgency_deadline",
+      "evades_credentials",
+      "identity_inconsistency"
+     ],
+     "windows": 1
+    },
+    {
+     "id": "batch_2025-10-15_05-08-27/SCENARIO_1_Clear_Fraud_0016_r1",
+     "split": "cross_domain",
+     "domain": "cross_domain_5",
+     "fraud": true,
+     "error": false,
+     "verdict": "scam",
+     "type": "other_scam",
+     "confidence": 0.96,
+     "red_flags": [
+      "urgency_deadline",
+      "payment_to_personal_account",
+      "arrest_or_legal_threat",
+      "solicits_money_now",
+      "discourages_verification"
+     ],
+     "windows": 1
+    },
+    {
+     "id": "batch_2025-10-15_05-08-27/SCENARIO_4_Clear_Fraud_0075_r1",
+     "split": "cross_domain",
+     "domain": "cross_domain_5",
+     "fraud": true,
+     "error": false,
+     "verdict": "undetermined",
+     "type": "undetermined",
+     "confidence": 0.0,
+     "red_flags": [
+      "urgency_deadline"
+     ],
+     "windows": 1
+    },
+    {
+     "id": "batch_2025-10-15_05-08-27/SCENARIO_1_Clear_Fraud_0014_r1",
+     "split": "cross_domain",
+     "domain": "cross_domain_5",
+     "fraud": true,
+     "error": false,
+     "verdict": "scam",
+     "type": "other_scam",
+     "confidence": 0.99,
+     "red_flags": [
+      "arrest_or_legal_threat",
+      "payment_to_personal_account",
+      "solicits_money_now",
+      "urgency_deadline",
+      "secrecy_or_isolation"
+     ],
+     "windows": 2
+    },
+    {
+     "id": "batch_2025-10-15_05-08-27/SCENARIO_1_Clear_Fraud_0011_r1",
+     "split": "cross_domain",
+     "domain": "cross_domain_5",
+     "fraud": true,
+     "error": false,
+     "verdict": "scam",
+     "type": "other_scam",
+     "confidence": 0.97,
+     "red_flags": [
+      "arrest_or_legal_threat",
+      "payment_to_personal_account",
+      "urgency_deadline",
+      "extortion_threat"
+     ],
+     "windows": 1
+    },
+    {
+     "id": "batch_2025-10-15_05-08-27/SCENARIO_8_Clear_Fraud_0151_r1",
+     "split": "cross_domain",
+     "domain": "cross_domain_5",
+     "fraud": true,
+     "error": false,
+     "verdict": "undetermined",
+     "type": "undetermined",
+     "confidence": 0.0,
+     "red_flags": [],
+     "windows": 1
+    },
+    {
+     "id": "batch_2025-10-15_05-08-27/SCENARIO_9_Subtle_Fraud_0174_r1",
+     "split": "cross_domain",
+     "domain": "cross_domain_5",
+     "fraud": true,
+     "error": false,
+     "verdict": "scam",
+     "type": "other_scam",
+     "confidence": 0.87,
+     "red_flags": [
+      "too_good_to_be_true",
+      "pay_to_receive"
+     ],
+     "windows": 1
+    },
+    {
+     "id": "batch_2025-10-15_05-08-27/SCENARIO_10_Clear_Fraud_0181_r1",
+     "split": "cross_domain",
+     "domain": "cross_domain_5",
+     "fraud": true,
+     "error": false,
+     "verdict": "scam",
+     "type": "other_scam",
+     "confidence": 0.75,
+     "red_flags": [
+      "asks_full_identifier",
+      "urgency_deadline"
+     ],
+     "windows": 1
+    },
+    {
+     "id": "batch_2025-10-15_05-08-27/SCENARIO_2_Clear_Fraud_0032_r1",
+     "split": "cross_domain",
+     "domain": "cross_domain_5",
+     "fraud": true,
+     "error": false,
+     "verdict": "scam",
+     "type": "other_scam",
+     "confidence": 0.85,
+     "red_flags": [
+      "solicits_money_now",
+      "urgency_deadline",
+      "discourages_verification"
+     ],
+     "windows": 1
+    },
+    {
+     "id": "batch_2025-10-15_05-08-27/SCENARIO_2_Clear_Fraud_0033_r1",
+     "split": "cross_domain",
+     "domain": "cross_domain_5",
+     "fraud": true,
+     "error": false,
+     "verdict": "scam",
+     "type": "other_scam",
+     "confidence": 0.85,
+     "red_flags": [
+      "urgency_deadline",
+      "solicits_money_now",
+      "discourages_verification"
+     ],
+     "windows": 1
+    },
+    {
+     "id": "batch_2025-10-15_05-08-27/SCENARIO_4_Clear_Fraud_0062_r1",
+     "split": "cross_domain",
+     "domain": "cross_domain_5",
+     "fraud": true,
+     "error": false,
+     "verdict": "scam",
+     "type": "other_scam",
+     "confidence": 0.91,
+     "red_flags": [
+      "urgency_deadline",
+      "discourages_verification",
+      "link_or_unofficial_channel",
+      "secrecy_or_isolation"
+     ],
+     "windows": 2
+    },
+    {
+     "id": "batch_2025-10-15_05-08-27/SCENARIO_2_Clear_Fraud_0023_r1",
+     "split": "cross_domain",
+     "domain": "cross_domain_5",
+     "fraud": true,
+     "error": false,
+     "verdict": "scam",
+     "type": "other_scam",
+     "confidence": 0.85,
+     "red_flags": [
+      "urgency_deadline",
+      "asks_full_identifier",
+      "solicits_money_now"
+     ],
+     "windows": 1
+    },
+    {
+     "id": "batch_2025-10-15_05-08-27/SCENARIO_5_Clear_Fraud_0096_r1",
+     "split": "cross_domain",
+     "domain": "cross_domain_5",
+     "fraud": true,
+     "error": false,
+     "verdict": "scam",
+     "type": "other_scam",
+     "confidence": 0.91,
+     "red_flags": [
+      "too_good_to_be_true",
+      "pay_to_receive",
+      "evades_credentials",
+      "solicits_money_now"
+     ],
+     "windows": 1
+    },
+    {
+     "id": "batch_2025-10-15_05-08-27/SCENARIO_6_Clear_Fraud_0113_r1",
+     "split": "cross_domain",
+     "domain": "cross_domain_5",
+     "fraud": true,
+     "error": false,
+     "verdict": "scam",
+     "type": "other_scam",
+     "confidence": 0.9,
+     "red_flags": [
+      "asks_full_identifier",
+      "solicits_money_now",
+      "urgency_deadline",
+      "identity_inconsistency"
+     ],
+     "windows": 2
+    },
+    {
+     "id": "batch_2025-10-15_05-08-27/SCENARIO_8_Clear_Fraud_0155_r1",
+     "split": "cross_domain",
+     "domain": "cross_domain_5",
+     "fraud": true,
+     "error": false,
+     "verdict": "undetermined",
+     "type": "undetermined",
+     "confidence": 0.0,
+     "red_flags": [
+      "evades_credentials"
+     ],
+     "windows": 1
+    },
+    {
+     "id": "batch_2025-10-15_05-08-27/SCENARIO_9_Subtle_Fraud_0165_r1",
+     "split": "cross_domain",
+     "domain": "cross_domain_5",
+     "fraud": true,
+     "error": false,
+     "verdict": "scam",
+     "type": "other_scam",
+     "confidence": 0.75,
+     "red_flags": [
+      "unexpected_windfall",
+      "urgency_deadline"
+     ],
+     "windows": 1
+    },
+    {
+     "id": "batch_2025-10-15_05-08-27/SCENARIO_10_Clear_Fraud_0189_r1",
+     "split": "cross_domain",
+     "domain": "cross_domain_5",
+     "fraud": true,
+     "error": false,
+     "verdict": "undetermined",
+     "type": "undetermined",
+     "confidence": 0.0,
+     "red_flags": [
+      "asks_full_identifier"
+     ],
+     "windows": 1
+    },
+    {
+     "id": "batch_2025-10-15_05-08-27/SCENARIO_8_Clear_Fraud_0153_r1",
+     "split": "cross_domain",
+     "domain": "cross_domain_5",
+     "fraud": true,
+     "error": false,
+     "verdict": "undetermined",
+     "type": "undetermined",
+     "confidence": 0.0,
+     "red_flags": [
+      "too_good_to_be_true"
+     ],
+     "windows": 1
+    },
+    {
+     "id": "batch_2025-10-15_05-08-27/SCENARIO_3_Clear_Fraud_0046_r1",
+     "split": "cross_domain",
+     "domain": "cross_domain_5",
+     "fraud": true,
+     "error": false,
+     "verdict": "scam",
+     "type": "other_scam",
+     "confidence": 0.85,
+     "red_flags": [
+      "unexpected_windfall",
+      "asks_full_identifier",
+      "urgency_deadline"
+     ],
+     "windows": 1
+    }
+   ]
+  }
+ ],
+ "streaming": []
+}

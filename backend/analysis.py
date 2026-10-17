@@ -62,17 +62,33 @@ HARD_FLAGS = {
     "secrecy_or_isolation": "Tells the listener not to tell family or the bank, or to stay on the call or video",
     "extortion_threat": "Threatens to shame, expose or harm the listener unless they pay: sending their photos or "
     "messages to their contacts, telling their family or employer, or violence",
+    # Slow-burn scams persuade instead of demanding; these two are decisive on their own.
+    "guaranteed_returns": "Promises guaranteed, fixed or risk-free returns on an investment, trading, crypto, chit fund, "
+    "plot or scheme, or returns far above a bank deposit rate (more than about 15% a year). A bank fixed deposit at its "
+    "published rate is not this flag",
+    "romance_money_request": "Someone in an online, romantic or long-distance relationship whom the listener has never "
+    "met in person asks them for money, gift cards or crypto, or for fees for travel, customs, a parcel, a hospital, "
+    "legal costs or an inheritance",
 }
 SOFT_FLAGS = {
     "urgency_deadline": "Pressure to act right now under threat of loss: account, card, SIM or power blocked today, a "
     "penalty or case within hours. A marketing offer that simply ends on a date is not this flag",
     "discourages_verification": "Refuses or talks the listener out of calling back on the official number, visiting "
     "the branch or office, or checking with family",
-    "asks_full_identifier": "Asks the listener to read out a full account number, Aadhaar, PAN or card number",
+    "asks_full_identifier": "Asks the listener to read out a full account number, Aadhaar or PAN number, or any digits, "
+    "the expiry or the CVV of a debit or credit card",
     "link_or_unofficial_channel": "Sends or asks to open a link, a WhatsApp or SMS form, or gives a personal mobile "
     "number as an official line",
-    "too_good_to_be_true": "A lottery the listener never entered, guaranteed or very high returns, a loan with no "
-    "checks at all, or easy work that pays far too much. A bank's ordinary pre-approved offer is not this flag",
+    "too_good_to_be_true": "A lottery the listener never entered, a loan with no checks at all, easy work that pays far "
+    "too much, or a price or benefit that is hard to believe. A bank's ordinary pre-approved offer is not this flag",
+    "solicits_money_now": "Asks the listener to send money now: invest, deposit, donate, buy crypto or gift cards, or pay a "
+    "fee, charge, tax or premium. Paying their own existing bill, EMI or premium through the official app, branch, "
+    "website or biller is not this flag",
+    "evades_credentials": "Cannot or will not give verifiable credentials when asked or when money is involved: a SEBI, "
+    "RBI or IRDAI registration number, a charity's registration or 80G certificate, a licence, a registered office "
+    "address, audited reports or an official website; or calls them unnecessary",
+    "unexpected_windfall": "Tells the listener they are owed or have won money they were not expecting: a refund, "
+    "overpayment, cashback, prize, bonus, inheritance or compensation",
     "emotional_emergency": "A family member in trouble (accident, hospital, arrest) who needs money urgently",
     "identity_inconsistency": "The caller's name, organisation or story changes, or they cannot answer basic questions "
     "about it (for example, says they are the listener's bank but cannot say the last digits of the account)",
@@ -80,8 +96,8 @@ SOFT_FLAGS = {
 LEGIT_SIGNALS = {
     "offers_official_verification": "Invites or agrees to a callback on the official number (back of the card, "
     "passbook, website), a branch or office visit, or the official app",
-    "partial_identifier_only": "Asks only for a partial detail (last 4 digits) or reads out what they already have "
-    "for the listener to confirm",
+    "partial_identifier_only": "Reads out a partial detail they already have (such as the last 4 digits of the "
+    "account) for the listener to confirm. Asking the listener to say any digits of a card is never this signal",
     "official_channel_only": "Any payment or action goes only through the official app, branch, website or biller",
     "accepts_refusal": "Accepts 'no' or 'I will check myself' calmly, without pressure",
     "no_request": "Asks for no money, no details and no action (wrong number, family chat, a plain reminder or "

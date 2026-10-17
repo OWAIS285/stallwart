@@ -140,7 +140,8 @@
    "Hand-written by the team, so the calls are cleaner than real speech-to-text and the scams are clear-cut.",
    "Small set: one wrong call moves a rate by several points.",
    "Streaming re-checks after each caller turn on the full prefix; the live product also adds the persona's own end_call(not_scam) as a tie-breaker, which is not exercised here."
-  ]
+  ],
+  "note": "keyword and legacy rows from the 16 Oct run; current row re-run on 18 Oct after the slow-burn red flags (1 run)."
  },
  "detail": {
   "keyword": {
@@ -1085,19 +1086,19 @@
      "metrics": {
       "legit_calls": 20,
       "scam_calls": 20,
-      "failed_requests": 3,
+      "failed_requests": 0,
       "false_positive_rate": 0.0,
       "legit_cleared_rate": 1.0,
       "legit_undetermined_rate": 0.0,
       "scam_recall": 1.0,
       "pair_accuracy": 1.0,
-      "pairs": 13,
+      "pairs": 16,
       "false_positives": [],
       "missed_scams": [],
       "correct_by_language": {
-       "en": "21/21",
-       "hi": "7/7",
-       "hinglish": "9/9"
+       "en": "22/22",
+       "hi": "8/8",
+       "hinglish": "10/10"
       },
       "stream_false_alarm_rate": 0.0,
       "stream_false_alarms": [],
@@ -1134,7 +1135,7 @@
       "loan-en-scam": {
        "verdict": "scam",
        "type": "loan_app",
-       "confidence": 0.94,
+       "confidence": 0.96,
        "redFlags": [
         [
          "pay_to_receive",
@@ -1151,6 +1152,10 @@
         [
          "payment_to_personal_account",
          "Send it by UPI to loandesk.kmb at okaxis, then the three lakh will be released immediately."
+        ],
+        [
+         "solicits_money_now",
+         "Send it by UPI to loandesk.kmb at okaxis, then the three lakh will be released immediately."
         ]
        ],
        "legitSignals": []
@@ -1163,15 +1168,15 @@
        "legitSignals": [
         [
          "offers_official_verification",
-         "aap jab free ho branch aa jaiye Aadhaar aur PAN ki copy le kar, ya bob World app mein khud update kar sakte hain."
+         "Bilkul uncle ji, zaroor kijiye, number aapki passbook ke peeche likha hai."
         ],
         [
          "official_channel_only",
-         "Phone par main aapse koi detail nahi maangungi."
+         "aap jab free ho branch aa jaiye Aadhaar aur PAN ki copy le kar, ya bob World app mein khud update kar sakte hain. Phone par main aapse koi detail nahi maangungi."
         ],
         [
          "accepts_refusal",
-         "Bilkul uncle ji, zaroor kijiye, number aapki passbook ke peeche likha hai. Agle mahine tak kabhi bhi aa sakte hain, koi jaldi nahi hai."
+         "Agle mahine tak kabhi bhi aa sakte hain, koi jaldi nahi hai."
         ]
        ]
       },
@@ -1194,7 +1199,7 @@
         ],
         [
          "asks_secret_credential",
-         "Link khol ke bhariye, phir aapke phone pe ek OTP aayega, wo mujhe bata dena."
+         "phir aapke phone pe ek OTP aayega, wo mujhe bata dena."
         ]
        ],
        "legitSignals": []
@@ -1207,15 +1212,15 @@
        "legitSignals": [
         [
          "official_channel_only",
-         "If you are interested you can accept it in the SBI Card app under offers"
+         "If you are interested you can accept it in the SBI Card app under offers, or call the customer care number on the back of your card."
         ],
         [
          "offers_official_verification",
-         "or call the customer care number on the back of your card."
+         "call the customer care number on the back of your card."
         ],
         [
          "partial_identifier_only",
-         "may I confirm the last four digits of your card end in 4417?"
+         "Just to make sure I have the right customer, may I confirm the last four digits of your card end in 4417?"
         ],
         [
          "accepts_refusal",
@@ -1234,7 +1239,7 @@
         ],
         [
          "asks_secret_credential",
-         "Please read out the sixteen digit number on the front of your card and the expiry date."
+         "Also tell me the three digit CVV on the back, and the OTP that comes now, otherwise the upgrade will be cancelled today."
         ],
         [
          "urgency_deadline",
@@ -1255,12 +1260,12 @@
        ],
        "legitSignals": [
         [
-         "offers_official_verification",
-         "Please bring your passbook to the Hazratganj branch any day this week, or you can also call the branch on the number on your loan papers."
-        ],
-        [
          "accepts_refusal",
          "Of course sir, no problem at all."
+        ],
+        [
+         "offers_official_verification",
+         "Please bring your passbook to the Hazratganj branch any day this week, or you can also call the branch on the number on your loan papers."
         ]
        ]
       },
@@ -1394,20 +1399,16 @@
       },
       "courier-en-scam": {
        "verdict": "scam",
-       "type": "courier_parcel",
-       "confidence": 0.92,
+       "type": "digital_arrest",
+       "confidence": 0.9,
        "redFlags": [
         [
          "arrest_or_legal_threat",
-         "I am transferring your call to the Mumbai Police cyber cell, an FIR is being registered."
+         "an FIR is being registered."
         ],
         [
          "secrecy_or_isolation",
          "No sir, do not tell your son or anyone, this is a confidential investigation. Stay on this call, if you disconnect you will be arrested."
-        ],
-        [
-         "discourages_verification",
-         "No sir, do not tell your son or anyone, this is a confidential investigation."
         ]
        ],
        "legitSignals": []
@@ -1415,7 +1416,7 @@
       "insure-en-legit": {
        "verdict": "legitimate",
        "type": "not_scam",
-       "confidence": 0.9,
+       "confidence": 0.85,
        "redFlags": [],
        "legitSignals": [
         [
@@ -1424,26 +1425,26 @@
         ],
         [
          "offers_official_verification",
-         "You can pay it at the branch, on the LIC website or through the LIC app, whichever is easy. I can also post the premium notice to your home."
+         "That is the best, sir. Please take your policy number with you."
         ],
         [
          "accepts_refusal",
          "That is the best, sir. Please take your policy number with you. Thank you, take care."
-        ],
-        [
-         "no_request",
-         "Namaste sir, I am Meena, your LIC agent from the Aminabad branch. Your policy premium is due on the twenty-eighth."
         ]
        ]
       },
       "insure-en-scam": {
        "verdict": "scam",
-       "type": "lottery_prize",
-       "confidence": 0.92,
+       "type": "other_scam",
+       "confidence": 0.96,
        "redFlags": [
         [
+         "unexpected_windfall",
+         "Your old policy has matured with a bonus of four lakh twenty thousand rupees."
+        ],
+        [
          "pay_to_receive",
-         "Yes sir, but to release it a GST charge of eighteen thousand five hundred must be deposited first."
+         "to release it a GST charge of eighteen thousand five hundred must be deposited first."
         ],
         [
          "discourages_verification",
@@ -1451,6 +1452,10 @@
         ],
         [
          "payment_to_personal_account",
+         "Deposit the GST in my account, account number one two three four five six seven eight nine zero, then the money will come."
+        ],
+        [
+         "solicits_money_now",
          "Deposit the GST in my account, account number one two three four five six seven eight nine zero, then the money will come."
         ]
        ],
@@ -1467,18 +1472,18 @@
          "आप शाखा में आ जाइए या किसी जीवन प्रमाण केंद्र पर जाइए।"
         ],
         [
-         "no_request",
-         "फ़ोन पर मुझे कोई जानकारी नहीं चाहिए।"
-        ],
-        [
          "official_channel_only",
          "आप शाखा में आ जाइए या किसी जीवन प्रमाण केंद्र पर जाइए। आधार और पेंशन बुक साथ लाइए।"
+        ],
+        [
+         "no_request",
+         "फ़ोन पर मुझे कोई जानकारी नहीं चाहिए।"
         ]
        ]
       },
       "pension-hi-scam": {
        "verdict": "scam",
-       "type": "bank_kyc_block",
+       "type": "fake_customer_care",
        "confidence": 0.94,
        "redFlags": [
         [
@@ -1503,7 +1508,7 @@
       "tax-en-legit": {
        "verdict": "legitimate",
        "type": "not_scam",
-       "confidence": 0.75,
+       "confidence": 0.85,
        "redFlags": [],
        "legitSignals": [
         [
@@ -1511,17 +1516,63 @@
          "You can drop them at our office or your son can email them to the office address."
         ],
         [
-         "no_request",
-         "The deadline is the thirty-first of July, so there is still time. Thank you."
+         "official_channel_only",
+         "You can drop them at our office or your son can email them to the office address."
+        ],
+        [
+         "accepts_refusal",
+         "Perfect uncle. The deadline is the thirty-first of July, so there is still time. Thank you."
         ]
        ]
       },
-      "tax-en-scam": null,
-      "job-hinglish-legit": null,
+      "tax-en-scam": {
+       "verdict": "scam",
+       "type": "other_scam",
+       "confidence": 0.93,
+       "redFlags": [
+        [
+         "unexpected_windfall",
+         "A refund of twenty-four thousand rupees is pending in your name."
+        ],
+        [
+         "link_or_unofficial_channel",
+         "I have sent a link on your WhatsApp."
+        ],
+        [
+         "asks_secret_credential",
+         "Open it and log in with your net banking user ID and password, the refund will be credited at once."
+        ],
+        [
+         "urgency_deadline",
+         "Sir the link will expire in thirty minutes. Do it yourself now, there is no need to involve your son."
+        ],
+        [
+         "discourages_verification",
+         "Do it yourself now, there is no need to involve your son."
+        ]
+       ],
+       "legitSignals": []
+      },
+      "job-hinglish-legit": {
+       "verdict": "legitimate",
+       "type": "not_scam",
+       "confidence": 0.75,
+       "redFlags": [],
+       "legitSignals": [
+        [
+         "offers_official_verification",
+         "careers website pe jo HR number hai uspe call kar lein"
+        ],
+        [
+         "no_request",
+         "Unko bata dijiye ki interview Thursday ko office mein hai, poori jaankari unke email pe official Infosys address se aa chuki hai. Koi fees nahi hai."
+        ]
+       ]
+      },
       "job-hinglish-scam": {
        "verdict": "scam",
        "type": "task_job",
-       "confidence": 0.94,
+       "confidence": 0.93,
        "redFlags": [
         [
          "too_good_to_be_true",
@@ -1536,7 +1587,11 @@
          "Bete ko kya poochna, aaj last slot hai."
         ],
         [
-         "payment_to_personal_account",
+         "urgency_deadline",
+         "aaj last slot hai."
+        ],
+        [
+         "solicits_money_now",
          "Is UPI pe bhej dijiye, earnhome.task at ybl."
         ]
        ],
@@ -1558,14 +1613,14 @@
         ],
         [
          "no_request",
-         "No sir, nothing on the phone. Any bills are paid at the hospital counter when you come. Please come when you are ready."
+         "No sir, nothing on the phone."
         ]
        ]
       },
       "hospital-en-scam": {
        "verdict": "scam",
        "type": "family_emergency",
-       "confidence": 0.85,
+       "confidence": 0.9,
        "redFlags": [
         [
          "emotional_emergency",
@@ -1578,6 +1633,10 @@
         [
          "discourages_verification",
          "There is no time, do not waste time calling anyone."
+        ],
+        [
+         "solicits_money_now",
+         "Send the money now to this UPI, citycare.ot at paytm, every minute counts."
         ]
        ],
        "legitSignals": []
@@ -1641,19 +1700,23 @@
       "emi-hinglish-scam": {
        "verdict": "scam",
        "type": "loan_app",
-       "confidence": 0.94,
+       "confidence": 0.99,
        "redFlags": [
         [
          "payment_to_personal_account",
-         "Abhi aath hazaar is UPI pe bhejo, quickcash.recovery at ybl, warna aapki photos aapke saare contacts ko bhej denge."
+         "Abhi aath hazaar is UPI pe bhejo, quickcash.recovery at ybl"
         ],
         [
-         "urgency_deadline",
-         "Ek ghante mein paise nahi aaye toh police case karwa denge."
+         "extortion_threat",
+         "warna aapki photos aapke saare contacts ko bhej denge."
         ],
         [
          "discourages_verification",
          "Bank ko beech mein mat lao."
+        ],
+        [
+         "urgency_deadline",
+         "Ek ghante mein paise nahi aaye toh police case karwa denge."
         ],
         [
          "arrest_or_legal_threat",
@@ -1669,20 +1732,47 @@
        "redFlags": [],
        "legitSignals": [
         [
-         "no_request",
-         "आपकी सिलेंडर बुकिंग कन्फ़र्म हो गई है।"
+         "offers_official_verification",
+         "हाँ जी, ज़रूर, नंबर आपकी गैस बुक पर लिखा है।"
         ],
         [
          "accepts_refusal",
          "हाँ जी, ज़रूर, नंबर आपकी गैस बुक पर लिखा है। धन्यवाद।"
         ],
         [
-         "offers_official_verification",
-         "हाँ जी, ज़रूर, नंबर आपकी गैस बुक पर लिखा है।"
+         "no_request",
+         "कल सुबह डिलीवरी हो जाएगी। पैसे डिलीवरी के समय दीजिए और रसीद ले लीजिए। सब्सिडी अपने आप आपके खाते में आ जाती है।"
         ]
        ]
       },
-      "lpg-hi-scam": null,
+      "lpg-hi-scam": {
+       "verdict": "scam",
+       "type": "other_scam",
+       "confidence": 0.96,
+       "redFlags": [
+        [
+         "unexpected_windfall",
+         "आपकी तीन हज़ार पाँच सौ रुपये की सब्सिडी रुकी हुई है।"
+        ],
+        [
+         "link_or_unofficial_channel",
+         "मैं आपको व्हाट्सऐप पर एक क्यूआर कोड भेज रहा हूँ।"
+        ],
+        [
+         "pay_to_receive",
+         "उसे स्कैन करके एक रुपया भेजिए, तभी सब्सिडी आपके खाते में आएगी।"
+        ],
+        [
+         "discourages_verification",
+         "एजेंसी को इसका पता नहीं होता, यह सीधा सरकार से है।"
+        ],
+        [
+         "asks_secret_credential",
+         "स्कैन करके यूपीआई पिन डालिए, बस।"
+        ]
+       ],
+       "legitSignals": []
+      },
       "invest-en-legit": {
        "verdict": "legitimate",
        "type": "not_scam",
@@ -1695,19 +1785,23 @@
         ],
         [
          "accepts_refusal",
-         "Sure sir, no hurry at all. If you do nothing, it will simply renew as usual. Thank you."
+         "Sure sir, no hurry at all. If you do nothing, it will simply renew as usual."
         ],
         [
          "no_request",
-         "If you do nothing, it will simply renew as usual. Thank you."
+         "Your fixed deposit matures next week, I wanted to discuss options."
         ]
        ]
       },
       "invest-en-scam": {
        "verdict": "scam",
        "type": "investment_trading",
-       "confidence": 0.91,
+       "confidence": 0.99,
        "redFlags": [
+        [
+         "guaranteed_returns",
+         "Guaranteed sir, zero risk."
+        ],
         [
          "too_good_to_be_true",
          "Our members are earning forty percent returns every month."
@@ -1715,6 +1809,14 @@
         [
          "link_or_unofficial_channel",
          "Join our WhatsApp group, our expert gives tips."
+        ],
+        [
+         "solicits_money_now",
+         "Start with one lakh, transfer it to our trading account and you will get one lakh forty next month."
+        ],
+        [
+         "urgency_deadline",
+         "Sir the offer is only for today, seats are limited."
         ],
         [
          "secrecy_or_isolation",
@@ -1751,7 +1853,7 @@
       "late-loan-hinglish": {
        "verdict": "scam",
        "type": "loan_app",
-       "confidence": 0.9,
+       "confidence": 0.92,
        "redFlags": [
         [
          "pay_to_receive",
@@ -1759,6 +1861,10 @@
         ],
         [
          "payment_to_personal_account",
+         "Bas loan aaj release karne ke liye pehle chaubees sau ki processing fee is UPI pe bhejni hogi, hdfcloan.desk at okicici."
+        ],
+        [
+         "solicits_money_now",
          "Bas loan aaj release karne ke liye pehle chaubees sau ki processing fee is UPI pe bhejni hogi, hdfcloan.desk at okicici."
         ]
        ],
@@ -1772,15 +1878,19 @@
       "late-courier-hi": {
        "verdict": "scam",
        "type": "courier_parcel",
-       "confidence": 0.87,
+       "confidence": 0.89,
        "redFlags": [
         [
          "link_or_unofficial_channel",
-         "मैं एक लिंक भेज रहा हूँ"
+         "मैं एक लिंक भेज रहा हूँ, उसमें पाँच रुपये का शुल्क अपने कार्ड से भरिए, कार्ड नंबर, एक्सपायरी और सीवीवी डालकर।"
         ],
         [
          "asks_secret_credential",
-         "कार्ड नंबर, एक्सपायरी और सीवीवी डालकर"
+         "कार्ड नंबर, एक्सपायरी और सीवीवी डालकर।"
+        ],
+        [
+         "solicits_money_now",
+         "उसमें पाँच रुपये का शुल्क अपने कार्ड से भरिए"
         ]
        ],
        "legitSignals": []
@@ -1788,7 +1898,7 @@
       "late-insure-en": {
        "verdict": "scam",
        "type": "lottery_prize",
-       "confidence": 0.95,
+       "confidence": 0.99,
        "redFlags": [
         [
          "pay_to_receive",
@@ -1796,7 +1906,15 @@
         ],
         [
          "payment_to_personal_account",
-         "you must deposit eleven thousand tax to my account first."
+         "deposit eleven thousand tax to my account first."
+        ],
+        [
+         "solicits_money_now",
+         "deposit eleven thousand tax to my account first."
+        ],
+        [
+         "unexpected_windfall",
+         "There is a bonus of two lakh on your policy"
         ],
         [
          "secrecy_or_isolation",
@@ -1834,7 +1952,7 @@
        "legitSignals": [
         [
          "no_request",
-         "Main theek hoon. Sunday ko bachchon ko le kar aaungi, aap kuch mangwana ho toh bata dena."
+         "Sunday ko bachchon ko le kar aaungi, aap kuch mangwana ho toh bata dena."
         ]
        ]
       },
@@ -1858,11 +1976,11 @@
        "legitSignals": [
         [
          "official_channel_only",
-         "आप ऑफ़िस में आकर दे दीजिए या सोसाइटी के ऐप से भर दीजिए, रसीद मिल जाएगी।"
+         "आप ऑफ़िस में आकर दे दीजिए या सोसाइटी के ऐप से भर दीजिए"
         ],
         [
          "offers_official_verification",
-         "आप ऑफ़िस में आकर दे दीजिए या सोसाइटी के ऐप से भर दीजिए, रसीद मिल जाएगी।"
+         "रसीद मिल जाएगी"
         ]
        ]
       }
@@ -2027,7 +2145,7 @@
        "legitimate"
       ],
       "invest-en-scam": [
-       "undetermined",
+       "scam",
        "scam",
        "scam"
       ],

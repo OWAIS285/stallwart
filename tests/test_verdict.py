@@ -52,6 +52,23 @@ def test_two_different_soft_flags_make_a_scam():
     assert decide_verdict(["asks_full_identifier", "urgency_deadline"], [], 2)[0] == "scam"
 
 
+def test_slow_burn_scams_are_caught_by_behaviour():
+    # Ponzi / crypto: a guaranteed return is decisive on its own.
+    assert decide_verdict(["guaranteed_returns"], [], 2)[0] == "scam"
+    # Romance: money asked by someone never met.
+    assert decide_verdict(["romance_money_request"], [], 3)[0] == "scam"
+    # Fake charity: asks to donate now and dodges the registration question.
+    assert decide_verdict(["solicits_money_now", "evades_credentials"], [], 3)[0] == "scam"
+    # Refund scam: money the listener did not expect, then card digits.
+    assert decide_verdict(["unexpected_windfall", "asks_full_identifier"], [], 2)[0] == "scam"
+
+
+def test_asking_for_money_alone_is_not_a_scam():
+    assert decide_verdict(["solicits_money_now"], [], 3)[0] == "undetermined"
+    # A genuine agent asking for a premium through the official channel, who accepts a no.
+    assert decide_verdict(["solicits_money_now"], ["official_channel_only", "accepts_refusal"], 3)[0] == "legitimate"
+
+
 def test_topic_without_behaviour_stays_undetermined():
     assert decide_verdict([], [], 5) == ("undetermined", 0.0)
 
