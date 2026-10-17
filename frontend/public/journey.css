@@ -160,21 +160,3 @@
   .sj-hero .sj-trust { display: none; }
   .sj-title { font-size: clamp(2rem, min(3.4vw, 6.6vh), 3.6rem); }
 }
-
-/* ---- after the story: the rest of the page is one sheet that rises over the pinned scene and opens out to full width as you scroll ---- */
-.home-sheet { position: relative; z-index: 2; margin-inline: calc(50% - 50vw); padding-inline: calc(50vw - 50%); }
-.home.has-journey .home-top { position: sticky; top: 0; z-index: 0; margin-top: calc(-1 * (var(--nav-h) + 12px)); }
-.home.has-journey .journey { margin-top: 0; transform: scale(calc(1 - 0.05 * var(--k, 0))); transform-origin: 50% 40%; }
-.home.has-journey .home-top::after { content: ""; position: absolute; inset: 0; z-index: 8; pointer-events: none; background: #04070f; opacity: calc(var(--k, 0) * 0.82); }
-.home.has-journey .home-sheet {
-  background: linear-gradient(180deg, #091330 0, #050a18 260px, #04070f 100%);
-  border-radius: calc((1 - var(--k, 0)) * 44px) calc((1 - var(--k, 0)) * 44px) 0 0;
-  transform: translate3d(0, calc((1 - var(--k, 0)) * 30px), 0) scale(calc(0.9 + 0.1 * var(--k, 0)));
-  transform-origin: 50% 0;
-  box-shadow: 0 -1px 0 rgba(125, 178, 255, 0.3), 0 -60px 140px rgba(0, 0, 0, 0.7);
-  overflow-x: clip;
-}
-.home.has-journey .home-sheet::before { content: ""; position: absolute; top: 12px; left: 50%; width: 60px; height: 4px; margin-left: -30px; border-radius: 4px; background: rgba(255, 255, 255, 0.24); opacity: calc(1 - var(--k, 0) * 1.5); }
-.home.has-journey.sheet-open .home-sheet { transform: none; border-radius: 0; box-shadow: none; }
-@media (max-width: 900px) { .home.has-journey .home-sheet { transform: translate3d(0, calc((1 - var(--k, 0)) * 20px), 0) scale(calc(0.95 + 0.05 * var(--k, 0))); } }
-@media (prefers-reduced-motion: reduce) { .home.has-journey .home-sheet, .home.has-journey .journey { transform: none; } }

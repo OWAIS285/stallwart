@@ -3,7 +3,6 @@
 // If WebGL2 is missing, motion is reduced or the 3D bundle fails to load, onFail() lets the page fall back to the classic hero.
 
 import { BRAND } from "../brand.js";
-import { sound } from "../sound.js";
 import { h, icon, reducedMotion } from "../util.js";
 
 const clamp = (v, lo = 0, hi = 1) => Math.min(hi, Math.max(lo, v));
@@ -101,7 +100,7 @@ const LAST = SCENES.length - 1;
 // Labels pinned to things in the scene: where, when they show (by story progress), and what they say.
 const TAGS = [
   { id: "orb", tone: "blue", title: "Stallwart AI", when: (p) => 1 - seg(0.08, 0.14, p), sub: () => "Standing by for the next call" },
-  { id: "scam", tone: "red", title: "Scam call centre", when: (p) => seg(0.15, 0.18, p) * (1 - seg(0.45, 0.5, p)), sub: (p) => (p < 0.24 ? "Dialling a stranger\u2026" : "Call connected") },
+  { id: "scam", tone: "red", title: "Scammer", when: (p) => seg(0.15, 0.18, p) * (1 - seg(0.45, 0.5, p)), sub: (p) => (p < 0.24 ? "Dialling a stranger\u2026" : "Call connected") },
   { id: "orb", tone: "blue", title: "Ramesh (AI)", when: (p) => seg(0.17, 0.2, p) * (1 - seg(0.52, 0.56, p)), sub: (p, idle) => (p < 0.27 ? "Phone ringing\u2026" : `Scammer's time wasted ${clock(14 + seg(0.28, 0.41, p) * 26 + idle)}`) },
   { id: "bank", tone: "red", title: "Mule account caught", when: (p) => seg(0.5, 0.52, p) * (1 - seg(0.535, 0.55, p)), sub: () => "SBIN0001234 \u2192 State Bank of India" },
   { id: "bank", tone: "ice", title: "Account frozen", when: (p) => seg(0.552, 0.572, p) * (1 - seg(0.66, 0.7, p)), sub: () => "Bank fraud team notified" },
@@ -315,7 +314,6 @@ export function createJourney({ onFail } = {}) {
   }
 
   function onFrame({ p, t, project }) {
-    sound.journey(p, t, step);
     const idle = idleSince ? (performance.now() - idleSince) / 1000 : 0;
     const w = stage.clientWidth;
     const hgt = stage.clientHeight;

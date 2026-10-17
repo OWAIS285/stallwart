@@ -4,7 +4,6 @@ import { errorState } from "./components.js";
 import { installPointerFx, startBackground } from "./fx.js";
 import { playIntro, shouldPlayIntro } from "./intro.js";
 import { createCurtain, installCursor, installMagnetic, installScrollProgress } from "./motion.js";
-import { installUiSounds, sound } from "./sound.js";
 import { $, h, icon, installRipples, logo, observeReveal } from "./util.js";
 import { BankInboxView, BanksView } from "./views/banks.js";
 import { CallView } from "./views/call.js";
@@ -48,30 +47,6 @@ let current = null;
 /** Text that rolls up on hover: the label twice in a clipped stack. */
 const roll = (text) => h("span", { class: "roll" }, h("span", {}, text), h("span", { "aria-hidden": "true" }, text));
 
-/** Sound on/off with a live four-bar level meter, like an equaliser. */
-function soundToggle() {
-  const bars = Array.from({ length: 4 }, () => h("i"));
-  const label = h("span", { class: "st-label" }, "Sound");
-  const btn = h("button", { class: "sound-toggle", type: "button", "aria-pressed": "false", "aria-label": "Turn sound on", title: "Immersive sound on or off", onClick: () => sound.toggle() }, h("span", { class: "st-bars", "aria-hidden": "true" }, bars), label);
-  const paint = (on) => {
-    btn.setAttribute("aria-pressed", String(on));
-    btn.setAttribute("aria-label", on ? "Turn sound off" : "Turn sound on");
-    label.textContent = on ? "On" : "Off";
-  };
-  paint(sound.enabled);
-  sound.onChange(paint);
-  let last = 0;
-  const loop = (now) => {
-    requestAnimationFrame(loop);
-    if (now - last < 50 || !sound.enabled) return;
-    last = now;
-    const levels = sound.bars(4);
-    bars.forEach((b, i) => b.style.setProperty("--h", levels[i].toFixed(2)));
-  };
-  requestAnimationFrame(loop);
-  return btn;
-}
-
 function buildShell() {
   const statusDot = h("span", { class: "dot" });
   const statusText = h("span", {}, "Checking…");
@@ -80,7 +55,7 @@ function buildShell() {
   header.replaceChildren(
     h("a", { class: "brand", href: "#/", "aria-label": `${BRAND.name} home` }, logo(), brandText()),
     h("nav", { class: "nav", "aria-label": "Main" }, NAV.map((item) => h("a", { href: item.href, "data-href": item.href }, roll(item.label)))),
-    h("div", { class: "top-right" }, soundToggle(), status, h("a", { class: "btn primary mini mag nav-cta", href: "#/call" }, icon("phone"), "Take a call")),
+    h("div", { class: "top-right" }, status, h("a", { class: "btn primary mini mag nav-cta", href: "#/call" }, icon("phone"), "Take a call")),
   );
   const tabbar = $("#tabbar");
   tabbar.replaceChildren(
@@ -128,7 +103,6 @@ function route() {
   current = null;
   document.body.classList.toggle("bare", !!found?.bare);
   document.body.classList.toggle("on-home", !!found && found.title === "");
-  sound.setScene(found && found.title === "" ? "home" : "app");
   setActive(target);
   let view;
   try {
@@ -189,7 +163,6 @@ startBackground($("#fx"));
 installPointerFx();
 installCursor();
 installMagnetic();
-installUiSounds();
 installScrollProgress();
 window.scrollTo(0, 0);
 if (shouldPlayIntro()) playIntro({ onReveal: route });

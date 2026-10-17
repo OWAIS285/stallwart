@@ -1,14 +1,13 @@
 // Opening sequence: an unknown number rings while the page really loads, the decoy picks up, a voice ring wakes and the name resolves.
-// Plays once per browser session on the landing page. Enter (with sound), Escape, a click anywhere or Skip ends it.
+// Plays once per browser session on the landing page. Enter, Escape, a click anywhere or Skip ends it.
 
 import { BRAND } from "./brand.js";
-import { sound } from "./sound.js";
 import { h, logo, reducedMotion } from "./util.js";
 import { canUseCity } from "./views/journey.js";
 
 const SEEN_KEY = "intro-seen";
 const MIN_RING = 2.1; // seconds the phone rings at the very least
-const AUTO_MS = 7000; // after the name resolves, continue silently if nobody chooses
+const AUTO_MS = 7000; // after the name resolves, continue on its own if nobody clicks
 
 export function shouldPlayIntro() {
   const flag = new URLSearchParams(location.search).get("intro");
@@ -37,10 +36,9 @@ export function playIntro({ onReveal } = {}) {
     const letters = [...BRAND.name].map((ch, i) => h("span", { class: "il", "aria-hidden": "true", style: { "--i": i } }, ch === " " ? "\u00a0" : ch));
     const name = h("h1", { class: "ix-name", "aria-label": BRAND.name }, letters);
     const tag = h("p", { class: "ix-tag" }, BRAND.introLine);
-    const withSound = h("button", { class: "ix-btn primary", type: "button" }, h("span", {}, "Enter with sound"));
-    const silent = h("button", { class: "ix-btn", type: "button" }, h("span", {}, "Without sound"));
+    const enterBtn = h("button", { class: "ix-btn primary", type: "button" }, h("span", {}, "Enter"));
     const auto = h("i", { class: "ix-auto" });
-    const actions = h("div", { class: "ix-actions", "aria-hidden": "true" }, withSound, silent, auto);
+    const actions = h("div", { class: "ix-actions", "aria-hidden": "true" }, enterBtn, auto);
     const label = h("span", { class: "ix-label" }, STATUS[0]);
     const count = h("b", { class: "ix-count" }, "000");
     const fill = h("i", { class: "ix-fill" });
@@ -253,24 +251,17 @@ export function playIntro({ onReveal } = {}) {
       at(1.75, () => {
         root.classList.add("is-ready");
         actions.removeAttribute("aria-hidden");
-        withSound.focus({ preventScroll: true });
-        timers.push(setTimeout(() => enter(false), AUTO_MS));
+        enterBtn.focus({ preventScroll: true });
+        timers.push(setTimeout(() => enter(), AUTO_MS));
       });
     }
 
-    async function enter(wantSound) {
+    function enter() {
       if (finished) return;
       finished = true;
       timers.forEach(clearTimeout);
       window.removeEventListener("keydown", onKey);
       root.classList.add("is-leaving");
-      if (wantSound) {
-        try {
-          await sound.enable();
-        } catch {
-          /* audio unavailable: carry on silently */
-        }
-      } else if (sound.enabled) sound.disable();
       try {
         sessionStorage.setItem(SEEN_KEY, "1");
       } catch {
@@ -291,32 +282,28 @@ export function playIntro({ onReveal } = {}) {
     const onKey = (event) => {
       if (event.key === "Escape") {
         event.preventDefault();
-        enter(false);
+        enter();
       } else if (event.key === "Enter" || event.key === " ") {
         if (event.target instanceof Element && event.target.closest("button")) return;
         event.preventDefault();
-        enter(root.classList.contains("is-ready"));
+        enter();
       }
     };
 
     resize();
     window.addEventListener("resize", resize);
     window.addEventListener("keydown", onKey);
-    withSound.addEventListener("click", (e) => {
+    enterBtn.addEventListener("click", (e) => {
       e.stopPropagation();
-      enter(true);
-    });
-    silent.addEventListener("click", (e) => {
-      e.stopPropagation();
-      enter(false);
+      enter();
     });
     skip.addEventListener("click", (e) => {
       e.stopPropagation();
-      enter(false);
+      enter();
     });
     root.addEventListener("pointerdown", (e) => {
       if (e.target instanceof Element && e.target.closest("button")) return;
-      enter(false);
+      enter();
     });
     raf = requestAnimationFrame(draw);
     root.classList.add("p-ring");
