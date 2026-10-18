@@ -102,8 +102,8 @@ const TAGS = [
   { id: "orb", tone: "blue", title: "Stallwart AI", when: (p) => 1 - seg(0.08, 0.14, p), sub: () => "Standing by for the next call" },
   { id: "scam", tone: "red", title: "Scammer", when: (p) => seg(0.15, 0.18, p) * (1 - seg(0.45, 0.5, p)), sub: (p) => (p < 0.24 ? "Dialling a stranger\u2026" : "Call connected") },
   { id: "orb", tone: "blue", title: "Ramesh (AI)", when: (p) => seg(0.17, 0.2, p) * (1 - seg(0.52, 0.56, p)), sub: (p, idle) => (p < 0.27 ? "Phone ringing\u2026" : `Scammer's time wasted ${clock(14 + seg(0.28, 0.41, p) * 26 + idle)}`) },
-  { id: "bank_tag", tone: "red", title: "Mule account caught", when: (p) => seg(0.5, 0.52, p) * (1 - seg(0.535, 0.55, p)), sub: () => "SBIN0001234 \u2192 State Bank of India" },
-  { id: "bank_tag", tone: "ice", title: "Account frozen", when: (p) => seg(0.552, 0.572, p) * (1 - seg(0.66, 0.7, p)), sub: () => "Bank fraud team notified" },
+  { id: "bank_tag", side: "left", tone: "red", title: "Mule account caught", when: (p) => seg(0.5, 0.53, p) * (1 - seg(0.66, 0.7, p)), sub: () => "SBIN0001234 \u2192 State Bank of India" },
+  { id: "bank_tag", side: "right", tone: "ice", title: "Account frozen", when: (p) => seg(0.53, 0.56, p) * (1 - seg(0.66, 0.7, p)), sub: () => "Bank fraud team notified" },
   { id: "card", tone: "blue", title: "Strain captured", when: (p) => seg(0.62, 0.65, p) * (1 - seg(0.72, 0.75, p)), sub: () => "Identifiers removed" },
   { id: "families", tone: "ice", title: "Family drills", when: (p) => seg(0.82, 0.85, p) * (1 - seg(0.97, 1, p)), sub: () => "Practice call, with consent" },
   // the last scene names every station: Stallwart AI at the heart, the catching side on its left, the protecting side on its right
@@ -167,7 +167,7 @@ export function createJourney({ onFail } = {}) {
   );
   const tags = TAGS.map((t) => {
     const small = t.compact ? null : h("small", {}, "");
-    const tagEl = h("div", { class: `hud-tag tone-${t.tone}${t.compact ? " compact" : ""}${t.hub ? " hub" : ""}`, "aria-hidden": "true" }, h("i", { class: "ht-dot" }), h("div", {}, h("b", {}, t.title), small));
+    const tagEl = h("div", { class: `hud-tag tone-${t.tone}${t.compact ? " compact" : ""}${t.hub ? " hub" : ""}${t.side === "left" ? " flip" : ""}`, "aria-hidden": "true" }, h("i", { class: "ht-dot" }), h("div", {}, h("b", {}, t.title), small));
     return { ...t, el: tagEl, small, last: "" };
   });
 
@@ -332,8 +332,10 @@ export function createJourney({ onFail } = {}) {
       tag.el.classList.toggle("on", showTag && k > 0.02);
       if (!showTag) continue;
       const y = tag.hub && ctaBottom ? Math.max(at.y, ctaBottom + 20 + 96) : at.y;
+      // two cards on one object sit side by side, each with its pointer on the object
+      const x = tag.side === "left" ? at.x + 2 - tag.el.offsetWidth : tag.side === "right" ? at.x + 46 : at.x;
       tag.el.style.opacity = String(clamp(k * 1.2));
-      tag.el.style.transform = `translate(${Math.round(at.x)}px, ${Math.round(y)}px)`;
+      tag.el.style.transform = `translate(${Math.round(x)}px, ${Math.round(y)}px)`;
       if (!tag.small) continue;
       const text = tag.sub(p, idle);
       if (text !== tag.last) {
