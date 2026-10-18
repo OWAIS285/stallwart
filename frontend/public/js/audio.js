@@ -1,4 +1,4 @@
-// Browser audio: microphone capture (16 kHz PCM16), persona playback (24 kHz PCM16), visualiser and ring tone.
+// Browser audio: microphone capture (16 kHz PCM16), persona playback (24 kHz PCM16) and the visualiser.
 
 export const MIC_THRESHOLD = 0.018; // rms level treated as "the caller is talking"
 
@@ -237,37 +237,4 @@ export class Visualizer {
       g.fill();
     }
   }
-}
-
-/** Two-tone phone ring (double burst). Returns a stop function. */
-export function ringTone(ctx) {
-  const gain = ctx.createGain();
-  gain.gain.value = 0;
-  gain.connect(ctx.destination);
-  const oscillators = [400, 450].map((frequency) => {
-    const osc = ctx.createOscillator();
-    osc.frequency.value = frequency;
-    osc.connect(gain);
-    osc.start();
-    return osc;
-  });
-  const begin = ctx.currentTime + 0.05;
-  for (let cycle = 0; cycle < 3; cycle++) {
-    const base = begin + cycle * 2.4;
-    for (const offset of [0, 0.6]) {
-      gain.gain.setValueAtTime(0, base + offset);
-      gain.gain.linearRampToValueAtTime(0.08, base + offset + 0.03);
-      gain.gain.setValueAtTime(0.08, base + offset + 0.4);
-      gain.gain.linearRampToValueAtTime(0, base + offset + 0.43);
-    }
-  }
-  return () => {
-    try {
-      gain.gain.cancelScheduledValues(ctx.currentTime);
-      gain.gain.setTargetAtTime(0, ctx.currentTime, 0.02);
-      oscillators.forEach((osc) => osc.stop(ctx.currentTime + 0.2));
-    } catch {
-      /* already stopped */
-    }
-  };
 }

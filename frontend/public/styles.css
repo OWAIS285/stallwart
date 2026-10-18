@@ -417,7 +417,7 @@ details.card[open] > summary { margin-bottom: 12px; }
 .stat small { color: var(--faint); font-size: 12px; }
 
 .dash-cols { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; align-items: start; }
-.bubbles { display: grid; gap: 10px; max-height: 460px; overflow-y: auto; padding-right: 4px; scroll-behavior: smooth; }
+.bubbles { display: grid; align-content: start; gap: 10px; max-height: 460px; overflow-y: auto; padding-right: 4px; scroll-behavior: smooth; }
 .bubble { max-width: 90%; padding: 10px 14px; border-radius: 16px; animation: bubblein 0.4s var(--ease) both; word-wrap: break-word; }
 .bubble.caller { background: rgba(var(--caller-rgb), 0.08); border: 1px solid rgba(var(--caller-rgb), 0.24); border-bottom-left-radius: 4px; justify-self: start; }
 .bubble.persona { background: rgba(var(--acc-rgb), 0.13); border: 1px solid rgba(var(--acc-rgb), 0.34); border-bottom-right-radius: 4px; justify-self: end; }

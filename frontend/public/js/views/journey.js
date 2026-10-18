@@ -81,7 +81,7 @@ const SCENES = [
     label: "The vaccine",
     kicker: "The vaccine",
     title: "A family gets vaccinated.",
-    line: "A parent takes a consented practice call that plays the same scam. The coach stops it before any detail is shared, and the whole circle learns the trick.",
+    line: "Someone you love takes a consented practice call that plays the same scam. The coach stops it before any detail is shared, and the whole circle learns the trick.",
     href: "#/drills",
     cta: "Family drills",
     spec: ["Protection spreading", false],

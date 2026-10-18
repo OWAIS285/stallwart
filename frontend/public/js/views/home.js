@@ -122,7 +122,7 @@ function story() {
   const steps = [
     { n: "01", title: "Trap", text: "The decoy picks up and keeps the scammer talking. Every account number, UPI ID, link and name they say is caught, double-checked and timestamped.", href: "#/call", cta: "Try a call" },
     { n: "02", title: "Strain", text: "Each call is distilled into a redacted card of how this scam works, step by step, with no personal identifiers left in it.", href: "#/strains", cta: "See strains" },
-    { n: "03", title: "Vaccine", text: "Turn a strain into a short, consented practice call for a parent or grandparent. The coach stops them the moment they would have shared a detail.", href: "#/drills", cta: "Family drills" },
+    { n: "03", title: "Vaccine", text: "Turn a strain into a short, consented practice call for someone you love. The coach stops them the moment they would have shared a detail.", href: "#/drills", cta: "Family drills" },
   ];
   const copies = steps.map((s, i) =>
     h("article", { class: "story-copy", "data-i": i }, h("span", { class: "story-n" }, s.n), h("h2", {}, s.title), h("p", { class: "lead" }, s.text), link(s.href, "btn ghost", s.cta, icon("arrow"))),

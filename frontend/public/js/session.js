@@ -1,6 +1,6 @@
 // One live session (voice call, text chat or family drill): owns the WebSocket, the microphone and the playback queue.
 
-import { MIC_THRESHOLD, Mic, Player, ringTone } from "./audio.js";
+import { MIC_THRESHOLD, Mic, Player } from "./audio.js";
 import { clientId, wsUrl } from "./api.js";
 
 export class SessionError extends Error {
@@ -38,7 +38,6 @@ export class CallSession {
     this.ended = false;
     this.speechMs = 0;
     this.lastSpeechAt = 0;
-    this.stopRing = null;
     this.muted = false;
   }
 
@@ -60,11 +59,6 @@ export class CallSession {
         this.cleanup();
         this.setState("idle");
         throw new SessionError(micMessage(err), "mic");
-      }
-      try {
-        this.stopRing = ringTone(this.player.ctx);
-      } catch {
-        this.stopRing = null;
       }
     }
 
@@ -142,8 +136,6 @@ export class CallSession {
   }
 
   onAudio(buffer) {
-    this.stopRing?.();
-    this.stopRing = null;
     if (!this.player) return;
     const firstOfTurn = !this.player.isPlaying();
     if (firstOfTurn && this.speechMs >= 320 && this.lastSpeechAt) {
@@ -220,13 +212,10 @@ export class CallSession {
   finish() {
     this.setState("ended");
     this.mic?.stop();
-    this.stopRing?.();
     setTimeout(() => this.player?.close(), 5000);
   }
 
   cleanup() {
-    this.stopRing?.();
-    this.stopRing = null;
     this.mic?.stop();
     this.player?.close();
   }
