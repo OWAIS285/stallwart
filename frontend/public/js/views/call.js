@@ -16,7 +16,6 @@ export function CallView({ mode }) {
   let config = null;
   let maxSeconds = 300;
   let callId = null;
-  let phoneLine = false;
   let level = 0;
   let raf = 0;
   let timer = null;
@@ -45,8 +44,7 @@ export function CallView({ mode }) {
   const startBtn = h("button", { class: "btn primary lg block", type: "button", onClick: start }, icon(voice ? "phone" : "chat"), voice ? "Start the call" : "Start the chat");
   const muteBtn = h("button", { class: "btn round", type: "button", "aria-pressed": "false", "aria-label": "Mute microphone", onClick: toggleMute }, icon("mic"));
   const endBtn = h("button", { class: "btn danger round", type: "button", "aria-label": "Hang up", onClick: hangUp }, icon("hangup"));
-  const lineBtn = h("button", { class: "chip toggle", type: "button", "aria-pressed": "false", onClick: toggleLine }, icon("phone"), "Old-phone sound");
-  const controls = h("div", { class: "controls", hidden: true }, voice ? muteBtn : null, endBtn, voice ? lineBtn : null);
+  const controls = h("div", { class: "controls", hidden: true }, voice ? muteBtn : null, endBtn);
 
   const input = h("input", { class: "input", type: "text", maxlength: "500", autocomplete: "off", placeholder: voice ? "Or type a line instead of speaking…" : "Type what the scammer says…", "aria-label": "Type a line", disabled: true });
   const typeRow = h("form", { class: "type-row", onSubmit: submitTyped }, input, h("button", { class: "btn primary round sm", type: "submit", "aria-label": "Send", disabled: true }, icon("send")));
@@ -182,7 +180,6 @@ export function CallView({ mode }) {
     timerEl.firstChild.textContent = "00:00";
     const created = new CallSession({ path: voice ? "/ws/call" : "/ws/text", start: {}, voice, onEvent, onState: (s) => s !== "idle" && setUi(s) });
     session = created;
-    created.player?.setPhoneLine(phoneLine);
     muteBtn.setAttribute("aria-pressed", "false");
     muteBtn.replaceChildren(icon("mic"));
     try {
@@ -207,13 +204,6 @@ export function CallView({ mode }) {
     muteBtn.setAttribute("aria-pressed", String(muted));
     muteBtn.classList.toggle("on", muted);
     muteBtn.replaceChildren(icon(muted ? "micoff" : "mic"));
-  }
-
-  function toggleLine() {
-    phoneLine = !phoneLine;
-    session?.setPhoneLine(phoneLine);
-    lineBtn.setAttribute("aria-pressed", String(phoneLine));
-    lineBtn.classList.toggle("on", phoneLine);
   }
 
   function sendLine(text) {

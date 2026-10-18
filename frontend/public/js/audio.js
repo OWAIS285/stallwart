@@ -49,7 +49,6 @@ export class Player {
     this.ctx = null;
     this.nextTime = 0;
     this.sources = new Set();
-    this.phoneLine = false;
     this.freqData = null;
     this.onStart = null;
     this.onIdle = null;
@@ -63,37 +62,13 @@ export class Player {
       this.ctx = new AudioContext({ latencyHint: "interactive" });
     }
     this.input = this.ctx.createGain();
-    this.highpass = new BiquadFilterNode(this.ctx, { type: "highpass", frequency: 300, Q: 0.7 });
-    this.lowpass = new BiquadFilterNode(this.ctx, { type: "lowpass", frequency: 3400, Q: 0.7 });
-    this.boost = this.ctx.createGain();
-    this.boost.gain.value = 1.6;
     this.analyser = this.ctx.createAnalyser();
     this.analyser.fftSize = 128;
     this.analyser.smoothingTimeConstant = 0.6;
     this.freqData = new Uint8Array(this.analyser.frequencyBinCount);
     this.analyser.connect(this.ctx.destination);
-    this.route();
+    this.input.connect(this.analyser);
     if (this.ctx.state === "suspended") await this.ctx.resume();
-  }
-
-  route() {
-    this.input.disconnect();
-    this.highpass.disconnect();
-    this.lowpass.disconnect();
-    this.boost.disconnect();
-    if (this.phoneLine) {
-      this.input.connect(this.highpass);
-      this.highpass.connect(this.lowpass);
-      this.lowpass.connect(this.boost);
-      this.boost.connect(this.analyser);
-    } else {
-      this.input.connect(this.analyser);
-    }
-  }
-
-  setPhoneLine(on) {
-    this.phoneLine = on;
-    if (this.ctx) this.route();
   }
 
   isPlaying() {

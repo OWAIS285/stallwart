@@ -173,10 +173,6 @@ export class CallSession {
     this.mic?.setMuted(muted);
   }
 
-  setPhoneLine(on) {
-    this.player?.setPhoneLine(on);
-  }
-
   micLevel() {
     return this.mic?.level || 0;
   }
