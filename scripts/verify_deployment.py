@@ -229,6 +229,8 @@ def deployment_checks(api: str, site: str | None) -> None:
         check("Website serves the scam-vs-genuine verdict screens", "knows_customer_record" in util and "VERDICT_LABELS" in util)
         check("Website serves the bank inboxes and watchlist", "watchlistCard" in banks_js and "BankInboxView" in app_js
               and "bankItemState" in util)
+        check("Website serves the slow-burn scam labels", all(k in util for k in (
+            "guaranteed_returns", "romance_money_request", "solicits_money_now", "evades_credentials", "unexpected_windfall")))
     else:
         record("SKIP", "Website checks", "--site not given")
     git_check()
