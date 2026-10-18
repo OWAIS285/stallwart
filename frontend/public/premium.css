@@ -288,3 +288,60 @@ main:focus, main:focus-visible { outline: none; }
   .curtain { display: none; }
 }
 @media print { .ticker, .hero-stage, .progress, .cursor, .curtain, body::after, .scroll-cue { display: none !important; } .story { height: auto; } .story-sticky { position: static; height: auto; } .story-copy, .scene { position: static; opacity: 1; transform: none; filter: none; } }
+
+/* ---------- the call fits the window: verdict, transcript and caught details are all in view; the lists scroll inside their cards ---------- */
+@media (min-width: 1180px) and (min-height: 620px) {
+  main:has(.call-wrap) { max-width: min(1760px, calc(100vw - 40px)); padding: 10px 20px 12px; }
+  .call-wrap { display: grid; grid-template-rows: auto minmax(0, 1fr); height: calc(100vh - var(--nav-h, 66px) - 22px); height: calc(100dvh - var(--nav-h, 66px) - 22px); }
+  .call-wrap > .seg { margin: 0 0 10px; padding: 3px; justify-self: start; }
+  .call-wrap .seg-item { padding: 6px 16px; }
+  .call-wrap .call-page { min-height: 0; grid-template-columns: minmax(290px, 340px) minmax(0, 1fr); gap: 14px; align-items: stretch; }
+
+  .call-wrap .call-left { min-height: 0; overflow-y: auto; align-content: start; gap: 12px; scrollbar-width: none; }
+  .call-wrap .call-left .phone { padding: 14px 16px; }
+  .call-wrap .call-left .persona-name { font-size: 1.25rem; margin-top: 0; }
+  .call-wrap .call-left .persona-sub { font-size: 13px; }
+  .call-wrap .call-left .call-status { min-height: 0; margin: 2px 0; font-size: 13.5px; }
+  .call-wrap .call-left .viz { height: 40px; margin: 0 0 2px; }
+  .call-wrap .call-left .controls { margin: 2px 0; }
+  .call-wrap .call-left .type-row { margin-top: 6px; }
+  .call-wrap .call-left .phone .fineprint { display: none; }
+
+  .call-wrap .dash { min-height: 0; display: flex; flex-direction: column; gap: 12px; }
+  .call-wrap .dash > .banner, .call-wrap .dash > .dash-top, .call-wrap .dash > .stats { flex: none; }
+  .call-wrap .dash > .dash-cols { flex: 1 1 0; min-height: 0; grid-template-rows: minmax(0, 1fr); }
+  .call-wrap .dash-top { grid-template-columns: 1.6fr 1fr; gap: 12px; }
+  .call-wrap .dash .gauge-card, .call-wrap .dash .stage-card { padding: 14px 18px; }
+  .call-wrap .dash .gauge { width: 96px; height: 96px; }
+  .call-wrap .dash .gauge-center span { font-size: 8.5px; letter-spacing: 0.02em; }
+  .call-wrap .dash .g-pct { font-size: 1.3rem; }
+  .call-wrap .dash .g-type { font-size: 1.25rem; }
+  .call-wrap .dash .g-triggers { margin-top: 4px; }
+  .call-wrap .dash .g-triggers .chip.trigger { display: none; }
+  .call-wrap .dash .stats { gap: 12px; }
+  .call-wrap .dash .stat { padding: 10px 14px; }
+  .call-wrap .dash .stat-i { width: 36px; height: 36px; }
+  .call-wrap .dash .stat b { font-size: 1.15rem; }
+
+  .call-wrap .dash-cols { min-height: 0; align-items: stretch; gap: 12px; }
+  .call-wrap .dash-cols > .card { display: flex; flex-direction: column; min-height: 0; padding: 14px 16px; }
+  .call-wrap .dash-cols .card-h { margin-bottom: 8px; }
+  .call-wrap .dash-cols .bubbles { flex: 1; min-height: 0; max-height: none; gap: 8px; }
+  .call-wrap .dash-cols .bubble { padding: 8px 12px; }
+  .call-wrap .dash-cols .b-text { font-size: 14px; line-height: 1.4; }
+  .call-wrap .details-card { overflow-y: auto; scrollbar-width: thin; }
+  .call-wrap .details-card .d-list { gap: 8px; }
+  .call-wrap .details-card .detail { grid-template-columns: 34px 1fr 52px; gap: 10px; padding: 8px 10px; }
+  .call-wrap .details-card .d-icon { width: 34px; height: 34px; }
+  .call-wrap .details-card .d-main { gap: 3px; }
+  .call-wrap .details-card .d-main .chips .chip { padding: 1px 8px; font-size: 11px; }
+  .call-wrap .details-card .d-quote, .call-wrap .details-card .decoy-row small.muted { display: none; }
+  .call-wrap .details-card .decoy-row:has(> .lane-h:not(.ok)) { display: none; }
+  .call-wrap .details-card .lane-h { margin: 8px 0 6px; }
+  /* confirmed details first, then the bank report, then the ones still waiting for a second check */
+  .call-wrap .details-card > .card-h, .call-wrap .details-card > .empty-note { order: 0; }
+  .call-wrap .details-card > .lane-h.ok { order: 1; }
+  .call-wrap .details-card > .lane-h.ok + .d-list { order: 2; }
+  .call-wrap .details-card > .decoy-row { order: 3; }
+  .call-wrap .details-card > .lane-h:not(.ok), .call-wrap .details-card > .lane-h:not(.ok) + .d-list { order: 4; }
+}
