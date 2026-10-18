@@ -84,3 +84,9 @@ def test_persona_tests_the_caller_before_calling_it_a_scam():
     assert "decide by what the caller ASKS FOR, never by the topic" in prompt
     assert "ring back on the number printed on your passbook" in prompt
     assert "end_call and reason not_scam" in prompt
+
+
+def test_persona_probes_credentials_in_persuasion_scams():
+    prompt = build_persona(CallProfile(random.Random(7), NOW))
+    assert "SEBI or RBI registration number" in prompt and "80G certificate" in prompt
+    assert "Never pay or donate on the call" in prompt

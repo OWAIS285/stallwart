@@ -1,0 +1,20 @@
+{
+ "results_file": "heldout_after.json",
+ "split": "cross_domain",
+ "fraud_calls": 99,
+ "flagged": 75,
+ "missed": 24,
+ "who_is_cheating_in_missed_calls": {
+  "third_party": 13,
+  "agent": 10,
+  "nobody": 1
+ },
+ "by_stallwart_verdict": {
+  "legitimate / third_party": 13,
+  "undetermined / agent": 10,
+  "undetermined / nobody": 1
+ },
+ "missed_with_dishonest_caller": 10,
+ "recall_on_calls_where_the_caller_is_the_fraudster": 0.882,
+ "note": "Second opinion by Gemini Flash on the missed calls only; flagged calls are assumed to have a dishonest caller. Not a relabelling of ICFD and not used for the headline numbers."
+}

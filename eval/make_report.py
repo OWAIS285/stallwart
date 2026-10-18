@@ -55,7 +55,8 @@ def detection_section(data) -> str:
         f"Stallwart was scored on every non-fraud call ({sample['static_non_fraud']}) and a stratified random sample of "
         f"{sample['static_fraud']} fraud calls ({sample['per_test_domain']} per test domain, {sample['per_cross_domain_type']} per "
         f"cross-domain type, seed {sample['seed']}), {len(runs)} runs; the keyword baseline was run on all "
-        f"{pop['calls']:,} calls. The classifier reads each call the way the live product does (16-turn windows, quoted red "
+        f"{pop['calls']:,} calls. The {s.get('excluded_dev_ids', 0)} cross-domain calls read while designing the slow-burn "
+        "red flags are excluded, so the cross-domain rows come from calls never looked at. The classifier reads each call the way the live product does (16-turn windows, quoted red "
         "flags accumulate, the verdict rule decides; undetermined counts as not flagged). No ICFD data was used to build or "
         "tune it. Brackets: 95% Wilson interval from run 1.",
         "",
@@ -94,6 +95,53 @@ def detection_section(data) -> str:
         "Caveats: " + " ".join(s["caveats"]),
         "",
     ]
+    return "\n".join(lines)
+
+
+def slowburn_section(before, after, audit) -> str:
+    if not before or not after:
+        return ""
+    b, a = before["runs"][0]["metrics"], after["runs"][0]["metrics"]
+
+    def nonfraud(m):
+        o = m["legit_outcomes"]
+        return f"{o['scam']}/{sum(o.values())}"
+
+    types = sorted(d for d in a["recall_by_domain"] if d.startswith("cross_domain"))
+    names = {"cross_domain_1": "crypto and NFT", "cross_domain_2": "romance", "cross_domain_3": "fake charity",
+             "cross_domain_4": "Ponzi, MLM and investment", "cross_domain_5": "tax and social-security"}
+    lines = [
+        "### Slow-burn scams: before and after the new red flags",
+        "",
+        "Five red flags were added for scams that persuade rather than demand: guaranteed high returns and money asked by "
+        "an online partner never met (decisive on their own), and asking to invest, donate or pay now, dodging "
+        "registration questions, and an unexpected refund or prize (warning signs, two make a scam). They were designed "
+        "on 100 ICFD cross-domain calls, ICFD validation calls and the BothBosu train split, then measured once on 100 "
+        "cross-domain calls that had not been looked at (20 per type, seed 11) and on all 62 ICFD non-fraud calls.",
+        "",
+        "| Held-out cross-domain calls | Before | After |",
+        "|---|---|---|",
+        f"| Fraud calls caught | {pct(b['cross_domain']['recall'])} | **{pct(a['cross_domain']['recall'])}** |",
+    ]
+    lines += [f"| {names.get(t, t)} | {b['recall_by_domain'].get(t, 'n/a')} | {a['recall_by_domain'].get(t, 'n/a')} |" for t in types]
+    lines += [
+        f"| ICFD non-fraud calls flagged as scam (all 62) | {nonfraud(b)} | {nonfraud(a)} |",
+        "",
+    ]
+    if audit:
+        who = audit["who_is_cheating_in_missed_calls"]
+        honest = who.get("third_party", 0) + who.get("customer", 0) + who.get("nobody", 0)
+        lines += [
+            f"Who is cheating in the {audit['missed']} held-out fraud calls still missed, as judged by a separate Gemini "
+            f"pass: the caller in {who.get('agent', 0)}, someone not on the call in {who.get('third_party', 0)}, the "
+            f"customer in {who.get('customer', 0)}, nobody in {who.get('nobody', 0)}. ICFD labels the conversation's "
+            "topic, while Stallwart judges only the caller, so in "
+            f"{honest} of the misses the caller is honest (typically a bank helping a customer who is being scammed by "
+            "someone else). Counting only calls where the caller is the fraudster, recall is "
+            f"{pct(audit['recall_on_calls_where_the_caller_is_the_fraudster'])}. This is a second opinion by a model, "
+            "not a relabelling; the headline numbers above use ICFD's labels unchanged.",
+            "",
+        ]
     return "\n".join(lines)
 
 
@@ -260,6 +308,7 @@ def main() -> None:
     sections = [
         extraction_section(load("extraction.json")),
         detection_section(load("detection.json")),
+        slowburn_section(load("heldout_before.json"), load("heldout_after.json"), load("caller_audit_heldout_after.json")),
         benchmarks_section(load("benchmarks.json")),
         hard_negative_section(load("hard_negatives.json")),
         redteam_section(load("redteam.json")),

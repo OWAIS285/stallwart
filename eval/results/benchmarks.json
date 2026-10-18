@@ -8,58 +8,58 @@
     "non_scam": 160,
     "runs": 1,
     "mean": {
-     "recall": 0.856,
+     "recall": 0.975,
      "specificity": 1.0,
      "precision": 1.0,
-     "f1": 0.923,
-     "balanced_accuracy": 0.928,
-     "mcc": 0.865
+     "f1": 0.987,
+     "balanced_accuracy": 0.987,
+     "mcc": 0.975
     },
     "f1_range": [
-     0.923,
-     0.923
+     0.987,
+     0.987
     ],
     "run1": {
-     "n": 320,
-     "tp": 137,
+     "n": 316,
+     "tp": 155,
      "fp": 0,
-     "tn": 160,
-     "fn": 23,
-     "accuracy": 0.928,
+     "tn": 157,
+     "fn": 4,
+     "accuracy": 0.987,
      "precision": 1.0,
-     "recall": 0.856,
-     "f1": 0.923,
+     "recall": 0.975,
+     "f1": 0.987,
      "specificity": 1.0,
      "false_positive_rate": 0.0,
-     "balanced_accuracy": 0.928,
-     "mcc": 0.865,
+     "balanced_accuracy": 0.987,
+     "mcc": 0.975,
      "recall_ci95": [
-      0.794,
-      0.902
+      0.937,
+      0.99
      ],
      "specificity_ci95": [
-      0.977,
+      0.976,
       1.0
      ],
      "precision_ci95": [
-      0.973,
+      0.976,
       1.0
      ],
-     "errors": 0,
+     "errors": 4,
      "non_scam_outcomes": {
       "scam": 0,
-      "legitimate": 146,
-      "undetermined": 14
+      "legitimate": 144,
+      "undetermined": 13
      },
      "correct_by_type": {
-      "delivery": "40/40",
-      "insurance": "40/40",
-      "refund": "24/40",
-      "reward": "36/40",
-      "ssn": "38/40",
+      "delivery": "39/39",
+      "insurance": "39/39",
+      "refund": "38/40",
+      "reward": "39/39",
+      "ssn": "39/40",
       "support": "39/40",
       "telemarketing": "40/40",
-      "wrong": "40/40"
+      "wrong": "39/39"
      }
     },
     "keyword_baseline": {
@@ -97,57 +97,57 @@
     "non_scam": 160,
     "runs": 1,
     "mean": {
-     "recall": 0.881,
+     "recall": 0.955,
      "specificity": 1.0,
      "precision": 1.0,
-     "f1": 0.936,
-     "balanced_accuracy": 0.94,
-     "mcc": 0.887
+     "f1": 0.977,
+     "balanced_accuracy": 0.977,
+     "mcc": 0.956
     },
     "f1_range": [
-     0.936,
-     0.936
+     0.977,
+     0.977
     ],
     "run1": {
-     "n": 319,
-     "tp": 140,
+     "n": 314,
+     "tp": 148,
      "fp": 0,
-     "tn": 160,
-     "fn": 19,
-     "accuracy": 0.94,
+     "tn": 159,
+     "fn": 7,
+     "accuracy": 0.978,
      "precision": 1.0,
-     "recall": 0.881,
-     "f1": 0.936,
+     "recall": 0.955,
+     "f1": 0.977,
      "specificity": 1.0,
      "false_positive_rate": 0.0,
-     "balanced_accuracy": 0.94,
-     "mcc": 0.887,
+     "balanced_accuracy": 0.977,
+     "mcc": 0.956,
      "recall_ci95": [
-      0.821,
-      0.922
+      0.91,
+      0.978
      ],
      "specificity_ci95": [
-      0.977,
+      0.976,
       1.0
      ],
      "precision_ci95": [
-      0.973,
+      0.975,
       1.0
      ],
-     "errors": 1,
+     "errors": 6,
      "non_scam_outcomes": {
       "scam": 0,
-      "legitimate": 146,
+      "legitimate": 145,
       "undetermined": 14
      },
      "correct_by_type": {
       "appointment": "40/40",
       "delivery": "40/40",
-      "insurance": "40/40",
-      "refund": "27/40",
-      "reward": "37/40",
+      "insurance": "39/39",
+      "refund": "36/40",
+      "reward": "39/39",
       "ssn": "40/40",
-      "support": "36/39",
+      "support": "33/36",
       "wrong": "40/40"
      }
     },
@@ -186,64 +186,64 @@
     "non_scam": 150,
     "runs": 1,
     "mean": {
-     "recall": 0.804,
-     "specificity": 1.0,
-     "precision": 1.0,
-     "f1": 0.891,
-     "balanced_accuracy": 0.902,
-     "mcc": 0.821
+     "recall": 0.83,
+     "specificity": 0.993,
+     "precision": 0.992,
+     "f1": 0.904,
+     "balanced_accuracy": 0.912,
+     "mcc": 0.835
     },
     "f1_range": [
-     0.891,
-     0.891
+     0.904,
+     0.904
     ],
     "run1": {
-     "n": 298,
-     "tp": 119,
-     "fp": 0,
-     "tn": 150,
-     "fn": 29,
-     "accuracy": 0.903,
-     "precision": 1.0,
-     "recall": 0.804,
-     "f1": 0.891,
-     "specificity": 1.0,
-     "false_positive_rate": 0.0,
-     "balanced_accuracy": 0.902,
-     "mcc": 0.821,
+     "n": 296,
+     "tp": 122,
+     "fp": 1,
+     "tn": 148,
+     "fn": 25,
+     "accuracy": 0.912,
+     "precision": 0.992,
+     "recall": 0.83,
+     "f1": 0.904,
+     "specificity": 0.993,
+     "false_positive_rate": 0.007,
+     "balanced_accuracy": 0.912,
+     "mcc": 0.835,
      "recall_ci95": [
-      0.733,
-      0.86
+      0.761,
+      0.882
      ],
      "specificity_ci95": [
-      0.975,
-      1.0
+      0.963,
+      0.999
      ],
      "precision_ci95": [
-      0.969,
-      1.0
+      0.955,
+      0.999
      ],
-     "errors": 2,
+     "errors": 4,
      "non_scam_outcomes": {
-      "scam": 0,
+      "scam": 1,
       "legitimate": 0,
-      "undetermined": 150
+      "undetermined": 148
      },
      "correct_by_type": {
-      "courier_customs": "18/21",
-      "electricity_bill": "14/28",
-      "fake_bank_otp": "10/13",
-      "fake_kyc": "18/21",
+      "courier_customs": "19/21",
+      "electricity_bill": "14/27",
+      "fake_bank_otp": "11/13",
+      "fake_kyc": "18/22",
       "job_offer": "19/21",
-      "loan_offer": "20/23",
-      "lottery": "19/20",
-      "safe": "150/150",
+      "loan_offer": "20/22",
+      "lottery": "20/20",
+      "safe": "148/149",
       "unknown": "1/1"
      },
      "correct_by_language": {
-      "en": "91/99",
-      "hi": "93/100",
-      "hinglish": "85/99"
+      "en": "90/99",
+      "hi": "92/100",
+      "hinglish": "88/97"
      }
     },
     "keyword_baseline": {
@@ -276,10 +276,10 @@
    }
   },
   "classifier_latency_seconds": {
-   "p50": 3.360000000000582,
-   "p90": 7.125,
+   "p50": 3.8600000000001273,
+   "p90": 21.514999999999873,
    "requests": 1095,
-   "failed_after_retries": 4
+   "failed_after_retries": 19
   },
   "caveats": [
    "All three sets are synthetic (LLM-generated); none measures real-world accuracy.",
@@ -292,46 +292,46 @@
   "scam_dialogue": [
    {
     "metrics": {
-     "n": 320,
-     "tp": 137,
+     "n": 316,
+     "tp": 155,
      "fp": 0,
-     "tn": 160,
-     "fn": 23,
-     "accuracy": 0.928,
+     "tn": 157,
+     "fn": 4,
+     "accuracy": 0.987,
      "precision": 1.0,
-     "recall": 0.856,
-     "f1": 0.923,
+     "recall": 0.975,
+     "f1": 0.987,
      "specificity": 1.0,
      "false_positive_rate": 0.0,
-     "balanced_accuracy": 0.928,
-     "mcc": 0.865,
+     "balanced_accuracy": 0.987,
+     "mcc": 0.975,
      "recall_ci95": [
-      0.794,
-      0.902
+      0.937,
+      0.99
      ],
      "specificity_ci95": [
-      0.977,
+      0.976,
       1.0
      ],
      "precision_ci95": [
-      0.973,
+      0.976,
       1.0
      ],
-     "errors": 0,
+     "errors": 4,
      "non_scam_outcomes": {
       "scam": 0,
-      "legitimate": 146,
-      "undetermined": 14
+      "legitimate": 144,
+      "undetermined": 13
      },
      "correct_by_type": {
-      "delivery": "40/40",
-      "insurance": "40/40",
-      "refund": "24/40",
-      "reward": "36/40",
-      "ssn": "38/40",
+      "delivery": "39/39",
+      "insurance": "39/39",
+      "refund": "38/40",
+      "reward": "39/39",
+      "ssn": "39/40",
       "support": "39/40",
       "telemarketing": "40/40",
-      "wrong": "40/40"
+      "wrong": "39/39"
      }
     },
     "predictions": [
@@ -343,9 +343,10 @@
       "error": false,
       "verdict": "scam",
       "type": "other_scam",
-      "confidence": 0.87,
+      "confidence": 0.89,
       "red_flags": [
        "payment_to_personal_account",
+       "solicits_money_now",
        "urgency_deadline"
       ],
       "windows": 1
@@ -393,8 +394,8 @@
       "confidence": 0.89,
       "red_flags": [
        "arrest_or_legal_threat",
-       "urgency_deadline",
-       "asks_full_identifier"
+       "asks_full_identifier",
+       "urgency_deadline"
       ],
       "windows": 2
      },
@@ -441,8 +442,8 @@
       "confidence": 0.89,
       "red_flags": [
        "asks_full_identifier",
-       "payment_to_personal_account",
-       "urgency_deadline"
+       "solicits_money_now",
+       "payment_to_personal_account"
       ],
       "windows": 2
      },
@@ -548,9 +549,9 @@
       "type": "other_scam",
       "confidence": 0.91,
       "red_flags": [
-       "asks_full_identifier",
        "arrest_or_legal_threat",
        "urgency_deadline",
+       "asks_full_identifier",
        "discourages_verification"
       ],
       "windows": 2
@@ -607,10 +608,11 @@
       "domain": "ssn",
       "fraud": true,
       "error": false,
-      "verdict": "undetermined",
-      "type": "undetermined",
-      "confidence": 0.0,
+      "verdict": "scam",
+      "type": "other_scam",
+      "confidence": 0.75,
       "red_flags": [
+       "asks_full_identifier",
        "urgency_deadline"
       ],
       "windows": 1
@@ -671,11 +673,11 @@
       "error": false,
       "verdict": "scam",
       "type": "other_scam",
-      "confidence": 0.89,
+      "confidence": 0.85,
       "red_flags": [
        "asks_full_identifier",
        "urgency_deadline",
-       "pay_to_receive"
+       "solicits_money_now"
       ],
       "windows": 2
      },
@@ -737,8 +739,8 @@
       "confidence": 0.85,
       "red_flags": [
        "asks_full_identifier",
-       "discourages_verification",
-       "urgency_deadline"
+       "urgency_deadline",
+       "discourages_verification"
       ],
       "windows": 1
      },
@@ -749,7 +751,7 @@
       "fraud": true,
       "error": false,
       "verdict": "scam",
-      "type": "digital_arrest",
+      "type": "other_scam",
       "confidence": 0.85,
       "red_flags": [
        "asks_full_identifier",
@@ -828,11 +830,11 @@
       "error": false,
       "verdict": "scam",
       "type": "other_scam",
-      "confidence": 0.89,
+      "confidence": 0.85,
       "red_flags": [
        "asks_full_identifier",
        "urgency_deadline",
-       "pay_to_receive"
+       "solicits_money_now"
       ],
       "windows": 1
      },
@@ -846,8 +848,8 @@
       "type": "other_scam",
       "confidence": 0.87,
       "red_flags": [
-       "asks_full_identifier",
-       "arrest_or_legal_threat"
+       "arrest_or_legal_threat",
+       "asks_full_identifier"
       ],
       "windows": 2
      },
@@ -875,13 +877,12 @@
       "fraud": true,
       "error": false,
       "verdict": "scam",
-      "type": "digital_arrest",
-      "confidence": 0.91,
+      "type": "other_scam",
+      "confidence": 0.85,
       "red_flags": [
-       "urgency_deadline",
        "asks_full_identifier",
        "discourages_verification",
-       "arrest_or_legal_threat"
+       "urgency_deadline"
       ],
       "windows": 1
      },
@@ -893,10 +894,11 @@
       "error": false,
       "verdict": "scam",
       "type": "other_scam",
-      "confidence": 0.91,
+      "confidence": 0.93,
       "red_flags": [
        "asks_full_identifier",
        "urgency_deadline",
+       "solicits_money_now",
        "pay_to_receive",
        "discourages_verification"
       ],
@@ -910,11 +912,12 @@
       "error": false,
       "verdict": "scam",
       "type": "other_scam",
-      "confidence": 0.89,
+      "confidence": 0.94,
       "red_flags": [
        "asks_full_identifier",
-       "extortion_threat",
-       "urgency_deadline"
+       "arrest_or_legal_threat",
+       "urgency_deadline",
+       "extortion_threat"
       ],
       "windows": 2
      },
@@ -957,10 +960,11 @@
       "error": false,
       "verdict": "scam",
       "type": "other_scam",
-      "confidence": 0.75,
+      "confidence": 0.85,
       "red_flags": [
        "asks_full_identifier",
-       "urgency_deadline"
+       "urgency_deadline",
+       "discourages_verification"
       ],
       "windows": 2
      },
@@ -971,9 +975,10 @@
       "fraud": true,
       "error": false,
       "verdict": "scam",
-      "type": "fake_customer_care",
-      "confidence": 0.75,
+      "type": "other_scam",
+      "confidence": 0.85,
       "red_flags": [
+       "unexpected_windfall",
        "asks_full_identifier",
        "discourages_verification"
       ],
@@ -985,10 +990,11 @@
       "domain": "refund",
       "fraud": true,
       "error": false,
-      "verdict": "undetermined",
-      "type": "undetermined",
-      "confidence": 0.0,
+      "verdict": "scam",
+      "type": "fake_customer_care",
+      "confidence": 0.75,
       "red_flags": [
+       "unexpected_windfall",
        "asks_full_identifier"
       ],
       "windows": 2
@@ -999,10 +1005,13 @@
       "domain": "refund",
       "fraud": true,
       "error": false,
-      "verdict": "legitimate",
-      "type": "not_scam",
-      "confidence": 0.65,
-      "red_flags": [],
+      "verdict": "scam",
+      "type": "fake_customer_care",
+      "confidence": 0.75,
+      "red_flags": [
+       "asks_full_identifier",
+       "unexpected_windfall"
+      ],
       "windows": 1
      },
      {
@@ -1011,10 +1020,11 @@
       "domain": "refund",
       "fraud": true,
       "error": false,
-      "verdict": "undetermined",
-      "type": "undetermined",
-      "confidence": 0.0,
+      "verdict": "scam",
+      "type": "fake_customer_care",
+      "confidence": 0.75,
       "red_flags": [
+       "unexpected_windfall",
        "discourages_verification"
       ],
       "windows": 2
@@ -1025,10 +1035,11 @@
       "domain": "refund",
       "fraud": true,
       "error": false,
-      "verdict": "undetermined",
-      "type": "undetermined",
-      "confidence": 0.0,
+      "verdict": "scam",
+      "type": "fake_customer_care",
+      "confidence": 0.75,
       "red_flags": [
+       "unexpected_windfall",
        "asks_full_identifier"
       ],
       "windows": 1
@@ -1043,10 +1054,10 @@
       "type": "fake_customer_care",
       "confidence": 0.9,
       "red_flags": [
+       "unexpected_windfall",
        "asks_full_identifier",
        "urgency_deadline",
-       "discourages_verification",
-       "identity_inconsistency"
+       "discourages_verification"
       ],
       "windows": 1
      },
@@ -1056,10 +1067,13 @@
       "domain": "refund",
       "fraud": true,
       "error": false,
-      "verdict": "legitimate",
-      "type": "not_scam",
-      "confidence": 0.65,
-      "red_flags": [],
+      "verdict": "scam",
+      "type": "fake_customer_care",
+      "confidence": 0.75,
+      "red_flags": [
+       "unexpected_windfall",
+       "asks_full_identifier"
+      ],
       "windows": 2
      },
      {
@@ -1070,8 +1084,9 @@
       "error": false,
       "verdict": "scam",
       "type": "fake_customer_care",
-      "confidence": 0.87,
+      "confidence": 0.89,
       "red_flags": [
+       "unexpected_windfall",
        "asks_secret_credential",
        "urgency_deadline"
       ],
@@ -1085,13 +1100,14 @@
       "error": false,
       "verdict": "scam",
       "type": "fake_customer_care",
-      "confidence": 0.93,
+      "confidence": 0.95,
       "red_flags": [
+       "unexpected_windfall",
        "asks_secret_credential",
        "asks_full_identifier",
-       "discourages_verification",
        "urgency_deadline",
-       "identity_inconsistency"
+       "discourages_verification",
+       "evades_credentials"
       ],
       "windows": 1
      },
@@ -1101,10 +1117,13 @@
       "domain": "refund",
       "fraud": true,
       "error": false,
-      "verdict": "legitimate",
-      "type": "not_scam",
-      "confidence": 0.65,
-      "red_flags": [],
+      "verdict": "scam",
+      "type": "fake_customer_care",
+      "confidence": 0.75,
+      "red_flags": [
+       "unexpected_windfall",
+       "asks_full_identifier"
+      ],
       "windows": 1
      },
      {
@@ -1113,10 +1132,11 @@
       "domain": "refund",
       "fraud": true,
       "error": false,
-      "verdict": "undetermined",
-      "type": "undetermined",
-      "confidence": 0.0,
+      "verdict": "scam",
+      "type": "fake_customer_care",
+      "confidence": 0.75,
       "red_flags": [
+       "unexpected_windfall",
        "asks_full_identifier"
       ],
       "windows": 1
@@ -1129,8 +1149,9 @@
       "error": false,
       "verdict": "scam",
       "type": "fake_customer_care",
-      "confidence": 0.85,
+      "confidence": 0.9,
       "red_flags": [
+       "unexpected_windfall",
        "asks_full_identifier",
        "discourages_verification",
        "urgency_deadline"
@@ -1145,8 +1166,9 @@
       "error": false,
       "verdict": "scam",
       "type": "fake_customer_care",
-      "confidence": 0.75,
+      "confidence": 0.85,
       "red_flags": [
+       "unexpected_windfall",
        "asks_full_identifier",
        "urgency_deadline"
       ],
@@ -1161,7 +1183,9 @@
       "verdict": "undetermined",
       "type": "undetermined",
       "confidence": 0.0,
-      "red_flags": [],
+      "red_flags": [
+       "unexpected_windfall"
+      ],
       "windows": 1
      },
      {
@@ -1172,8 +1196,9 @@
       "error": false,
       "verdict": "scam",
       "type": "fake_customer_care",
-      "confidence": 0.75,
+      "confidence": 0.85,
       "red_flags": [
+       "unexpected_windfall",
        "asks_full_identifier",
        "urgency_deadline"
       ],
@@ -1187,10 +1212,11 @@
       "error": false,
       "verdict": "scam",
       "type": "fake_customer_care",
-      "confidence": 0.75,
+      "confidence": 0.85,
       "red_flags": [
-       "identity_inconsistency",
-       "asks_full_identifier"
+       "unexpected_windfall",
+       "asks_full_identifier",
+       "identity_inconsistency"
       ],
       "windows": 2
      },
@@ -1202,8 +1228,9 @@
       "error": false,
       "verdict": "scam",
       "type": "fake_customer_care",
-      "confidence": 0.85,
+      "confidence": 0.9,
       "red_flags": [
+       "unexpected_windfall",
        "identity_inconsistency",
        "discourages_verification",
        "urgency_deadline"
@@ -1218,9 +1245,11 @@
       "error": false,
       "verdict": "scam",
       "type": "fake_customer_care",
-      "confidence": 0.75,
+      "confidence": 0.9,
       "red_flags": [
+       "unexpected_windfall",
        "asks_full_identifier",
+       "discourages_verification",
        "identity_inconsistency"
       ],
       "windows": 2
@@ -1233,8 +1262,9 @@
       "error": false,
       "verdict": "scam",
       "type": "fake_customer_care",
-      "confidence": 0.87,
+      "confidence": 0.89,
       "red_flags": [
+       "unexpected_windfall",
        "asks_secret_credential",
        "asks_full_identifier"
       ],
@@ -1246,10 +1276,12 @@
       "domain": "refund",
       "fraud": true,
       "error": false,
-      "verdict": "undetermined",
-      "type": "undetermined",
-      "confidence": 0.0,
+      "verdict": "scam",
+      "type": "fake_customer_care",
+      "confidence": 0.85,
       "red_flags": [
+       "unexpected_windfall",
+       "asks_full_identifier",
        "urgency_deadline"
       ],
       "windows": 1
@@ -1260,10 +1292,12 @@
       "domain": "refund",
       "fraud": true,
       "error": false,
-      "verdict": "legitimate",
-      "type": "not_scam",
-      "confidence": 0.65,
-      "red_flags": [],
+      "verdict": "undetermined",
+      "type": "undetermined",
+      "confidence": 0.0,
+      "red_flags": [
+       "unexpected_windfall"
+      ],
       "windows": 1
      },
      {
@@ -1272,10 +1306,11 @@
       "domain": "refund",
       "fraud": true,
       "error": false,
-      "verdict": "undetermined",
-      "type": "undetermined",
-      "confidence": 0.0,
+      "verdict": "scam",
+      "type": "fake_customer_care",
+      "confidence": 0.75,
       "red_flags": [
+       "unexpected_windfall",
        "asks_full_identifier"
       ],
       "windows": 1
@@ -1286,10 +1321,13 @@
       "domain": "refund",
       "fraud": true,
       "error": false,
-      "verdict": "legitimate",
-      "type": "not_scam",
-      "confidence": 0.65,
-      "red_flags": [],
+      "verdict": "scam",
+      "type": "fake_customer_care",
+      "confidence": 0.75,
+      "red_flags": [
+       "unexpected_windfall",
+       "asks_full_identifier"
+      ],
       "windows": 2
      },
      {
@@ -1302,8 +1340,8 @@
       "type": "fake_customer_care",
       "confidence": 0.75,
       "red_flags": [
-       "asks_full_identifier",
-       "identity_inconsistency"
+       "unexpected_windfall",
+       "asks_full_identifier"
       ],
       "windows": 1
      },
@@ -1315,9 +1353,10 @@
       "error": false,
       "verdict": "scam",
       "type": "fake_customer_care",
-      "confidence": 0.87,
+      "confidence": 0.89,
       "red_flags": [
        "asks_secret_credential",
+       "unexpected_windfall",
        "discourages_verification"
       ],
       "windows": 2
@@ -1330,8 +1369,9 @@
       "error": false,
       "verdict": "scam",
       "type": "fake_customer_care",
-      "confidence": 0.85,
+      "confidence": 0.9,
       "red_flags": [
+       "unexpected_windfall",
        "asks_full_identifier",
        "identity_inconsistency",
        "discourages_verification"
@@ -1346,10 +1386,11 @@
       "error": false,
       "verdict": "scam",
       "type": "fake_customer_care",
-      "confidence": 0.87,
+      "confidence": 0.89,
       "red_flags": [
-       "remote_access_or_install",
-       "urgency_deadline"
+       "unexpected_windfall",
+       "urgency_deadline",
+       "remote_access_or_install"
       ],
       "windows": 1
      },
@@ -1361,8 +1402,9 @@
       "error": false,
       "verdict": "scam",
       "type": "fake_customer_care",
-      "confidence": 0.89,
+      "confidence": 0.91,
       "red_flags": [
+       "unexpected_windfall",
        "asks_secret_credential",
        "asks_full_identifier",
        "identity_inconsistency"
@@ -1377,8 +1419,9 @@
       "error": false,
       "verdict": "scam",
       "type": "fake_customer_care",
-      "confidence": 0.89,
+      "confidence": 0.91,
       "red_flags": [
+       "unexpected_windfall",
        "asks_secret_credential",
        "asks_full_identifier",
        "discourages_verification"
@@ -1393,11 +1436,13 @@
       "error": false,
       "verdict": "scam",
       "type": "fake_customer_care",
-      "confidence": 0.89,
+      "confidence": 0.93,
       "red_flags": [
        "asks_secret_credential",
+       "asks_full_identifier",
        "discourages_verification",
-       "urgency_deadline"
+       "urgency_deadline",
+       "unexpected_windfall"
       ],
       "windows": 2
      },
@@ -1409,8 +1454,9 @@
       "error": false,
       "verdict": "scam",
       "type": "fake_customer_care",
-      "confidence": 0.75,
+      "confidence": 0.85,
       "red_flags": [
+       "unexpected_windfall",
        "urgency_deadline",
        "discourages_verification"
       ],
@@ -1424,8 +1470,9 @@
       "error": false,
       "verdict": "scam",
       "type": "fake_customer_care",
-      "confidence": 0.85,
+      "confidence": 0.9,
       "red_flags": [
+       "unexpected_windfall",
        "asks_full_identifier",
        "discourages_verification",
        "urgency_deadline"
@@ -1438,10 +1485,11 @@
       "domain": "refund",
       "fraud": true,
       "error": false,
-      "verdict": "undetermined",
-      "type": "undetermined",
-      "confidence": 0.0,
+      "verdict": "scam",
+      "type": "fake_customer_care",
+      "confidence": 0.75,
       "red_flags": [
+       "unexpected_windfall",
        "asks_full_identifier"
       ],
       "windows": 1
@@ -1452,10 +1500,11 @@
       "domain": "refund",
       "fraud": true,
       "error": false,
-      "verdict": "undetermined",
-      "type": "undetermined",
-      "confidence": 0.0,
+      "verdict": "scam",
+      "type": "fake_customer_care",
+      "confidence": 0.75,
       "red_flags": [
+       "unexpected_windfall",
        "asks_full_identifier"
       ],
       "windows": 1
@@ -1468,8 +1517,9 @@
       "error": false,
       "verdict": "scam",
       "type": "fake_customer_care",
-      "confidence": 0.85,
+      "confidence": 0.9,
       "red_flags": [
+       "unexpected_windfall",
        "asks_full_identifier",
        "urgency_deadline",
        "discourages_verification"
@@ -1484,8 +1534,9 @@
       "error": false,
       "verdict": "scam",
       "type": "fake_customer_care",
-      "confidence": 0.85,
+      "confidence": 0.9,
       "red_flags": [
+       "unexpected_windfall",
        "asks_full_identifier",
        "identity_inconsistency",
        "discourages_verification"
@@ -1500,8 +1551,9 @@
       "error": false,
       "verdict": "scam",
       "type": "fake_customer_care",
-      "confidence": 0.85,
+      "confidence": 0.9,
       "red_flags": [
+       "unexpected_windfall",
        "asks_full_identifier",
        "discourages_verification",
        "urgency_deadline"
@@ -1516,8 +1568,9 @@
       "error": false,
       "verdict": "scam",
       "type": "fake_customer_care",
-      "confidence": 0.85,
+      "confidence": 0.87,
       "red_flags": [
+       "unexpected_windfall",
        "remote_access_or_install"
       ],
       "windows": 2
@@ -1528,10 +1581,11 @@
       "domain": "refund",
       "fraud": true,
       "error": false,
-      "verdict": "undetermined",
-      "type": "undetermined",
-      "confidence": 0.0,
+      "verdict": "scam",
+      "type": "fake_customer_care",
+      "confidence": 0.75,
       "red_flags": [
+       "unexpected_windfall",
        "asks_full_identifier"
       ],
       "windows": 1
@@ -1542,10 +1596,11 @@
       "domain": "refund",
       "fraud": true,
       "error": false,
-      "verdict": "undetermined",
-      "type": "undetermined",
-      "confidence": 0.0,
+      "verdict": "scam",
+      "type": "fake_customer_care",
+      "confidence": 0.75,
       "red_flags": [
+       "unexpected_windfall",
        "urgency_deadline"
       ],
       "windows": 2
@@ -1561,7 +1616,7 @@
       "confidence": 0.87,
       "red_flags": [
        "remote_access_or_install",
-       "identity_inconsistency"
+       "evades_credentials"
       ],
       "windows": 2
      },
@@ -1576,8 +1631,8 @@
       "confidence": 0.89,
       "red_flags": [
        "remote_access_or_install",
-       "urgency_deadline",
-       "discourages_verification"
+       "evades_credentials",
+       "urgency_deadline"
       ],
       "windows": 2
      },
@@ -1606,8 +1661,8 @@
       "confidence": 0.89,
       "red_flags": [
        "remote_access_or_install",
-       "urgency_deadline",
-       "discourages_verification"
+       "identity_inconsistency",
+       "urgency_deadline"
       ],
       "windows": 2
      },
@@ -1634,9 +1689,10 @@
       "error": false,
       "verdict": "scam",
       "type": "fake_customer_care",
-      "confidence": 0.85,
+      "confidence": 0.87,
       "red_flags": [
-       "remote_access_or_install"
+       "remote_access_or_install",
+       "solicits_money_now"
       ],
       "windows": 2
      },
@@ -1677,9 +1733,10 @@
       "error": false,
       "verdict": "scam",
       "type": "fake_customer_care",
-      "confidence": 0.85,
+      "confidence": 0.87,
       "red_flags": [
-       "remote_access_or_install"
+       "remote_access_or_install",
+       "urgency_deadline"
       ],
       "windows": 2
      },
@@ -1691,9 +1748,10 @@
       "error": false,
       "verdict": "scam",
       "type": "fake_customer_care",
-      "confidence": 0.89,
+      "confidence": 0.91,
       "red_flags": [
        "remote_access_or_install",
+       "evades_credentials",
        "discourages_verification",
        "urgency_deadline"
       ],
@@ -1767,10 +1825,9 @@
       "error": false,
       "verdict": "scam",
       "type": "fake_customer_care",
-      "confidence": 0.89,
+      "confidence": 0.87,
       "red_flags": [
        "remote_access_or_install",
-       "urgency_deadline",
        "link_or_unofficial_channel"
       ],
       "windows": 1
@@ -1814,10 +1871,11 @@
       "error": false,
       "verdict": "scam",
       "type": "fake_customer_care",
-      "confidence": 0.89,
+      "confidence": 0.91,
       "red_flags": [
        "remote_access_or_install",
        "urgency_deadline",
+       "solicits_money_now",
        "discourages_verification"
       ],
       "windows": 1
@@ -1844,9 +1902,11 @@
       "error": false,
       "verdict": "scam",
       "type": "fake_customer_care",
-      "confidence": 0.85,
+      "confidence": 0.89,
       "red_flags": [
-       "remote_access_or_install"
+       "remote_access_or_install",
+       "solicits_money_now",
+       "evades_credentials"
       ],
       "windows": 2
      },
@@ -1920,9 +1980,10 @@
       "error": false,
       "verdict": "scam",
       "type": "fake_customer_care",
-      "confidence": 0.85,
+      "confidence": 0.87,
       "red_flags": [
-       "remote_access_or_install"
+       "remote_access_or_install",
+       "urgency_deadline"
       ],
       "windows": 1
      },
@@ -1948,9 +2009,10 @@
       "error": false,
       "verdict": "scam",
       "type": "fake_customer_care",
-      "confidence": 0.85,
+      "confidence": 0.87,
       "red_flags": [
-       "remote_access_or_install"
+       "remote_access_or_install",
+       "evades_credentials"
       ],
       "windows": 2
      },
@@ -1989,10 +2051,11 @@
       "error": false,
       "verdict": "scam",
       "type": "fake_customer_care",
-      "confidence": 0.87,
+      "confidence": 0.89,
       "red_flags": [
        "remote_access_or_install",
-       "discourages_verification"
+       "discourages_verification",
+       "evades_credentials"
       ],
       "windows": 2
      },
@@ -2033,10 +2096,9 @@
       "error": false,
       "verdict": "scam",
       "type": "fake_customer_care",
-      "confidence": 0.87,
+      "confidence": 0.85,
       "red_flags": [
-       "remote_access_or_install",
-       "identity_inconsistency"
+       "remote_access_or_install"
       ],
       "windows": 2
      },
@@ -2091,10 +2153,11 @@
       "error": false,
       "verdict": "scam",
       "type": "fake_customer_care",
-      "confidence": 0.87,
+      "confidence": 0.89,
       "red_flags": [
        "remote_access_or_install",
-       "link_or_unofficial_channel"
+       "link_or_unofficial_channel",
+       "evades_credentials"
       ],
       "windows": 2
      },
@@ -2152,6 +2215,7 @@
       "type": "lottery_prize",
       "confidence": 0.9,
       "red_flags": [
+       "unexpected_windfall",
        "too_good_to_be_true",
        "asks_full_identifier",
        "urgency_deadline",
@@ -2169,8 +2233,8 @@
       "type": "lottery_prize",
       "confidence": 0.75,
       "red_flags": [
-       "asks_full_identifier",
-       "too_good_to_be_true"
+       "unexpected_windfall",
+       "asks_full_identifier"
       ],
       "windows": 2
      },
@@ -2182,12 +2246,15 @@
       "error": false,
       "verdict": "scam",
       "type": "lottery_prize",
-      "confidence": 0.94,
+      "confidence": 0.99,
       "red_flags": [
+       "unexpected_windfall",
        "too_good_to_be_true",
        "pay_to_receive",
        "payment_to_personal_account",
-       "discourages_verification"
+       "solicits_money_now",
+       "discourages_verification",
+       "secrecy_or_isolation"
       ],
       "windows": 2
      },
@@ -2199,10 +2266,12 @@
       "error": false,
       "verdict": "scam",
       "type": "lottery_prize",
-      "confidence": 0.87,
+      "confidence": 0.9,
       "red_flags": [
+       "unexpected_windfall",
        "too_good_to_be_true",
-       "asks_secret_credential"
+       "urgency_deadline",
+       "asks_full_identifier"
       ],
       "windows": 1
      },
@@ -2214,10 +2283,11 @@
       "error": false,
       "verdict": "scam",
       "type": "lottery_prize",
-      "confidence": 0.75,
+      "confidence": 0.85,
       "red_flags": [
        "too_good_to_be_true",
-       "identity_inconsistency"
+       "unexpected_windfall",
+       "evades_credentials"
       ],
       "windows": 1
      },
@@ -2231,7 +2301,7 @@
       "type": "lottery_prize",
       "confidence": 0.85,
       "red_flags": [
-       "too_good_to_be_true",
+       "unexpected_windfall",
        "asks_full_identifier",
        "urgency_deadline"
       ],
@@ -2245,10 +2315,11 @@
       "error": false,
       "verdict": "scam",
       "type": "lottery_prize",
-      "confidence": 0.75,
+      "confidence": 0.85,
       "red_flags": [
-       "too_good_to_be_true",
-       "asks_full_identifier"
+       "unexpected_windfall",
+       "asks_full_identifier",
+       "too_good_to_be_true"
       ],
       "windows": 2
      },
@@ -2260,10 +2331,12 @@
       "error": false,
       "verdict": "scam",
       "type": "lottery_prize",
-      "confidence": 0.87,
+      "confidence": 0.91,
       "red_flags": [
+       "unexpected_windfall",
+       "pay_to_receive",
        "too_good_to_be_true",
-       "pay_to_receive"
+       "evades_credentials"
       ],
       "windows": 1
      },
@@ -2275,12 +2348,14 @@
       "error": false,
       "verdict": "scam",
       "type": "lottery_prize",
-      "confidence": 0.91,
+      "confidence": 0.98,
       "red_flags": [
-       "too_good_to_be_true",
-       "link_or_unofficial_channel",
+       "unexpected_windfall",
+       "identity_inconsistency",
        "discourages_verification",
-       "pay_to_receive"
+       "pay_to_receive",
+       "payment_to_personal_account",
+       "solicits_money_now"
       ],
       "windows": 2
      },
@@ -2289,15 +2364,7 @@
       "split": "scam_dialogue",
       "domain": "reward",
       "fraud": true,
-      "error": false,
-      "verdict": "scam",
-      "type": "lottery_prize",
-      "confidence": 0.75,
-      "red_flags": [
-       "too_good_to_be_true",
-       "asks_full_identifier"
-      ],
-      "windows": 1
+      "error": true
      },
      {
       "id": "scam_dialogue-130",
@@ -2307,11 +2374,12 @@
       "error": false,
       "verdict": "scam",
       "type": "lottery_prize",
-      "confidence": 0.85,
+      "confidence": 0.9,
       "red_flags": [
-       "too_good_to_be_true",
+       "unexpected_windfall",
        "asks_full_identifier",
-       "discourages_verification"
+       "discourages_verification",
+       "identity_inconsistency"
       ],
       "windows": 2
      },
@@ -2323,10 +2391,11 @@
       "error": false,
       "verdict": "scam",
       "type": "lottery_prize",
-      "confidence": 0.75,
+      "confidence": 0.85,
       "red_flags": [
-       "too_good_to_be_true",
-       "asks_full_identifier"
+       "unexpected_windfall",
+       "asks_full_identifier",
+       "too_good_to_be_true"
       ],
       "windows": 2
      },
@@ -2338,13 +2407,14 @@
       "error": false,
       "verdict": "scam",
       "type": "lottery_prize",
-      "confidence": 0.93,
+      "confidence": 0.95,
       "red_flags": [
+       "unexpected_windfall",
        "too_good_to_be_true",
-       "identity_inconsistency",
+       "evades_credentials",
        "pay_to_receive",
-       "urgency_deadline",
-       "discourages_verification"
+       "solicits_money_now",
+       "urgency_deadline"
       ],
       "windows": 2
      },
@@ -2356,9 +2426,10 @@
       "error": false,
       "verdict": "scam",
       "type": "lottery_prize",
-      "confidence": 0.87,
+      "confidence": 0.92,
       "red_flags": [
-       "too_good_to_be_true",
+       "unexpected_windfall",
+       "asks_secret_credential",
        "pay_to_receive"
       ],
       "windows": 1
@@ -2373,7 +2444,7 @@
       "type": "lottery_prize",
       "confidence": 0.75,
       "red_flags": [
-       "too_good_to_be_true",
+       "unexpected_windfall",
        "identity_inconsistency"
       ],
       "windows": 2
@@ -2386,10 +2457,12 @@
       "error": false,
       "verdict": "scam",
       "type": "lottery_prize",
-      "confidence": 0.87,
+      "confidence": 0.91,
       "red_flags": [
+       "unexpected_windfall",
        "too_good_to_be_true",
-       "pay_to_receive"
+       "pay_to_receive",
+       "solicits_money_now"
       ],
       "windows": 1
      },
@@ -2399,10 +2472,11 @@
       "domain": "reward",
       "fraud": true,
       "error": false,
-      "verdict": "undetermined",
-      "type": "undetermined",
-      "confidence": 0.0,
+      "verdict": "scam",
+      "type": "lottery_prize",
+      "confidence": 0.75,
       "red_flags": [
+       "unexpected_windfall",
        "too_good_to_be_true"
       ],
       "windows": 1
@@ -2413,10 +2487,11 @@
       "domain": "reward",
       "fraud": true,
       "error": false,
-      "verdict": "undetermined",
-      "type": "undetermined",
-      "confidence": 0.0,
+      "verdict": "scam",
+      "type": "lottery_prize",
+      "confidence": 0.75,
       "red_flags": [
+       "unexpected_windfall",
        "too_good_to_be_true"
       ],
       "windows": 2
@@ -2429,12 +2504,13 @@
       "error": false,
       "verdict": "scam",
       "type": "lottery_prize",
-      "confidence": 0.98,
+      "confidence": 0.99,
       "red_flags": [
+       "unexpected_windfall",
        "too_good_to_be_true",
-       "asks_full_identifier",
-       "discourages_verification",
+       "evades_credentials",
        "pay_to_receive",
+       "solicits_money_now",
        "urgency_deadline",
        "secrecy_or_isolation"
       ],
@@ -2448,8 +2524,9 @@
       "error": false,
       "verdict": "scam",
       "type": "lottery_prize",
-      "confidence": 0.75,
+      "confidence": 0.85,
       "red_flags": [
+       "unexpected_windfall",
        "too_good_to_be_true",
        "asks_full_identifier"
       ],
@@ -2465,10 +2542,10 @@
       "type": "lottery_prize",
       "confidence": 0.91,
       "red_flags": [
-       "too_good_to_be_true",
+       "unexpected_windfall",
        "asks_full_identifier",
-       "identity_inconsistency",
-       "pay_to_receive"
+       "pay_to_receive",
+       "identity_inconsistency"
       ],
       "windows": 2
      },
@@ -2480,10 +2557,13 @@
       "error": false,
       "verdict": "scam",
       "type": "lottery_prize",
-      "confidence": 0.87,
+      "confidence": 0.93,
       "red_flags": [
+       "unexpected_windfall",
        "too_good_to_be_true",
-       "pay_to_receive"
+       "asks_full_identifier",
+       "pay_to_receive",
+       "solicits_money_now"
       ],
       "windows": 1
      },
@@ -2497,7 +2577,7 @@
       "type": "lottery_prize",
       "confidence": 0.85,
       "red_flags": [
-       "too_good_to_be_true",
+       "unexpected_windfall",
        "discourages_verification",
        "urgency_deadline"
       ],
@@ -2511,8 +2591,9 @@
       "error": false,
       "verdict": "scam",
       "type": "lottery_prize",
-      "confidence": 0.85,
+      "confidence": 0.9,
       "red_flags": [
+       "unexpected_windfall",
        "too_good_to_be_true",
        "asks_full_identifier",
        "urgency_deadline"
@@ -2527,11 +2608,12 @@
       "error": false,
       "verdict": "scam",
       "type": "lottery_prize",
-      "confidence": 0.91,
+      "confidence": 0.93,
       "red_flags": [
-       "too_good_to_be_true",
+       "unexpected_windfall",
        "asks_full_identifier",
        "pay_to_receive",
+       "solicits_money_now",
        "discourages_verification"
       ],
       "windows": 2
@@ -2544,8 +2626,9 @@
       "error": false,
       "verdict": "scam",
       "type": "lottery_prize",
-      "confidence": 0.75,
+      "confidence": 0.85,
       "red_flags": [
+       "unexpected_windfall",
        "too_good_to_be_true",
        "asks_full_identifier"
       ],
@@ -2559,8 +2642,9 @@
       "error": false,
       "verdict": "scam",
       "type": "lottery_prize",
-      "confidence": 0.75,
+      "confidence": 0.85,
       "red_flags": [
+       "unexpected_windfall",
        "too_good_to_be_true",
        "identity_inconsistency"
       ],
@@ -2574,11 +2658,12 @@
       "error": false,
       "verdict": "scam",
       "type": "lottery_prize",
-      "confidence": 0.91,
+      "confidence": 0.93,
       "red_flags": [
-       "too_good_to_be_true",
+       "unexpected_windfall",
        "asks_full_identifier",
        "pay_to_receive",
+       "solicits_money_now",
        "urgency_deadline"
       ],
       "windows": 2
@@ -2591,10 +2676,11 @@
       "error": false,
       "verdict": "scam",
       "type": "lottery_prize",
-      "confidence": 0.87,
+      "confidence": 0.89,
       "red_flags": [
-       "too_good_to_be_true",
-       "pay_to_receive"
+       "unexpected_windfall",
+       "pay_to_receive",
+       "solicits_money_now"
       ],
       "windows": 1
      },
@@ -2608,7 +2694,7 @@
       "type": "lottery_prize",
       "confidence": 0.85,
       "red_flags": [
-       "too_good_to_be_true",
+       "unexpected_windfall",
        "asks_full_identifier",
        "identity_inconsistency"
       ],
@@ -2622,10 +2708,11 @@
       "error": false,
       "verdict": "scam",
       "type": "lottery_prize",
-      "confidence": 0.87,
+      "confidence": 0.89,
       "red_flags": [
-       "too_good_to_be_true",
-       "pay_to_receive"
+       "unexpected_windfall",
+       "pay_to_receive",
+       "solicits_money_now"
       ],
       "windows": 2
      },
@@ -2637,11 +2724,13 @@
       "error": false,
       "verdict": "scam",
       "type": "lottery_prize",
-      "confidence": 0.91,
+      "confidence": 0.95,
       "red_flags": [
+       "unexpected_windfall",
        "too_good_to_be_true",
        "pay_to_receive",
-       "discourages_verification",
+       "solicits_money_now",
+       "evades_credentials",
        "urgency_deadline"
       ],
       "windows": 2
@@ -2654,11 +2743,12 @@
       "error": false,
       "verdict": "scam",
       "type": "lottery_prize",
-      "confidence": 0.94,
+      "confidence": 0.93,
       "red_flags": [
-       "too_good_to_be_true",
-       "asks_secret_credential",
+       "unexpected_windfall",
+       "asks_full_identifier",
        "pay_to_receive",
+       "evades_credentials",
        "urgency_deadline"
       ],
       "windows": 2
@@ -2671,8 +2761,9 @@
       "error": false,
       "verdict": "scam",
       "type": "lottery_prize",
-      "confidence": 0.75,
+      "confidence": 0.85,
       "red_flags": [
+       "unexpected_windfall",
        "too_good_to_be_true",
        "asks_full_identifier"
       ],
@@ -2688,6 +2779,7 @@
       "type": "lottery_prize",
       "confidence": 0.9,
       "red_flags": [
+       "unexpected_windfall",
        "too_good_to_be_true",
        "asks_full_identifier",
        "urgency_deadline",
@@ -2701,10 +2793,11 @@
       "domain": "reward",
       "fraud": true,
       "error": false,
-      "verdict": "undetermined",
-      "type": "undetermined",
-      "confidence": 0.0,
+      "verdict": "scam",
+      "type": "lottery_prize",
+      "confidence": 0.75,
       "red_flags": [
+       "unexpected_windfall",
        "too_good_to_be_true"
       ],
       "windows": 1
@@ -2717,11 +2810,13 @@
       "error": false,
       "verdict": "scam",
       "type": "lottery_prize",
-      "confidence": 0.89,
+      "confidence": 0.93,
       "red_flags": [
+       "unexpected_windfall",
        "too_good_to_be_true",
        "asks_full_identifier",
-       "pay_to_receive"
+       "pay_to_receive",
+       "solicits_money_now"
       ],
       "windows": 2
      },
@@ -2733,8 +2828,9 @@
       "error": false,
       "verdict": "scam",
       "type": "lottery_prize",
-      "confidence": 0.75,
+      "confidence": 0.85,
       "red_flags": [
+       "unexpected_windfall",
        "too_good_to_be_true",
        "asks_full_identifier"
       ],
@@ -2748,11 +2844,12 @@
       "error": false,
       "verdict": "scam",
       "type": "lottery_prize",
-      "confidence": 0.85,
+      "confidence": 0.9,
       "red_flags": [
+       "unexpected_windfall",
        "too_good_to_be_true",
-       "asks_full_identifier",
-       "identity_inconsistency"
+       "identity_inconsistency",
+       "asks_full_identifier"
       ],
       "windows": 1
      },
@@ -2762,10 +2859,11 @@
       "domain": "reward",
       "fraud": true,
       "error": false,
-      "verdict": "undetermined",
-      "type": "undetermined",
-      "confidence": 0.0,
+      "verdict": "scam",
+      "type": "lottery_prize",
+      "confidence": 0.75,
       "red_flags": [
+       "unexpected_windfall",
        "too_good_to_be_true"
       ],
       "windows": 1
@@ -3003,12 +3101,7 @@
       "split": "scam_dialogue",
       "domain": "delivery",
       "fraud": false,
-      "error": false,
-      "verdict": "legitimate",
-      "type": "not_scam",
-      "confidence": 0.65,
-      "red_flags": [],
-      "windows": 1
+      "error": true
      },
      {
       "id": "scam_dialogue-180",
@@ -3356,7 +3449,7 @@
       "error": false,
       "verdict": "legitimate",
       "type": "not_scam",
-      "confidence": 0.75,
+      "confidence": 0.65,
       "red_flags": [],
       "windows": 1
      },
@@ -3366,9 +3459,9 @@
       "domain": "insurance",
       "fraud": false,
       "error": false,
-      "verdict": "undetermined",
-      "type": "undetermined",
-      "confidence": 0.0,
+      "verdict": "legitimate",
+      "type": "not_scam",
+      "confidence": 0.65,
       "red_flags": [],
       "windows": 1
      },
@@ -3414,9 +3507,9 @@
       "domain": "insurance",
       "fraud": false,
       "error": false,
-      "verdict": "undetermined",
-      "type": "undetermined",
-      "confidence": 0.0,
+      "verdict": "legitimate",
+      "type": "not_scam",
+      "confidence": 0.65,
       "red_flags": [],
       "windows": 1
      },
@@ -3440,7 +3533,7 @@
       "error": false,
       "verdict": "legitimate",
       "type": "not_scam",
-      "confidence": 0.65,
+      "confidence": 0.75,
       "red_flags": [],
       "windows": 1
      },
@@ -3462,9 +3555,9 @@
       "domain": "insurance",
       "fraud": false,
       "error": false,
-      "verdict": "legitimate",
-      "type": "not_scam",
-      "confidence": 0.65,
+      "verdict": "undetermined",
+      "type": "undetermined",
+      "confidence": 0.0,
       "red_flags": [],
       "windows": 1
      },
@@ -3474,9 +3567,9 @@
       "domain": "insurance",
       "fraud": false,
       "error": false,
-      "verdict": "undetermined",
-      "type": "undetermined",
-      "confidence": 0.0,
+      "verdict": "legitimate",
+      "type": "not_scam",
+      "confidence": 0.65,
       "red_flags": [],
       "windows": 1
      },
@@ -3533,12 +3626,7 @@
       "split": "scam_dialogue",
       "domain": "insurance",
       "fraud": false,
-      "error": false,
-      "verdict": "legitimate",
-      "type": "not_scam",
-      "confidence": 0.65,
-      "red_flags": [],
-      "windows": 1
+      "error": true
      },
      {
       "id": "scam_dialogue-224",
@@ -3632,7 +3720,7 @@
       "error": false,
       "verdict": "legitimate",
       "type": "not_scam",
-      "confidence": 0.65,
+      "confidence": 0.75,
       "red_flags": [],
       "windows": 1
      },
@@ -3680,7 +3768,7 @@
       "error": false,
       "verdict": "legitimate",
       "type": "not_scam",
-      "confidence": 0.65,
+      "confidence": 0.75,
       "red_flags": [],
       "windows": 1
      },
@@ -3752,7 +3840,7 @@
       "error": false,
       "verdict": "legitimate",
       "type": "not_scam",
-      "confidence": 0.65,
+      "confidence": 0.75,
       "red_flags": [],
       "windows": 1
      },
@@ -3788,7 +3876,7 @@
       "error": false,
       "verdict": "legitimate",
       "type": "not_scam",
-      "confidence": 0.75,
+      "confidence": 0.65,
       "red_flags": [],
       "windows": 1
      },
@@ -3812,7 +3900,7 @@
       "error": false,
       "verdict": "legitimate",
       "type": "not_scam",
-      "confidence": 0.75,
+      "confidence": 0.65,
       "red_flags": [],
       "windows": 1
      },
@@ -3824,7 +3912,7 @@
       "error": false,
       "verdict": "legitimate",
       "type": "not_scam",
-      "confidence": 0.65,
+      "confidence": 0.75,
       "red_flags": [],
       "windows": 1
      },
@@ -3906,9 +3994,9 @@
       "domain": "telemarketing",
       "fraud": false,
       "error": false,
-      "verdict": "legitimate",
-      "type": "not_scam",
-      "confidence": 0.65,
+      "verdict": "undetermined",
+      "type": "undetermined",
+      "confidence": 0.0,
       "red_flags": [],
       "windows": 1
      },
@@ -4050,9 +4138,9 @@
       "domain": "telemarketing",
       "fraud": false,
       "error": false,
-      "verdict": "undetermined",
-      "type": "undetermined",
-      "confidence": 0.0,
+      "verdict": "legitimate",
+      "type": "not_scam",
+      "confidence": 0.65,
       "red_flags": [],
       "windows": 1
      },
@@ -4158,9 +4246,9 @@
       "domain": "telemarketing",
       "fraud": false,
       "error": false,
-      "verdict": "legitimate",
-      "type": "not_scam",
-      "confidence": 0.65,
+      "verdict": "undetermined",
+      "type": "undetermined",
+      "confidence": 0.0,
       "red_flags": [],
       "windows": 1
      },
@@ -4194,9 +4282,9 @@
       "domain": "telemarketing",
       "fraud": false,
       "error": false,
-      "verdict": "undetermined",
-      "type": "undetermined",
-      "confidence": 0.0,
+      "verdict": "legitimate",
+      "type": "not_scam",
+      "confidence": 0.65,
       "red_flags": [],
       "windows": 1
      },
@@ -4220,7 +4308,7 @@
       "error": false,
       "verdict": "legitimate",
       "type": "not_scam",
-      "confidence": 0.75,
+      "confidence": 0.65,
       "red_flags": [],
       "windows": 1
      },
@@ -4244,7 +4332,7 @@
       "error": false,
       "verdict": "legitimate",
       "type": "not_scam",
-      "confidence": 0.65,
+      "confidence": 0.75,
       "red_flags": [],
       "windows": 1
      },
@@ -4280,7 +4368,7 @@
       "error": false,
       "verdict": "legitimate",
       "type": "not_scam",
-      "confidence": 0.75,
+      "confidence": 0.65,
       "red_flags": [],
       "windows": 1
      },
@@ -4292,7 +4380,7 @@
       "error": false,
       "verdict": "legitimate",
       "type": "not_scam",
-      "confidence": 0.75,
+      "confidence": 0.65,
       "red_flags": [],
       "windows": 1
      },
@@ -4304,7 +4392,7 @@
       "error": false,
       "verdict": "legitimate",
       "type": "not_scam",
-      "confidence": 0.65,
+      "confidence": 0.75,
       "red_flags": [],
       "windows": 1
      },
@@ -4374,9 +4462,9 @@
       "domain": "wrong",
       "fraud": false,
       "error": false,
-      "verdict": "legitimate",
-      "type": "not_scam",
-      "confidence": 0.65,
+      "verdict": "undetermined",
+      "type": "undetermined",
+      "confidence": 0.0,
       "red_flags": [],
       "windows": 1
      },
@@ -4400,7 +4488,7 @@
       "error": false,
       "verdict": "legitimate",
       "type": "not_scam",
-      "confidence": 0.65,
+      "confidence": 0.75,
       "red_flags": [],
       "windows": 1
      },
@@ -4412,7 +4500,7 @@
       "error": false,
       "verdict": "legitimate",
       "type": "not_scam",
-      "confidence": 0.75,
+      "confidence": 0.65,
       "red_flags": [],
       "windows": 1
      },
@@ -4424,7 +4512,7 @@
       "error": false,
       "verdict": "legitimate",
       "type": "not_scam",
-      "confidence": 0.65,
+      "confidence": 0.75,
       "red_flags": [],
       "windows": 1
      },
@@ -4436,7 +4524,7 @@
       "error": false,
       "verdict": "legitimate",
       "type": "not_scam",
-      "confidence": 0.75,
+      "confidence": 0.65,
       "red_flags": [],
       "windows": 1
      },
@@ -4448,7 +4536,7 @@
       "error": false,
       "verdict": "legitimate",
       "type": "not_scam",
-      "confidence": 0.65,
+      "confidence": 0.75,
       "red_flags": [],
       "windows": 1
      },
@@ -4496,7 +4584,7 @@
       "error": false,
       "verdict": "legitimate",
       "type": "not_scam",
-      "confidence": 0.65,
+      "confidence": 0.75,
       "red_flags": [],
       "windows": 1
      },
@@ -4508,7 +4596,7 @@
       "error": false,
       "verdict": "legitimate",
       "type": "not_scam",
-      "confidence": 0.65,
+      "confidence": 0.75,
       "red_flags": [],
       "windows": 1
      },
@@ -4553,12 +4641,7 @@
       "split": "scam_dialogue",
       "domain": "wrong",
       "fraud": false,
-      "error": false,
-      "verdict": "legitimate",
-      "type": "not_scam",
-      "confidence": 0.65,
-      "red_flags": [],
-      "windows": 1
+      "error": true
      },
      {
       "id": "scam_dialogue-309",
@@ -4698,45 +4781,45 @@
   "multi_agent": [
    {
     "metrics": {
-     "n": 319,
-     "tp": 140,
+     "n": 314,
+     "tp": 148,
      "fp": 0,
-     "tn": 160,
-     "fn": 19,
-     "accuracy": 0.94,
+     "tn": 159,
+     "fn": 7,
+     "accuracy": 0.978,
      "precision": 1.0,
-     "recall": 0.881,
-     "f1": 0.936,
+     "recall": 0.955,
+     "f1": 0.977,
      "specificity": 1.0,
      "false_positive_rate": 0.0,
-     "balanced_accuracy": 0.94,
-     "mcc": 0.887,
+     "balanced_accuracy": 0.977,
+     "mcc": 0.956,
      "recall_ci95": [
-      0.821,
-      0.922
+      0.91,
+      0.978
      ],
      "specificity_ci95": [
-      0.977,
+      0.976,
       1.0
      ],
      "precision_ci95": [
-      0.973,
+      0.975,
       1.0
      ],
-     "errors": 1,
+     "errors": 6,
      "non_scam_outcomes": {
       "scam": 0,
-      "legitimate": 146,
+      "legitimate": 145,
       "undetermined": 14
      },
      "correct_by_type": {
       "appointment": "40/40",
       "delivery": "40/40",
-      "insurance": "40/40",
-      "refund": "27/40",
-      "reward": "37/40",
+      "insurance": "39/39",
+      "refund": "36/40",
+      "reward": "39/39",
       "ssn": "40/40",
-      "support": "36/39",
+      "support": "33/36",
       "wrong": "40/40"
      }
     },
@@ -5121,7 +5204,7 @@
       "error": false,
       "verdict": "legitimate",
       "type": "not_scam",
-      "confidence": 0.75,
+      "confidence": 0.65,
       "red_flags": [],
       "windows": 1
      },
@@ -5145,7 +5228,7 @@
       "error": false,
       "verdict": "legitimate",
       "type": "not_scam",
-      "confidence": 0.75,
+      "confidence": 0.65,
       "red_flags": [],
       "windows": 1
      },
@@ -5229,7 +5312,7 @@
       "error": false,
       "verdict": "legitimate",
       "type": "not_scam",
-      "confidence": 0.75,
+      "confidence": 0.65,
       "red_flags": [],
       "windows": 1
      },
@@ -5241,7 +5324,7 @@
       "error": false,
       "verdict": "legitimate",
       "type": "not_scam",
-      "confidence": 0.75,
+      "confidence": 0.65,
       "red_flags": [],
       "windows": 1
      },
@@ -5253,7 +5336,7 @@
       "error": false,
       "verdict": "legitimate",
       "type": "not_scam",
-      "confidence": 0.75,
+      "confidence": 0.65,
       "red_flags": [],
       "windows": 1
      },
@@ -5277,7 +5360,7 @@
       "error": false,
       "verdict": "legitimate",
       "type": "not_scam",
-      "confidence": 0.75,
+      "confidence": 0.65,
       "red_flags": [],
       "windows": 1
      },
@@ -5289,7 +5372,7 @@
       "error": false,
       "verdict": "legitimate",
       "type": "not_scam",
-      "confidence": 0.75,
+      "confidence": 0.65,
       "red_flags": [],
       "windows": 1
      },
@@ -5313,7 +5396,7 @@
       "error": false,
       "verdict": "legitimate",
       "type": "not_scam",
-      "confidence": 0.85,
+      "confidence": 0.75,
       "red_flags": [],
       "windows": 1
      },
@@ -5325,7 +5408,7 @@
       "error": false,
       "verdict": "legitimate",
       "type": "not_scam",
-      "confidence": 0.85,
+      "confidence": 0.75,
       "red_flags": [],
       "windows": 1
      },
@@ -5337,7 +5420,7 @@
       "error": false,
       "verdict": "legitimate",
       "type": "not_scam",
-      "confidence": 0.75,
+      "confidence": 0.65,
       "red_flags": [],
       "windows": 1
      },
@@ -5397,7 +5480,7 @@
       "error": false,
       "verdict": "legitimate",
       "type": "not_scam",
-      "confidence": 0.75,
+      "confidence": 0.65,
       "red_flags": [],
       "windows": 1
      },
@@ -5421,7 +5504,7 @@
       "error": false,
       "verdict": "legitimate",
       "type": "not_scam",
-      "confidence": 0.75,
+      "confidence": 0.65,
       "red_flags": [],
       "windows": 1
      },
@@ -5589,7 +5672,7 @@
       "error": false,
       "verdict": "legitimate",
       "type": "not_scam",
-      "confidence": 0.85,
+      "confidence": 0.75,
       "red_flags": [],
       "windows": 1
      },
@@ -5601,7 +5684,7 @@
       "error": false,
       "verdict": "legitimate",
       "type": "not_scam",
-      "confidence": 0.75,
+      "confidence": 0.65,
       "red_flags": [],
       "windows": 1
      },
@@ -5697,7 +5780,7 @@
       "error": false,
       "verdict": "legitimate",
       "type": "not_scam",
-      "confidence": 0.65,
+      "confidence": 0.75,
       "red_flags": [],
       "windows": 1
      },
@@ -5767,9 +5850,9 @@
       "domain": "insurance",
       "fraud": false,
       "error": false,
-      "verdict": "legitimate",
-      "type": "not_scam",
-      "confidence": 0.65,
+      "verdict": "undetermined",
+      "type": "undetermined",
+      "confidence": 0.0,
       "red_flags": [],
       "windows": 2
      },
@@ -5793,7 +5876,7 @@
       "error": false,
       "verdict": "legitimate",
       "type": "not_scam",
-      "confidence": 0.75,
+      "confidence": 0.65,
       "red_flags": [],
       "windows": 1
      },
@@ -5937,7 +6020,7 @@
       "error": false,
       "verdict": "legitimate",
       "type": "not_scam",
-      "confidence": 0.75,
+      "confidence": 0.65,
       "red_flags": [],
       "windows": 1
      },
@@ -6071,7 +6154,7 @@
       "error": false,
       "verdict": "legitimate",
       "type": "not_scam",
-      "confidence": 0.65,
+      "confidence": 0.75,
       "red_flags": [],
       "windows": 1
      },
@@ -6128,12 +6211,7 @@
       "split": "multi_agent",
       "domain": "insurance",
       "fraud": false,
-      "error": false,
-      "verdict": "undetermined",
-      "type": "undetermined",
-      "confidence": 0.0,
-      "red_flags": [],
-      "windows": 2
+      "error": true
      },
      {
       "id": "multi_agent-116",
@@ -6191,10 +6269,12 @@
       "error": false,
       "verdict": "scam",
       "type": "other_scam",
-      "confidence": 0.87,
+      "confidence": 0.91,
       "red_flags": [
+       "unexpected_windfall",
+       "asks_full_identifier",
        "pay_to_receive",
-       "asks_full_identifier"
+       "solicits_money_now"
       ],
       "windows": 2
      },
@@ -6204,10 +6284,11 @@
       "domain": "refund",
       "fraud": true,
       "error": false,
-      "verdict": "undetermined",
-      "type": "undetermined",
-      "confidence": 0.0,
+      "verdict": "scam",
+      "type": "other_scam",
+      "confidence": 0.75,
       "red_flags": [
+       "unexpected_windfall",
        "asks_full_identifier"
       ],
       "windows": 1
@@ -6220,9 +6301,12 @@
       "error": false,
       "verdict": "scam",
       "type": "other_scam",
-      "confidence": 0.85,
+      "confidence": 0.91,
       "red_flags": [
-       "pay_to_receive"
+       "unexpected_windfall",
+       "asks_full_identifier",
+       "pay_to_receive",
+       "solicits_money_now"
       ],
       "windows": 1
      },
@@ -6232,10 +6316,12 @@
       "domain": "refund",
       "fraud": true,
       "error": false,
-      "verdict": "legitimate",
-      "type": "not_scam",
-      "confidence": 0.65,
-      "red_flags": [],
+      "verdict": "undetermined",
+      "type": "undetermined",
+      "confidence": 0.0,
+      "red_flags": [
+       "unexpected_windfall"
+      ],
       "windows": 1
      },
      {
@@ -6244,10 +6330,11 @@
       "domain": "refund",
       "fraud": true,
       "error": false,
-      "verdict": "undetermined",
-      "type": "undetermined",
-      "confidence": 0.0,
+      "verdict": "scam",
+      "type": "fake_customer_care",
+      "confidence": 0.75,
       "red_flags": [
+       "unexpected_windfall",
        "urgency_deadline"
       ],
       "windows": 1
@@ -6258,10 +6345,11 @@
       "domain": "refund",
       "fraud": true,
       "error": false,
-      "verdict": "undetermined",
-      "type": "undetermined",
-      "confidence": 0.0,
+      "verdict": "scam",
+      "type": "other_scam",
+      "confidence": 0.75,
       "red_flags": [
+       "unexpected_windfall",
        "urgency_deadline"
       ],
       "windows": 1
@@ -6272,10 +6360,11 @@
       "domain": "refund",
       "fraud": true,
       "error": false,
-      "verdict": "legitimate",
-      "type": "not_scam",
-      "confidence": 0.6,
+      "verdict": "scam",
+      "type": "fake_customer_care",
+      "confidence": 0.75,
       "red_flags": [
+       "unexpected_windfall",
        "urgency_deadline"
       ],
       "windows": 1
@@ -6288,8 +6377,9 @@
       "error": false,
       "verdict": "scam",
       "type": "fake_customer_care",
-      "confidence": 0.85,
+      "confidence": 0.9,
       "red_flags": [
+       "unexpected_windfall",
        "urgency_deadline",
        "discourages_verification",
        "asks_full_identifier"
@@ -6302,10 +6392,12 @@
       "domain": "refund",
       "fraud": true,
       "error": false,
-      "verdict": "legitimate",
-      "type": "not_scam",
-      "confidence": 0.85,
-      "red_flags": [],
+      "verdict": "undetermined",
+      "type": "undetermined",
+      "confidence": 0.0,
+      "red_flags": [
+       "unexpected_windfall"
+      ],
       "windows": 1
      },
      {
@@ -6316,8 +6408,9 @@
       "error": false,
       "verdict": "scam",
       "type": "fake_customer_care",
-      "confidence": 0.87,
+      "confidence": 0.89,
       "red_flags": [
+       "unexpected_windfall",
        "pay_to_receive",
        "urgency_deadline"
       ],
@@ -6330,9 +6423,10 @@
       "fraud": true,
       "error": false,
       "verdict": "scam",
-      "type": "fake_customer_care",
-      "confidence": 0.87,
+      "type": "other_scam",
+      "confidence": 0.89,
       "red_flags": [
+       "unexpected_windfall",
        "asks_full_identifier",
        "pay_to_receive"
       ],
@@ -6346,11 +6440,15 @@
       "error": false,
       "verdict": "scam",
       "type": "other_scam",
-      "confidence": 0.92,
+      "confidence": 0.99,
       "red_flags": [
+       "unexpected_windfall",
        "pay_to_receive",
+       "solicits_money_now",
        "asks_secret_credential",
-       "discourages_verification"
+       "asks_full_identifier",
+       "discourages_verification",
+       "payment_to_personal_account"
       ],
       "windows": 2
      },
@@ -6362,11 +6460,13 @@
       "error": false,
       "verdict": "scam",
       "type": "fake_customer_care",
-      "confidence": 0.94,
+      "confidence": 0.98,
       "red_flags": [
+       "unexpected_windfall",
        "asks_full_identifier",
        "pay_to_receive",
        "urgency_deadline",
+       "discourages_verification",
        "secrecy_or_isolation"
       ],
       "windows": 2
@@ -6379,8 +6479,9 @@
       "error": false,
       "verdict": "scam",
       "type": "fake_customer_care",
-      "confidence": 0.75,
+      "confidence": 0.85,
       "red_flags": [
+       "unexpected_windfall",
        "asks_full_identifier",
        "urgency_deadline"
       ],
@@ -6394,11 +6495,14 @@
       "error": false,
       "verdict": "scam",
       "type": "other_scam",
-      "confidence": 0.92,
+      "confidence": 0.99,
       "red_flags": [
+       "unexpected_windfall",
        "asks_full_identifier",
        "pay_to_receive",
-       "payment_to_personal_account"
+       "solicits_money_now",
+       "payment_to_personal_account",
+       "asks_secret_credential"
       ],
       "windows": 2
      },
@@ -6410,11 +6514,12 @@
       "error": false,
       "verdict": "scam",
       "type": "other_scam",
-      "confidence": 0.92,
+      "confidence": 0.94,
       "red_flags": [
-       "asks_full_identifier",
+       "unexpected_windfall",
        "pay_to_receive",
-       "payment_to_personal_account"
+       "payment_to_personal_account",
+       "urgency_deadline"
       ],
       "windows": 1
      },
@@ -6426,11 +6531,12 @@
       "error": false,
       "verdict": "scam",
       "type": "fake_customer_care",
-      "confidence": 0.92,
+      "confidence": 0.91,
       "red_flags": [
+       "unexpected_windfall",
        "pay_to_receive",
        "asks_full_identifier",
-       "payment_to_personal_account"
+       "solicits_money_now"
       ],
       "windows": 1
      },
@@ -6441,12 +6547,13 @@
       "fraud": true,
       "error": false,
       "verdict": "scam",
-      "type": "other_scam",
-      "confidence": 0.92,
+      "type": "fake_customer_care",
+      "confidence": 0.94,
       "red_flags": [
-       "asks_full_identifier",
+       "unexpected_windfall",
        "pay_to_receive",
-       "payment_to_personal_account"
+       "payment_to_personal_account",
+       "solicits_money_now"
       ],
       "windows": 1
      },
@@ -6457,12 +6564,15 @@
       "fraud": true,
       "error": false,
       "verdict": "scam",
-      "type": "other_scam",
-      "confidence": 0.92,
+      "type": "fake_customer_care",
+      "confidence": 0.99,
       "red_flags": [
+       "unexpected_windfall",
        "asks_full_identifier",
        "pay_to_receive",
-       "payment_to_personal_account"
+       "payment_to_personal_account",
+       "asks_secret_credential",
+       "urgency_deadline"
       ],
       "windows": 1
      },
@@ -6473,11 +6583,13 @@
       "fraud": true,
       "error": false,
       "verdict": "scam",
-      "type": "other_scam",
-      "confidence": 0.87,
+      "type": "fake_customer_care",
+      "confidence": 0.91,
       "red_flags": [
+       "unexpected_windfall",
        "asks_full_identifier",
-       "pay_to_receive"
+       "pay_to_receive",
+       "solicits_money_now"
       ],
       "windows": 1
      },
@@ -6489,11 +6601,14 @@
       "error": false,
       "verdict": "scam",
       "type": "other_scam",
-      "confidence": 0.92,
+      "confidence": 0.98,
       "red_flags": [
+       "unexpected_windfall",
+       "pay_to_receive",
+       "solicits_money_now",
+       "urgency_deadline",
        "asks_secret_credential",
-       "asks_full_identifier",
-       "pay_to_receive"
+       "asks_full_identifier"
       ],
       "windows": 2
      },
@@ -6504,12 +6619,15 @@
       "fraud": true,
       "error": false,
       "verdict": "scam",
-      "type": "fake_customer_care",
-      "confidence": 0.89,
+      "type": "other_scam",
+      "confidence": 0.95,
       "red_flags": [
+       "unexpected_windfall",
        "asks_full_identifier",
+       "pay_to_receive",
+       "solicits_money_now",
        "too_good_to_be_true",
-       "pay_to_receive"
+       "urgency_deadline"
       ],
       "windows": 2
      },
@@ -6521,8 +6639,9 @@
       "error": false,
       "verdict": "scam",
       "type": "fake_customer_care",
-      "confidence": 0.87,
+      "confidence": 0.89,
       "red_flags": [
+       "unexpected_windfall",
        "asks_full_identifier",
        "pay_to_receive"
       ],
@@ -6535,9 +6654,10 @@
       "fraud": true,
       "error": false,
       "verdict": "scam",
-      "type": "other_scam",
-      "confidence": 0.89,
+      "type": "fake_customer_care",
+      "confidence": 0.91,
       "red_flags": [
+       "unexpected_windfall",
        "asks_full_identifier",
        "pay_to_receive",
        "link_or_unofficial_channel"
@@ -6552,12 +6672,14 @@
       "error": false,
       "verdict": "scam",
       "type": "other_scam",
-      "confidence": 0.91,
+      "confidence": 0.95,
       "red_flags": [
-       "asks_full_identifier",
+       "unexpected_windfall",
        "too_good_to_be_true",
        "pay_to_receive",
-       "urgency_deadline"
+       "solicits_money_now",
+       "urgency_deadline",
+       "asks_full_identifier"
       ],
       "windows": 2
      },
@@ -6567,10 +6689,12 @@
       "domain": "refund",
       "fraud": true,
       "error": false,
-      "verdict": "undetermined",
-      "type": "undetermined",
-      "confidence": 0.0,
+      "verdict": "scam",
+      "type": "fake_customer_care",
+      "confidence": 0.85,
       "red_flags": [
+       "unexpected_windfall",
+       "urgency_deadline",
        "asks_full_identifier"
       ],
       "windows": 1
@@ -6581,10 +6705,12 @@
       "domain": "refund",
       "fraud": true,
       "error": false,
-      "verdict": "legitimate",
-      "type": "not_scam",
-      "confidence": 0.75,
-      "red_flags": [],
+      "verdict": "undetermined",
+      "type": "undetermined",
+      "confidence": 0.0,
+      "red_flags": [
+       "unexpected_windfall"
+      ],
       "windows": 1
      },
      {
@@ -6595,9 +6721,11 @@
       "error": false,
       "verdict": "scam",
       "type": "fake_customer_care",
-      "confidence": 0.89,
+      "confidence": 0.93,
       "red_flags": [
+       "unexpected_windfall",
        "pay_to_receive",
+       "solicits_money_now",
        "asks_full_identifier",
        "urgency_deadline"
       ],
@@ -6610,11 +6738,13 @@
       "fraud": true,
       "error": false,
       "verdict": "scam",
-      "type": "other_scam",
-      "confidence": 0.87,
+      "type": "fake_customer_care",
+      "confidence": 0.91,
       "red_flags": [
+       "unexpected_windfall",
        "asks_full_identifier",
-       "pay_to_receive"
+       "pay_to_receive",
+       "solicits_money_now"
       ],
       "windows": 1
      },
@@ -6626,10 +6756,11 @@
       "error": false,
       "verdict": "scam",
       "type": "fake_customer_care",
-      "confidence": 0.75,
+      "confidence": 0.85,
       "red_flags": [
-       "urgency_deadline",
-       "discourages_verification"
+       "unexpected_windfall",
+       "asks_full_identifier",
+       "urgency_deadline"
       ],
       "windows": 1
      },
@@ -6639,10 +6770,11 @@
       "domain": "refund",
       "fraud": true,
       "error": false,
-      "verdict": "undetermined",
-      "type": "undetermined",
-      "confidence": 0.0,
+      "verdict": "scam",
+      "type": "other_scam",
+      "confidence": 0.75,
       "red_flags": [
+       "unexpected_windfall",
        "urgency_deadline"
       ],
       "windows": 1
@@ -6653,10 +6785,11 @@
       "domain": "refund",
       "fraud": true,
       "error": false,
-      "verdict": "undetermined",
-      "type": "undetermined",
-      "confidence": 0.0,
+      "verdict": "scam",
+      "type": "other_scam",
+      "confidence": 0.75,
       "red_flags": [
+       "unexpected_windfall",
        "identity_inconsistency"
       ],
       "windows": 1
@@ -6667,10 +6800,13 @@
       "domain": "refund",
       "fraud": true,
       "error": false,
-      "verdict": "undetermined",
-      "type": "undetermined",
-      "confidence": 0.0,
-      "red_flags": [],
+      "verdict": "scam",
+      "type": "fake_customer_care",
+      "confidence": 0.75,
+      "red_flags": [
+       "unexpected_windfall",
+       "urgency_deadline"
+      ],
       "windows": 1
      },
      {
@@ -6679,10 +6815,13 @@
       "domain": "refund",
       "fraud": true,
       "error": false,
-      "verdict": "undetermined",
-      "type": "undetermined",
-      "confidence": 0.0,
-      "red_flags": [],
+      "verdict": "scam",
+      "type": "other_scam",
+      "confidence": 0.75,
+      "red_flags": [
+       "unexpected_windfall",
+       "identity_inconsistency"
+      ],
       "windows": 1
      },
      {
@@ -6691,10 +6830,12 @@
       "domain": "refund",
       "fraud": true,
       "error": false,
-      "verdict": "legitimate",
-      "type": "not_scam",
-      "confidence": 0.65,
-      "red_flags": [],
+      "verdict": "undetermined",
+      "type": "undetermined",
+      "confidence": 0.0,
+      "red_flags": [
+       "unexpected_windfall"
+      ],
       "windows": 1
      },
      {
@@ -6705,8 +6846,9 @@
       "error": false,
       "verdict": "scam",
       "type": "fake_customer_care",
-      "confidence": 0.87,
+      "confidence": 0.89,
       "red_flags": [
+       "unexpected_windfall",
        "pay_to_receive",
        "asks_full_identifier"
       ],
@@ -6722,9 +6864,10 @@
       "type": "fake_customer_care",
       "confidence": 0.99,
       "red_flags": [
+       "unexpected_windfall",
        "asks_full_identifier",
        "pay_to_receive",
-       "asks_secret_credential",
+       "payment_to_personal_account",
        "secrecy_or_isolation",
        "urgency_deadline"
       ],
@@ -6738,10 +6881,12 @@
       "error": false,
       "verdict": "scam",
       "type": "other_scam",
-      "confidence": 0.92,
+      "confidence": 0.96,
       "red_flags": [
+       "unexpected_windfall",
        "asks_full_identifier",
        "pay_to_receive",
+       "solicits_money_now",
        "asks_secret_credential"
       ],
       "windows": 1
@@ -6754,9 +6899,11 @@
       "error": false,
       "verdict": "scam",
       "type": "other_scam",
-      "confidence": 0.92,
+      "confidence": 0.96,
       "red_flags": [
+       "unexpected_windfall",
        "pay_to_receive",
+       "solicits_money_now",
        "asks_secret_credential",
        "asks_full_identifier"
       ],
@@ -6770,11 +6917,13 @@
       "error": false,
       "verdict": "scam",
       "type": "other_scam",
-      "confidence": 0.94,
+      "confidence": 0.99,
       "red_flags": [
+       "unexpected_windfall",
        "asks_full_identifier",
        "pay_to_receive",
        "payment_to_personal_account",
+       "asks_secret_credential",
        "urgency_deadline"
       ],
       "windows": 2
@@ -6785,11 +6934,13 @@
       "domain": "reward",
       "fraud": true,
       "error": false,
-      "verdict": "undetermined",
-      "type": "undetermined",
-      "confidence": 0.0,
+      "verdict": "scam",
+      "type": "lottery_prize",
+      "confidence": 0.85,
       "red_flags": [
-       "too_good_to_be_true"
+       "unexpected_windfall",
+       "too_good_to_be_true",
+       "urgency_deadline"
       ],
       "windows": 1
      },
@@ -6801,8 +6952,9 @@
       "error": false,
       "verdict": "scam",
       "type": "lottery_prize",
-      "confidence": 0.85,
+      "confidence": 0.9,
       "red_flags": [
+       "unexpected_windfall",
        "too_good_to_be_true",
        "identity_inconsistency",
        "urgency_deadline"
@@ -6817,8 +6969,9 @@
       "error": false,
       "verdict": "scam",
       "type": "lottery_prize",
-      "confidence": 0.75,
+      "confidence": 0.85,
       "red_flags": [
+       "unexpected_windfall",
        "too_good_to_be_true",
        "urgency_deadline"
       ],
@@ -6832,8 +6985,9 @@
       "error": false,
       "verdict": "scam",
       "type": "lottery_prize",
-      "confidence": 0.75,
+      "confidence": 0.85,
       "red_flags": [
+       "unexpected_windfall",
        "too_good_to_be_true",
        "urgency_deadline"
       ],
@@ -6847,10 +7001,11 @@
       "error": false,
       "verdict": "scam",
       "type": "lottery_prize",
-      "confidence": 0.75,
+      "confidence": 0.85,
       "red_flags": [
-       "too_good_to_be_true",
-       "identity_inconsistency"
+       "unexpected_windfall",
+       "identity_inconsistency",
+       "urgency_deadline"
       ],
       "windows": 1
      },
@@ -6862,11 +7017,13 @@
       "error": false,
       "verdict": "scam",
       "type": "lottery_prize",
-      "confidence": 0.89,
+      "confidence": 0.93,
       "red_flags": [
+       "unexpected_windfall",
        "too_good_to_be_true",
        "urgency_deadline",
-       "pay_to_receive"
+       "pay_to_receive",
+       "solicits_money_now"
       ],
       "windows": 2
      },
@@ -6878,10 +7035,12 @@
       "error": false,
       "verdict": "scam",
       "type": "lottery_prize",
-      "confidence": 0.87,
+      "confidence": 0.91,
       "red_flags": [
+       "unexpected_windfall",
        "too_good_to_be_true",
-       "pay_to_receive"
+       "pay_to_receive",
+       "solicits_money_now"
       ],
       "windows": 1
      },
@@ -6893,11 +7052,14 @@
       "error": false,
       "verdict": "scam",
       "type": "lottery_prize",
-      "confidence": 0.89,
+      "confidence": 0.95,
       "red_flags": [
+       "unexpected_windfall",
        "too_good_to_be_true",
        "asks_full_identifier",
-       "pay_to_receive"
+       "pay_to_receive",
+       "solicits_money_now",
+       "discourages_verification"
       ],
       "windows": 1
      },
@@ -6911,7 +7073,7 @@
       "type": "lottery_prize",
       "confidence": 0.91,
       "red_flags": [
-       "too_good_to_be_true",
+       "unexpected_windfall",
        "discourages_verification",
        "urgency_deadline",
        "secrecy_or_isolation"
@@ -6926,11 +7088,12 @@
       "error": false,
       "verdict": "scam",
       "type": "lottery_prize",
-      "confidence": 0.89,
+      "confidence": 0.91,
       "red_flags": [
-       "too_good_to_be_true",
+       "unexpected_windfall",
        "urgency_deadline",
-       "pay_to_receive"
+       "pay_to_receive",
+       "solicits_money_now"
       ],
       "windows": 1
      },
@@ -6944,11 +7107,11 @@
       "type": "lottery_prize",
       "confidence": 0.96,
       "red_flags": [
-       "too_good_to_be_true",
-       "asks_full_identifier",
+       "unexpected_windfall",
        "pay_to_receive",
+       "urgency_deadline",
        "secrecy_or_isolation",
-       "urgency_deadline"
+       "too_good_to_be_true"
       ],
       "windows": 2
      },
@@ -6960,10 +7123,12 @@
       "error": false,
       "verdict": "scam",
       "type": "lottery_prize",
-      "confidence": 0.87,
+      "confidence": 0.91,
       "red_flags": [
+       "unexpected_windfall",
        "too_good_to_be_true",
-       "pay_to_receive"
+       "pay_to_receive",
+       "solicits_money_now"
       ],
       "windows": 2
      },
@@ -6975,13 +7140,14 @@
       "error": false,
       "verdict": "scam",
       "type": "lottery_prize",
-      "confidence": 0.96,
+      "confidence": 0.95,
       "red_flags": [
+       "unexpected_windfall",
        "too_good_to_be_true",
        "pay_to_receive",
-       "asks_secret_credential",
-       "discourages_verification",
-       "urgency_deadline"
+       "solicits_money_now",
+       "urgency_deadline",
+       "discourages_verification"
       ],
       "windows": 2
      },
@@ -6995,12 +7161,13 @@
       "type": "lottery_prize",
       "confidence": 0.99,
       "red_flags": [
+       "unexpected_windfall",
        "too_good_to_be_true",
        "urgency_deadline",
-       "asks_full_identifier",
        "pay_to_receive",
        "secrecy_or_isolation",
-       "payment_to_personal_account"
+       "asks_full_identifier",
+       "solicits_money_now"
       ],
       "windows": 2
      },
@@ -7012,8 +7179,9 @@
       "error": false,
       "verdict": "scam",
       "type": "lottery_prize",
-      "confidence": 0.75,
+      "confidence": 0.85,
       "red_flags": [
+       "unexpected_windfall",
        "too_good_to_be_true",
        "asks_full_identifier"
       ],
@@ -7027,10 +7195,12 @@
       "error": false,
       "verdict": "scam",
       "type": "lottery_prize",
-      "confidence": 0.87,
+      "confidence": 0.91,
       "red_flags": [
-       "too_good_to_be_true",
-       "pay_to_receive"
+       "unexpected_windfall",
+       "pay_to_receive",
+       "solicits_money_now",
+       "urgency_deadline"
       ],
       "windows": 1
      },
@@ -7042,10 +7212,13 @@
       "error": false,
       "verdict": "scam",
       "type": "lottery_prize",
-      "confidence": 0.89,
+      "confidence": 0.95,
       "red_flags": [
+       "unexpected_windfall",
        "too_good_to_be_true",
        "pay_to_receive",
+       "solicits_money_now",
+       "asks_full_identifier",
        "urgency_deadline"
       ],
       "windows": 1
@@ -7058,10 +7231,13 @@
       "error": false,
       "verdict": "scam",
       "type": "lottery_prize",
-      "confidence": 0.87,
+      "confidence": 0.93,
       "red_flags": [
+       "unexpected_windfall",
        "too_good_to_be_true",
-       "pay_to_receive"
+       "pay_to_receive",
+       "solicits_money_now",
+       "asks_full_identifier"
       ],
       "windows": 1
      },
@@ -7073,11 +7249,13 @@
       "error": false,
       "verdict": "scam",
       "type": "lottery_prize",
-      "confidence": 0.89,
+      "confidence": 0.93,
       "red_flags": [
+       "unexpected_windfall",
        "too_good_to_be_true",
-       "asks_full_identifier",
-       "pay_to_receive"
+       "pay_to_receive",
+       "solicits_money_now",
+       "asks_full_identifier"
       ],
       "windows": 1
      },
@@ -7089,11 +7267,14 @@
       "error": false,
       "verdict": "scam",
       "type": "lottery_prize",
-      "confidence": 0.89,
+      "confidence": 0.95,
       "red_flags": [
+       "unexpected_windfall",
        "too_good_to_be_true",
        "asks_full_identifier",
-       "pay_to_receive"
+       "pay_to_receive",
+       "solicits_money_now",
+       "urgency_deadline"
       ],
       "windows": 1
      },
@@ -7105,13 +7286,16 @@
       "error": false,
       "verdict": "scam",
       "type": "lottery_prize",
-      "confidence": 0.96,
+      "confidence": 0.99,
       "red_flags": [
+       "unexpected_windfall",
        "too_good_to_be_true",
        "pay_to_receive",
        "urgency_deadline",
+       "solicits_money_now",
        "asks_secret_credential",
-       "discourages_verification"
+       "payment_to_personal_account",
+       "secrecy_or_isolation"
       ],
       "windows": 2
      },
@@ -7123,9 +7307,11 @@
       "error": false,
       "verdict": "scam",
       "type": "lottery_prize",
-      "confidence": 0.97,
+      "confidence": 0.99,
       "red_flags": [
+       "unexpected_windfall",
        "too_good_to_be_true",
+       "urgency_deadline",
        "pay_to_receive",
        "payment_to_personal_account",
        "asks_secret_credential"
@@ -7140,10 +7326,12 @@
       "error": false,
       "verdict": "scam",
       "type": "lottery_prize",
-      "confidence": 0.87,
+      "confidence": 0.91,
       "red_flags": [
+       "unexpected_windfall",
        "too_good_to_be_true",
-       "pay_to_receive"
+       "pay_to_receive",
+       "solicits_money_now"
       ],
       "windows": 2
      },
@@ -7155,12 +7343,15 @@
       "error": false,
       "verdict": "scam",
       "type": "lottery_prize",
-      "confidence": 0.94,
+      "confidence": 0.99,
       "red_flags": [
+       "unexpected_windfall",
        "too_good_to_be_true",
        "pay_to_receive",
        "urgency_deadline",
-       "asks_secret_credential"
+       "solicits_money_now",
+       "asks_secret_credential",
+       "asks_full_identifier"
       ],
       "windows": 2
      },
@@ -7172,12 +7363,16 @@
       "error": false,
       "verdict": "scam",
       "type": "lottery_prize",
-      "confidence": 0.94,
+      "confidence": 0.99,
       "red_flags": [
+       "unexpected_windfall",
        "too_good_to_be_true",
+       "urgency_deadline",
        "asks_full_identifier",
        "pay_to_receive",
-       "asks_secret_credential"
+       "solicits_money_now",
+       "asks_secret_credential",
+       "link_or_unofficial_channel"
       ],
       "windows": 1
      },
@@ -7187,10 +7382,11 @@
       "domain": "reward",
       "fraud": true,
       "error": false,
-      "verdict": "undetermined",
-      "type": "undetermined",
-      "confidence": 0.0,
+      "verdict": "scam",
+      "type": "lottery_prize",
+      "confidence": 0.75,
       "red_flags": [
+       "unexpected_windfall",
        "too_good_to_be_true"
       ],
       "windows": 1
@@ -7203,8 +7399,9 @@
       "error": false,
       "verdict": "scam",
       "type": "lottery_prize",
-      "confidence": 0.75,
+      "confidence": 0.85,
       "red_flags": [
+       "unexpected_windfall",
        "too_good_to_be_true",
        "asks_full_identifier"
       ],
@@ -7220,8 +7417,8 @@
       "type": "lottery_prize",
       "confidence": 0.91,
       "red_flags": [
+       "unexpected_windfall",
        "too_good_to_be_true",
-       "asks_full_identifier",
        "urgency_deadline",
        "secrecy_or_isolation"
       ],
@@ -7235,8 +7432,9 @@
       "error": false,
       "verdict": "scam",
       "type": "lottery_prize",
-      "confidence": 0.85,
+      "confidence": 0.9,
       "red_flags": [
+       "unexpected_windfall",
        "too_good_to_be_true",
        "discourages_verification",
        "urgency_deadline"
@@ -7249,10 +7447,11 @@
       "domain": "reward",
       "fraud": true,
       "error": false,
-      "verdict": "undetermined",
-      "type": "undetermined",
-      "confidence": 0.0,
+      "verdict": "scam",
+      "type": "lottery_prize",
+      "confidence": 0.75,
       "red_flags": [
+       "unexpected_windfall",
        "too_good_to_be_true"
       ],
       "windows": 1
@@ -7265,8 +7464,9 @@
       "error": false,
       "verdict": "scam",
       "type": "lottery_prize",
-      "confidence": 0.75,
+      "confidence": 0.85,
       "red_flags": [
+       "unexpected_windfall",
        "too_good_to_be_true",
        "urgency_deadline"
       ],
@@ -7283,8 +7483,8 @@
       "confidence": 0.9,
       "red_flags": [
        "too_good_to_be_true",
-       "discourages_verification",
-       "link_or_unofficial_channel",
+       "unexpected_windfall",
+       "evades_credentials",
        "urgency_deadline"
       ],
       "windows": 1
@@ -7297,9 +7497,11 @@
       "error": false,
       "verdict": "scam",
       "type": "lottery_prize",
-      "confidence": 0.85,
+      "confidence": 0.9,
       "red_flags": [
+       "unexpected_windfall",
        "too_good_to_be_true",
+       "link_or_unofficial_channel",
        "discourages_verification",
        "urgency_deadline"
       ],
@@ -7313,11 +7515,12 @@
       "error": false,
       "verdict": "scam",
       "type": "lottery_prize",
-      "confidence": 0.85,
+      "confidence": 0.9,
       "red_flags": [
+       "unexpected_windfall",
        "too_good_to_be_true",
-       "asks_full_identifier",
-       "urgency_deadline"
+       "urgency_deadline",
+       "asks_full_identifier"
       ],
       "windows": 1
      },
@@ -7329,10 +7532,12 @@
       "error": false,
       "verdict": "scam",
       "type": "lottery_prize",
-      "confidence": 0.85,
+      "confidence": 0.9,
       "red_flags": [
+       "unexpected_windfall",
        "too_good_to_be_true",
        "asks_full_identifier",
+       "evades_credentials",
        "urgency_deadline"
       ],
       "windows": 1
@@ -7342,17 +7547,7 @@
       "split": "multi_agent",
       "domain": "reward",
       "fraud": true,
-      "error": false,
-      "verdict": "scam",
-      "type": "lottery_prize",
-      "confidence": 0.97,
-      "red_flags": [
-       "too_good_to_be_true",
-       "pay_to_receive",
-       "asks_secret_credential",
-       "payment_to_personal_account"
-      ],
-      "windows": 1
+      "error": true
      },
      {
       "id": "multi_agent-196",
@@ -7362,12 +7557,14 @@
       "error": false,
       "verdict": "scam",
       "type": "lottery_prize",
-      "confidence": 0.96,
+      "confidence": 0.99,
       "red_flags": [
+       "unexpected_windfall",
        "too_good_to_be_true",
        "asks_full_identifier",
        "pay_to_receive",
        "payment_to_personal_account",
+       "solicits_money_now",
        "urgency_deadline"
       ],
       "windows": 1
@@ -7380,11 +7577,12 @@
       "error": false,
       "verdict": "scam",
       "type": "lottery_prize",
-      "confidence": 0.96,
+      "confidence": 0.98,
       "red_flags": [
+       "unexpected_windfall",
        "too_good_to_be_true",
-       "asks_full_identifier",
        "pay_to_receive",
+       "solicits_money_now",
        "payment_to_personal_account",
        "urgency_deadline"
       ],
@@ -7398,10 +7596,11 @@
       "error": false,
       "verdict": "scam",
       "type": "lottery_prize",
-      "confidence": 0.94,
+      "confidence": 0.96,
       "red_flags": [
-       "asks_full_identifier",
+       "unexpected_windfall",
        "pay_to_receive",
+       "solicits_money_now",
        "payment_to_personal_account",
        "urgency_deadline"
       ],
@@ -7417,9 +7616,10 @@
       "type": "lottery_prize",
       "confidence": 0.99,
       "red_flags": [
-       "too_good_to_be_true",
+       "unexpected_windfall",
        "pay_to_receive",
        "payment_to_personal_account",
+       "solicits_money_now",
        "asks_secret_credential",
        "urgency_deadline"
       ],
@@ -7432,11 +7632,12 @@
       "fraud": true,
       "error": false,
       "verdict": "scam",
-      "type": "other_scam",
-      "confidence": 0.87,
+      "type": "digital_arrest",
+      "confidence": 0.92,
       "red_flags": [
        "arrest_or_legal_threat",
-       "urgency_deadline"
+       "urgency_deadline",
+       "extortion_threat"
       ],
       "windows": 1
      },
@@ -7448,10 +7649,11 @@
       "error": false,
       "verdict": "scam",
       "type": "digital_arrest",
-      "confidence": 0.87,
+      "confidence": 0.89,
       "red_flags": [
-       "arrest_or_legal_threat",
-       "urgency_deadline"
+       "asks_full_identifier",
+       "urgency_deadline",
+       "arrest_or_legal_threat"
       ],
       "windows": 1
      },
@@ -7481,8 +7683,8 @@
       "type": "other_scam",
       "confidence": 0.89,
       "red_flags": [
-       "asks_full_identifier",
        "arrest_or_legal_threat",
+       "asks_full_identifier",
        "urgency_deadline"
       ],
       "windows": 1
@@ -7494,7 +7696,7 @@
       "fraud": true,
       "error": false,
       "verdict": "scam",
-      "type": "digital_arrest",
+      "type": "other_scam",
       "confidence": 0.89,
       "red_flags": [
        "asks_full_identifier",
@@ -7514,10 +7716,11 @@
       "confidence": 0.99,
       "red_flags": [
        "asks_full_identifier",
-       "urgency_deadline",
        "discourages_verification",
        "arrest_or_legal_threat",
        "payment_to_personal_account",
+       "urgency_deadline",
+       "solicits_money_now",
        "secrecy_or_isolation"
       ],
       "windows": 2
@@ -7553,8 +7756,8 @@
       "red_flags": [
        "asks_full_identifier",
        "arrest_or_legal_threat",
-       "urgency_deadline",
        "payment_to_personal_account",
+       "urgency_deadline",
        "secrecy_or_isolation"
       ],
       "windows": 1
@@ -7566,13 +7769,13 @@
       "fraud": true,
       "error": false,
       "verdict": "scam",
-      "type": "other_scam",
+      "type": "digital_arrest",
       "confidence": 0.94,
       "red_flags": [
-       "asks_full_identifier",
        "arrest_or_legal_threat",
        "urgency_deadline",
-       "payment_to_personal_account"
+       "payment_to_personal_account",
+       "solicits_money_now"
       ],
       "windows": 2
      },
@@ -7586,9 +7789,9 @@
       "type": "other_scam",
       "confidence": 0.99,
       "red_flags": [
-       "asks_full_identifier",
        "arrest_or_legal_threat",
        "payment_to_personal_account",
+       "solicits_money_now",
        "urgency_deadline",
        "discourages_verification",
        "secrecy_or_isolation"
@@ -7603,11 +7806,12 @@
       "error": false,
       "verdict": "scam",
       "type": "other_scam",
-      "confidence": 0.97,
+      "confidence": 0.99,
       "red_flags": [
        "arrest_or_legal_threat",
        "urgency_deadline",
        "payment_to_personal_account",
+       "solicits_money_now",
        "secrecy_or_isolation"
       ],
       "windows": 2
@@ -7620,12 +7824,14 @@
       "error": false,
       "verdict": "scam",
       "type": "other_scam",
-      "confidence": 0.94,
+      "confidence": 0.99,
       "red_flags": [
        "asks_full_identifier",
        "urgency_deadline",
+       "solicits_money_now",
        "payment_to_personal_account",
-       "secrecy_or_isolation"
+       "secrecy_or_isolation",
+       "asks_secret_credential"
       ],
       "windows": 2
      },
@@ -7640,9 +7846,9 @@
       "confidence": 0.94,
       "red_flags": [
        "arrest_or_legal_threat",
-       "payment_to_personal_account",
        "urgency_deadline",
-       "asks_full_identifier"
+       "payment_to_personal_account",
+       "solicits_money_now"
       ],
       "windows": 2
      },
@@ -7654,12 +7860,12 @@
       "error": false,
       "verdict": "scam",
       "type": "other_scam",
-      "confidence": 0.99,
+      "confidence": 0.98,
       "red_flags": [
        "asks_full_identifier",
-       "arrest_or_legal_threat",
        "urgency_deadline",
-       "pay_to_receive",
+       "arrest_or_legal_threat",
+       "solicits_money_now",
        "payment_to_personal_account",
        "discourages_verification"
       ],
@@ -7677,9 +7883,9 @@
       "red_flags": [
        "arrest_or_legal_threat",
        "urgency_deadline",
-       "payment_to_personal_account",
-       "pay_to_receive",
        "secrecy_or_isolation",
+       "payment_to_personal_account",
+       "solicits_money_now",
        "asks_secret_credential"
       ],
       "windows": 2
@@ -7692,11 +7898,10 @@
       "error": false,
       "verdict": "scam",
       "type": "digital_arrest",
-      "confidence": 0.99,
+      "confidence": 0.94,
       "red_flags": [
-       "asks_full_identifier",
        "arrest_or_legal_threat",
-       "payment_to_personal_account",
+       "solicits_money_now",
        "urgency_deadline",
        "secrecy_or_isolation"
       ],
@@ -7710,12 +7915,13 @@
       "error": false,
       "verdict": "scam",
       "type": "other_scam",
-      "confidence": 0.94,
+      "confidence": 0.96,
       "red_flags": [
        "asks_full_identifier",
-       "urgency_deadline",
        "arrest_or_legal_threat",
-       "payment_to_personal_account"
+       "urgency_deadline",
+       "payment_to_personal_account",
+       "solicits_money_now"
       ],
       "windows": 1
      },
@@ -7727,11 +7933,11 @@
       "error": false,
       "verdict": "scam",
       "type": "other_scam",
-      "confidence": 0.89,
+      "confidence": 0.85,
       "red_flags": [
        "asks_full_identifier",
        "urgency_deadline",
-       "asks_secret_credential"
+       "solicits_money_now"
       ],
       "windows": 1
      },
@@ -7747,6 +7953,7 @@
       "red_flags": [
        "asks_full_identifier",
        "urgency_deadline",
+       "solicits_money_now",
        "payment_to_personal_account",
        "arrest_or_legal_threat",
        "secrecy_or_isolation"
@@ -7764,9 +7971,9 @@
       "confidence": 0.94,
       "red_flags": [
        "asks_full_identifier",
-       "urgency_deadline",
+       "arrest_or_legal_threat",
        "payment_to_personal_account",
-       "arrest_or_legal_threat"
+       "urgency_deadline"
       ],
       "windows": 1
      },
@@ -7781,10 +7988,9 @@
       "confidence": 0.99,
       "red_flags": [
        "asks_full_identifier",
-       "urgency_deadline",
-       "too_good_to_be_true",
        "pay_to_receive",
        "payment_to_personal_account",
+       "urgency_deadline",
        "asks_secret_credential"
       ],
       "windows": 2
@@ -7817,9 +8023,9 @@
       "type": "other_scam",
       "confidence": 0.89,
       "red_flags": [
-       "asks_full_identifier",
        "arrest_or_legal_threat",
-       "urgency_deadline"
+       "urgency_deadline",
+       "asks_full_identifier"
       ],
       "windows": 2
      },
@@ -7834,12 +8040,11 @@
       "confidence": 0.99,
       "red_flags": [
        "asks_full_identifier",
+       "unexpected_windfall",
        "pay_to_receive",
        "payment_to_personal_account",
-       "too_good_to_be_true",
-       "asks_secret_credential",
-       "urgency_deadline",
-       "extortion_threat"
+       "secrecy_or_isolation",
+       "asks_secret_credential"
       ],
       "windows": 2
      },
@@ -7851,12 +8056,11 @@
       "error": false,
       "verdict": "scam",
       "type": "digital_arrest",
-      "confidence": 0.91,
+      "confidence": 0.89,
       "red_flags": [
-       "asks_full_identifier",
        "arrest_or_legal_threat",
        "urgency_deadline",
-       "discourages_verification"
+       "asks_full_identifier"
       ],
       "windows": 1
      },
@@ -7884,10 +8088,9 @@
       "fraud": true,
       "error": false,
       "verdict": "scam",
-      "type": "other_scam",
-      "confidence": 0.91,
+      "type": "digital_arrest",
+      "confidence": 0.89,
       "red_flags": [
-       "asks_full_identifier",
        "urgency_deadline",
        "discourages_verification",
        "arrest_or_legal_threat"
@@ -7901,9 +8104,10 @@
       "fraud": true,
       "error": false,
       "verdict": "scam",
-      "type": "other_scam",
-      "confidence": 0.89,
+      "type": "digital_arrest",
+      "confidence": 0.91,
       "red_flags": [
+       "asks_full_identifier",
        "arrest_or_legal_threat",
        "discourages_verification",
        "urgency_deadline"
@@ -7921,8 +8125,8 @@
       "confidence": 0.91,
       "red_flags": [
        "arrest_or_legal_threat",
-       "urgency_deadline",
        "discourages_verification",
+       "urgency_deadline",
        "asks_full_identifier"
       ],
       "windows": 1
@@ -7950,12 +8154,12 @@
       "fraud": true,
       "error": false,
       "verdict": "scam",
-      "type": "digital_arrest",
-      "confidence": 0.91,
+      "type": "other_scam",
+      "confidence": 0.94,
       "red_flags": [
        "asks_full_identifier",
        "urgency_deadline",
-       "discourages_verification",
+       "secrecy_or_isolation",
        "arrest_or_legal_threat"
       ],
       "windows": 1
@@ -7968,11 +8172,10 @@
       "error": false,
       "verdict": "scam",
       "type": "other_scam",
-      "confidence": 0.89,
+      "confidence": 0.87,
       "red_flags": [
-       "asks_full_identifier",
-       "urgency_deadline",
-       "arrest_or_legal_threat"
+       "arrest_or_legal_threat",
+       "urgency_deadline"
       ],
       "windows": 1
      },
@@ -7984,12 +8187,13 @@
       "error": false,
       "verdict": "scam",
       "type": "other_scam",
-      "confidence": 0.91,
+      "confidence": 0.93,
       "red_flags": [
        "asks_full_identifier",
        "urgency_deadline",
-       "discourages_verification",
-       "arrest_or_legal_threat"
+       "evades_credentials",
+       "arrest_or_legal_threat",
+       "discourages_verification"
       ],
       "windows": 1
      },
@@ -8001,12 +8205,11 @@
       "error": false,
       "verdict": "scam",
       "type": "other_scam",
-      "confidence": 0.96,
+      "confidence": 0.94,
       "red_flags": [
-       "asks_full_identifier",
        "arrest_or_legal_threat",
-       "urgency_deadline",
        "discourages_verification",
+       "urgency_deadline",
        "secrecy_or_isolation"
       ],
       "windows": 1
@@ -8035,11 +8238,12 @@
       "fraud": true,
       "error": false,
       "verdict": "scam",
-      "type": "other_scam",
-      "confidence": 0.94,
+      "type": "digital_arrest",
+      "confidence": 0.96,
       "red_flags": [
-       "asks_full_identifier",
        "arrest_or_legal_threat",
+       "asks_full_identifier",
+       "solicits_money_now",
        "payment_to_personal_account",
        "urgency_deadline"
       ],
@@ -8058,6 +8262,7 @@
        "asks_full_identifier",
        "arrest_or_legal_threat",
        "payment_to_personal_account",
+       "solicits_money_now",
        "urgency_deadline",
        "secrecy_or_isolation"
       ],
@@ -8071,10 +8276,11 @@
       "error": false,
       "verdict": "scam",
       "type": "other_scam",
-      "confidence": 0.94,
+      "confidence": 0.99,
       "red_flags": [
        "asks_full_identifier",
        "payment_to_personal_account",
+       "asks_secret_credential",
        "urgency_deadline",
        "secrecy_or_isolation"
       ],
@@ -8088,13 +8294,14 @@
       "error": false,
       "verdict": "scam",
       "type": "other_scam",
-      "confidence": 0.99,
+      "confidence": 0.98,
       "red_flags": [
        "asks_full_identifier",
+       "solicits_money_now",
        "payment_to_personal_account",
-       "asks_secret_credential",
-       "secrecy_or_isolation",
-       "urgency_deadline"
+       "urgency_deadline",
+       "discourages_verification",
+       "secrecy_or_isolation"
       ],
       "windows": 1
      },
@@ -8106,13 +8313,13 @@
       "error": false,
       "verdict": "scam",
       "type": "other_scam",
-      "confidence": 0.99,
+      "confidence": 0.96,
       "red_flags": [
-       "asks_full_identifier",
        "asks_secret_credential",
+       "asks_full_identifier",
+       "solicits_money_now",
        "payment_to_personal_account",
-       "urgency_deadline",
-       "pay_to_receive"
+       "urgency_deadline"
       ],
       "windows": 2
      },
@@ -8124,10 +8331,10 @@
       "error": false,
       "verdict": "scam",
       "type": "fake_customer_care",
-      "confidence": 0.87,
+      "confidence": 0.75,
       "red_flags": [
        "urgency_deadline",
-       "pay_to_receive"
+       "solicits_money_now"
       ],
       "windows": 1
      },
@@ -8161,9 +8368,10 @@
       "error": false,
       "verdict": "scam",
       "type": "fake_customer_care",
-      "confidence": 0.87,
+      "confidence": 0.89,
       "red_flags": [
        "urgency_deadline",
+       "solicits_money_now",
        "secrecy_or_isolation"
       ],
       "windows": 1
@@ -8191,12 +8399,12 @@
       "error": false,
       "verdict": "scam",
       "type": "fake_customer_care",
-      "confidence": 0.94,
+      "confidence": 0.91,
       "red_flags": [
+       "discourages_verification",
+       "solicits_money_now",
        "urgency_deadline",
-       "secrecy_or_isolation",
-       "remote_access_or_install",
-       "discourages_verification"
+       "secrecy_or_isolation"
       ],
       "windows": 2
      },
@@ -8212,9 +8420,11 @@
       "red_flags": [
        "remote_access_or_install",
        "urgency_deadline",
+       "discourages_verification",
        "asks_secret_credential",
+       "asks_full_identifier",
        "payment_to_personal_account",
-       "discourages_verification"
+       "solicits_money_now"
       ],
       "windows": 2
      },
@@ -8226,10 +8436,9 @@
       "error": false,
       "verdict": "scam",
       "type": "fake_customer_care",
-      "confidence": 0.87,
+      "confidence": 0.85,
       "red_flags": [
-       "remote_access_or_install",
-       "link_or_unofficial_channel"
+       "remote_access_or_install"
       ],
       "windows": 1
      },
@@ -8241,12 +8450,13 @@
       "error": false,
       "verdict": "scam",
       "type": "fake_customer_care",
-      "confidence": 0.96,
+      "confidence": 0.98,
       "red_flags": [
        "asks_secret_credential",
-       "remote_access_or_install",
        "urgency_deadline",
+       "remote_access_or_install",
        "link_or_unofficial_channel",
+       "solicits_money_now",
        "asks_full_identifier"
       ],
       "windows": 2
@@ -8261,8 +8471,8 @@
       "type": "fake_customer_care",
       "confidence": 0.94,
       "red_flags": [
-       "discourages_verification",
        "urgency_deadline",
+       "discourages_verification",
        "secrecy_or_isolation",
        "remote_access_or_install"
       ],
@@ -8280,7 +8490,7 @@
       "red_flags": [
        "asks_secret_credential",
        "urgency_deadline",
-       "discourages_verification"
+       "solicits_money_now"
       ],
       "windows": 2
      },
@@ -8294,8 +8504,8 @@
       "type": "fake_customer_care",
       "confidence": 0.94,
       "red_flags": [
-       "urgency_deadline",
        "remote_access_or_install",
+       "solicits_money_now",
        "link_or_unofficial_channel",
        "payment_to_personal_account"
       ],
@@ -8326,9 +8536,9 @@
       "type": "fake_customer_care",
       "confidence": 0.89,
       "red_flags": [
-       "urgency_deadline",
        "remote_access_or_install",
-       "link_or_unofficial_channel"
+       "urgency_deadline",
+       "solicits_money_now"
       ],
       "windows": 2
      },
@@ -8340,12 +8550,12 @@
       "error": false,
       "verdict": "scam",
       "type": "fake_customer_care",
-      "confidence": 0.94,
+      "confidence": 0.91,
       "red_flags": [
        "urgency_deadline",
-       "discourages_verification",
        "remote_access_or_install",
-       "pay_to_receive"
+       "solicits_money_now",
+       "discourages_verification"
       ],
       "windows": 2
      },
@@ -8357,11 +8567,12 @@
       "error": false,
       "verdict": "scam",
       "type": "fake_customer_care",
-      "confidence": 0.92,
+      "confidence": 0.94,
       "red_flags": [
        "remote_access_or_install",
        "link_or_unofficial_channel",
-       "secrecy_or_isolation"
+       "secrecy_or_isolation",
+       "solicits_money_now"
       ],
       "windows": 1
      },
@@ -8373,12 +8584,14 @@
       "error": false,
       "verdict": "scam",
       "type": "fake_customer_care",
-      "confidence": 0.94,
+      "confidence": 0.98,
       "red_flags": [
        "remote_access_or_install",
        "link_or_unofficial_channel",
+       "solicits_money_now",
        "urgency_deadline",
-       "asks_secret_credential"
+       "asks_secret_credential",
+       "asks_full_identifier"
       ],
       "windows": 2
      },
@@ -8390,12 +8603,14 @@
       "error": false,
       "verdict": "scam",
       "type": "fake_customer_care",
-      "confidence": 0.94,
+      "confidence": 0.98,
       "red_flags": [
        "remote_access_or_install",
-       "link_or_unofficial_channel",
        "urgency_deadline",
-       "asks_secret_credential"
+       "solicits_money_now",
+       "asks_secret_credential",
+       "asks_full_identifier",
+       "link_or_unofficial_channel"
       ],
       "windows": 2
      },
@@ -8407,10 +8622,11 @@
       "error": false,
       "verdict": "scam",
       "type": "fake_customer_care",
-      "confidence": 0.89,
+      "confidence": 0.91,
       "red_flags": [
        "remote_access_or_install",
        "link_or_unofficial_channel",
+       "solicits_money_now",
        "urgency_deadline"
       ],
       "windows": 1
@@ -8423,9 +8639,11 @@
       "error": false,
       "verdict": "scam",
       "type": "fake_customer_care",
-      "confidence": 0.92,
+      "confidence": 0.96,
       "red_flags": [
        "remote_access_or_install",
+       "link_or_unofficial_channel",
+       "solicits_money_now",
        "asks_secret_credential",
        "asks_full_identifier"
       ],
@@ -8441,10 +8659,10 @@
       "type": "fake_customer_care",
       "confidence": 0.94,
       "red_flags": [
+       "urgency_deadline",
        "remote_access_or_install",
        "pay_to_receive",
-       "too_good_to_be_true",
-       "urgency_deadline"
+       "solicits_money_now"
       ],
       "windows": 1
      },
@@ -8456,10 +8674,11 @@
       "error": false,
       "verdict": "scam",
       "type": "fake_customer_care",
-      "confidence": 0.87,
+      "confidence": 0.89,
       "red_flags": [
        "remote_access_or_install",
-       "link_or_unofficial_channel"
+       "solicits_money_now",
+       "urgency_deadline"
       ],
       "windows": 2
      },
@@ -8471,10 +8690,13 @@
       "error": false,
       "verdict": "scam",
       "type": "fake_customer_care",
-      "confidence": 0.9,
+      "confidence": 0.96,
       "red_flags": [
        "remote_access_or_install",
-       "asks_secret_credential"
+       "urgency_deadline",
+       "asks_secret_credential",
+       "solicits_money_now",
+       "asks_full_identifier"
       ],
       "windows": 2
      },
@@ -8486,10 +8708,11 @@
       "error": false,
       "verdict": "scam",
       "type": "fake_customer_care",
-      "confidence": 0.87,
+      "confidence": 0.89,
       "red_flags": [
        "urgency_deadline",
-       "asks_secret_credential"
+       "asks_secret_credential",
+       "asks_full_identifier"
       ],
       "windows": 2
      },
@@ -8501,10 +8724,11 @@
       "error": false,
       "verdict": "scam",
       "type": "fake_customer_care",
-      "confidence": 0.87,
+      "confidence": 0.89,
       "red_flags": [
+       "urgency_deadline",
        "asks_secret_credential",
-       "asks_full_identifier"
+       "solicits_money_now"
       ],
       "windows": 2
      },
@@ -8559,12 +8783,11 @@
       "domain": "support",
       "fraud": true,
       "error": false,
-      "verdict": "scam",
-      "type": "fake_customer_care",
-      "confidence": 0.87,
+      "verdict": "undetermined",
+      "type": "undetermined",
+      "confidence": 0.0,
       "red_flags": [
-       "urgency_deadline",
-       "secrecy_or_isolation"
+       "urgency_deadline"
       ],
       "windows": 1
      },
@@ -8604,15 +8827,7 @@
       "split": "multi_agent",
       "domain": "support",
       "fraud": true,
-      "error": false,
-      "verdict": "scam",
-      "type": "fake_customer_care",
-      "confidence": 0.87,
-      "red_flags": [
-       "remote_access_or_install",
-       "urgency_deadline"
-      ],
-      "windows": 1
+      "error": true
      },
      {
       "id": "multi_agent-272",
@@ -8647,14 +8862,7 @@
       "split": "multi_agent",
       "domain": "support",
       "fraud": true,
-      "error": false,
-      "verdict": "undetermined",
-      "type": "undetermined",
-      "confidence": 0.0,
-      "red_flags": [
-       "urgency_deadline"
-      ],
-      "windows": 1
+      "error": true
      },
      {
       "id": "multi_agent-275",
@@ -8664,10 +8872,12 @@
       "error": false,
       "verdict": "scam",
       "type": "fake_customer_care",
-      "confidence": 0.92,
+      "confidence": 0.96,
       "red_flags": [
        "remote_access_or_install",
+       "solicits_money_now",
        "link_or_unofficial_channel",
+       "urgency_deadline",
        "secrecy_or_isolation"
       ],
       "windows": 2
@@ -8677,17 +8887,7 @@
       "split": "multi_agent",
       "domain": "support",
       "fraud": true,
-      "error": false,
-      "verdict": "scam",
-      "type": "fake_customer_care",
-      "confidence": 0.97,
-      "red_flags": [
-       "remote_access_or_install",
-       "urgency_deadline",
-       "payment_to_personal_account",
-       "asks_secret_credential"
-      ],
-      "windows": 1
+      "error": true
      },
      {
       "id": "multi_agent-277",
@@ -8700,10 +8900,10 @@
       "confidence": 0.96,
       "red_flags": [
        "remote_access_or_install",
-       "asks_secret_credential",
        "link_or_unofficial_channel",
-       "urgency_deadline",
-       "asks_full_identifier"
+       "solicits_money_now",
+       "asks_secret_credential",
+       "urgency_deadline"
       ],
       "windows": 2
      },
@@ -8715,12 +8915,13 @@
       "error": false,
       "verdict": "scam",
       "type": "fake_customer_care",
-      "confidence": 0.94,
+      "confidence": 0.96,
       "red_flags": [
        "remote_access_or_install",
        "link_or_unofficial_channel",
+       "solicits_money_now",
        "asks_secret_credential",
-       "urgency_deadline"
+       "asks_full_identifier"
       ],
       "windows": 2
      },
@@ -8732,10 +8933,12 @@
       "error": false,
       "verdict": "scam",
       "type": "fake_customer_care",
-      "confidence": 0.87,
+      "confidence": 0.94,
       "red_flags": [
        "remote_access_or_install",
-       "link_or_unofficial_channel"
+       "solicits_money_now",
+       "asks_secret_credential",
+       "asks_full_identifier"
       ],
       "windows": 2
      },
@@ -8891,7 +9094,7 @@
       "error": false,
       "verdict": "legitimate",
       "type": "not_scam",
-      "confidence": 0.65,
+      "confidence": 0.75,
       "red_flags": [],
       "windows": 1
      },
@@ -8939,7 +9142,7 @@
       "error": false,
       "verdict": "legitimate",
       "type": "not_scam",
-      "confidence": 0.75,
+      "confidence": 0.65,
       "red_flags": [],
       "windows": 1
      },
@@ -9023,7 +9226,7 @@
       "error": false,
       "verdict": "legitimate",
       "type": "not_scam",
-      "confidence": 0.65,
+      "confidence": 0.75,
       "red_flags": [],
       "windows": 1
      },
@@ -9167,7 +9370,7 @@
       "error": false,
       "verdict": "legitimate",
       "type": "not_scam",
-      "confidence": 0.75,
+      "confidence": 0.65,
       "red_flags": [],
       "windows": 1
      },
@@ -9179,7 +9382,7 @@
       "error": false,
       "verdict": "legitimate",
       "type": "not_scam",
-      "confidence": 0.65,
+      "confidence": 0.75,
       "red_flags": [],
       "windows": 1
      },
@@ -9203,7 +9406,7 @@
       "error": false,
       "verdict": "legitimate",
       "type": "not_scam",
-      "confidence": 0.75,
+      "confidence": 0.65,
       "red_flags": [],
       "windows": 1
      },
@@ -9225,52 +9428,52 @@
   "indian_sms": [
    {
     "metrics": {
-     "n": 298,
-     "tp": 119,
-     "fp": 0,
-     "tn": 150,
-     "fn": 29,
-     "accuracy": 0.903,
-     "precision": 1.0,
-     "recall": 0.804,
-     "f1": 0.891,
-     "specificity": 1.0,
-     "false_positive_rate": 0.0,
-     "balanced_accuracy": 0.902,
-     "mcc": 0.821,
+     "n": 296,
+     "tp": 122,
+     "fp": 1,
+     "tn": 148,
+     "fn": 25,
+     "accuracy": 0.912,
+     "precision": 0.992,
+     "recall": 0.83,
+     "f1": 0.904,
+     "specificity": 0.993,
+     "false_positive_rate": 0.007,
+     "balanced_accuracy": 0.912,
+     "mcc": 0.835,
      "recall_ci95": [
-      0.733,
-      0.86
+      0.761,
+      0.882
      ],
      "specificity_ci95": [
-      0.975,
-      1.0
+      0.963,
+      0.999
      ],
      "precision_ci95": [
-      0.969,
-      1.0
+      0.955,
+      0.999
      ],
-     "errors": 2,
+     "errors": 4,
      "non_scam_outcomes": {
-      "scam": 0,
+      "scam": 1,
       "legitimate": 0,
-      "undetermined": 150
+      "undetermined": 148
      },
      "correct_by_type": {
-      "courier_customs": "18/21",
-      "electricity_bill": "14/28",
-      "fake_bank_otp": "10/13",
-      "fake_kyc": "18/21",
+      "courier_customs": "19/21",
+      "electricity_bill": "14/27",
+      "fake_bank_otp": "11/13",
+      "fake_kyc": "18/22",
       "job_offer": "19/21",
-      "loan_offer": "20/23",
-      "lottery": "19/20",
-      "safe": "150/150",
+      "loan_offer": "20/22",
+      "lottery": "20/20",
+      "safe": "148/149",
       "unknown": "1/1"
      },
      "correct_by_language": {
-      "en": "91/99",
-      "hi": "93/100",
-      "hinglish": "85/99"
+      "en": "90/99",
+      "hi": "92/100",
+      "hinglish": "88/97"
      }
     },
     "predictions": [
@@ -9284,8 +9487,8 @@
       "type": "bank_kyc_block",
       "confidence": 0.75,
       "red_flags": [
-       "link_or_unofficial_channel",
-       "urgency_deadline"
+       "urgency_deadline",
+       "link_or_unofficial_channel"
       ],
       "windows": 1
      },
@@ -9311,11 +9514,13 @@
       "error": false,
       "verdict": "scam",
       "type": "lottery_prize",
-      "confidence": 0.89,
+      "confidence": 0.93,
       "red_flags": [
+       "unexpected_windfall",
        "pay_to_receive",
        "urgency_deadline",
-       "too_good_to_be_true"
+       "too_good_to_be_true",
+       "solicits_money_now"
       ],
       "windows": 1
      },
@@ -9325,12 +9530,11 @@
       "domain": "fake_kyc",
       "fraud": true,
       "error": false,
-      "verdict": "scam",
-      "type": "bank_kyc_block",
-      "confidence": 0.75,
+      "verdict": "undetermined",
+      "type": "undetermined",
+      "confidence": 0.0,
       "red_flags": [
-       "urgency_deadline",
-       "asks_full_identifier"
+       "urgency_deadline"
       ],
       "windows": 1
      },
@@ -9342,10 +9546,11 @@
       "error": false,
       "verdict": "scam",
       "type": "courier_parcel",
-      "confidence": 0.75,
+      "confidence": 0.85,
       "red_flags": [
+       "urgency_deadline",
        "link_or_unofficial_channel",
-       "urgency_deadline"
+       "solicits_money_now"
       ],
       "windows": 1
      },
@@ -9357,10 +9562,12 @@
       "error": false,
       "verdict": "scam",
       "type": "lottery_prize",
-      "confidence": 0.87,
+      "confidence": 0.91,
       "red_flags": [
+       "unexpected_windfall",
        "too_good_to_be_true",
-       "pay_to_receive"
+       "pay_to_receive",
+       "solicits_money_now"
       ],
       "windows": 1
      },
@@ -9387,10 +9594,10 @@
       "error": false,
       "verdict": "scam",
       "type": "courier_parcel",
-      "confidence": 0.87,
+      "confidence": 0.75,
       "red_flags": [
-       "pay_to_receive",
-       "link_or_unofficial_channel"
+       "link_or_unofficial_channel",
+       "solicits_money_now"
       ],
       "windows": 1
      },
@@ -9419,8 +9626,8 @@
       "type": "bank_kyc_block",
       "confidence": 0.75,
       "red_flags": [
-       "link_or_unofficial_channel",
-       "urgency_deadline"
+       "urgency_deadline",
+       "link_or_unofficial_channel"
       ],
       "windows": 1
      },
@@ -9447,11 +9654,11 @@
       "fraud": true,
       "error": false,
       "verdict": "scam",
-      "type": "fake_customer_care",
+      "type": "bank_kyc_block",
       "confidence": 0.75,
       "red_flags": [
-       "link_or_unofficial_channel",
-       "urgency_deadline"
+       "urgency_deadline",
+       "link_or_unofficial_channel"
       ],
       "windows": 1
      },
@@ -9492,9 +9699,10 @@
       "error": false,
       "verdict": "scam",
       "type": "loan_app",
-      "confidence": 0.87,
+      "confidence": 0.89,
       "red_flags": [
        "pay_to_receive",
+       "solicits_money_now",
        "too_good_to_be_true"
       ],
       "windows": 1
@@ -9507,11 +9715,12 @@
       "error": false,
       "verdict": "scam",
       "type": "loan_app",
-      "confidence": 0.92,
+      "confidence": 0.94,
       "red_flags": [
-       "pay_to_receive",
+       "remote_access_or_install",
        "link_or_unofficial_channel",
-       "remote_access_or_install"
+       "pay_to_receive",
+       "solicits_money_now"
       ],
       "windows": 1
      },
@@ -9537,10 +9746,11 @@
       "error": false,
       "verdict": "scam",
       "type": "loan_app",
-      "confidence": 0.87,
+      "confidence": 0.89,
       "red_flags": [
        "pay_to_receive",
-       "link_or_unofficial_channel"
+       "link_or_unofficial_channel",
+       "solicits_money_now"
       ],
       "windows": 1
      },
@@ -9552,11 +9762,11 @@
       "error": false,
       "verdict": "scam",
       "type": "courier_parcel",
-      "confidence": 0.89,
+      "confidence": 0.85,
       "red_flags": [
-       "pay_to_receive",
        "urgency_deadline",
-       "link_or_unofficial_channel"
+       "link_or_unofficial_channel",
+       "solicits_money_now"
       ],
       "windows": 1
      },
@@ -9568,10 +9778,10 @@
       "error": false,
       "verdict": "scam",
       "type": "courier_parcel",
-      "confidence": 0.87,
+      "confidence": 0.75,
       "red_flags": [
        "link_or_unofficial_channel",
-       "pay_to_receive"
+       "solicits_money_now"
       ],
       "windows": 1
      },
@@ -9659,9 +9869,10 @@
       "error": false,
       "verdict": "scam",
       "type": "loan_app",
-      "confidence": 0.85,
+      "confidence": 0.87,
       "red_flags": [
-       "pay_to_receive"
+       "pay_to_receive",
+       "link_or_unofficial_channel"
       ],
       "windows": 1
      },
@@ -9676,7 +9887,7 @@
       "confidence": 0.87,
       "red_flags": [
        "payment_to_personal_account",
-       "urgency_deadline"
+       "solicits_money_now"
       ],
       "windows": 1
      },
@@ -9703,8 +9914,9 @@
       "error": false,
       "verdict": "scam",
       "type": "lottery_prize",
-      "confidence": 0.75,
+      "confidence": 0.85,
       "red_flags": [
+       "unexpected_windfall",
        "too_good_to_be_true",
        "link_or_unofficial_channel"
       ],
@@ -9715,7 +9927,16 @@
       "split": "indian_sms",
       "domain": "fake_kyc",
       "fraud": true,
-      "error": true
+      "error": false,
+      "verdict": "scam",
+      "type": "bank_kyc_block",
+      "confidence": 0.89,
+      "red_flags": [
+       "asks_secret_credential",
+       "asks_full_identifier",
+       "urgency_deadline"
+      ],
+      "windows": 1
      },
      {
       "id": "632d507a844b",
@@ -9726,9 +9947,7 @@
       "verdict": "undetermined",
       "type": "undetermined",
       "confidence": 0.0,
-      "red_flags": [
-       "urgency_deadline"
-      ],
+      "red_flags": [],
       "windows": 1
      },
      {
@@ -9741,8 +9960,8 @@
       "type": "courier_parcel",
       "confidence": 0.87,
       "red_flags": [
-       "pay_to_receive",
-       "link_or_unofficial_channel"
+       "link_or_unofficial_channel",
+       "pay_to_receive"
       ],
       "windows": 1
      },
@@ -9770,11 +9989,13 @@
       "error": false,
       "verdict": "scam",
       "type": "lottery_prize",
-      "confidence": 0.89,
+      "confidence": 0.93,
       "red_flags": [
+       "unexpected_windfall",
        "too_good_to_be_true",
        "pay_to_receive",
-       "link_or_unofficial_channel"
+       "link_or_unofficial_channel",
+       "solicits_money_now"
       ],
       "windows": 1
      },
@@ -9802,10 +10023,11 @@
       "error": false,
       "verdict": "scam",
       "type": "task_job",
-      "confidence": 0.89,
+      "confidence": 0.91,
       "red_flags": [
        "too_good_to_be_true",
        "pay_to_receive",
+       "solicits_money_now",
        "link_or_unofficial_channel"
       ],
       "windows": 1
@@ -9832,11 +10054,12 @@
       "error": false,
       "verdict": "scam",
       "type": "loan_app",
-      "confidence": 0.89,
+      "confidence": 0.91,
       "red_flags": [
        "pay_to_receive",
-       "too_good_to_be_true",
-       "link_or_unofficial_channel"
+       "solicits_money_now",
+       "link_or_unofficial_channel",
+       "too_good_to_be_true"
       ],
       "windows": 1
      },
@@ -9890,8 +10113,9 @@
       "error": false,
       "verdict": "scam",
       "type": "lottery_prize",
-      "confidence": 0.75,
+      "confidence": 0.85,
       "red_flags": [
+       "unexpected_windfall",
        "too_good_to_be_true",
        "link_or_unofficial_channel"
       ],
@@ -9902,14 +10126,7 @@
       "split": "indian_sms",
       "domain": "loan_offer",
       "fraud": true,
-      "error": false,
-      "verdict": "undetermined",
-      "type": "undetermined",
-      "confidence": 0.0,
-      "red_flags": [
-       "link_or_unofficial_channel"
-      ],
-      "windows": 1
+      "error": true
      },
      {
       "id": "582efb6f4a52",
@@ -9921,8 +10138,8 @@
       "type": "lottery_prize",
       "confidence": 0.87,
       "red_flags": [
-       "asks_secret_credential",
-       "too_good_to_be_true"
+       "unexpected_windfall",
+       "asks_secret_credential"
       ],
       "windows": 1
      },
@@ -9994,10 +10211,12 @@
       "error": false,
       "verdict": "scam",
       "type": "lottery_prize",
-      "confidence": 0.89,
+      "confidence": 0.93,
       "red_flags": [
+       "unexpected_windfall",
        "too_good_to_be_true",
        "pay_to_receive",
+       "solicits_money_now",
        "link_or_unofficial_channel"
       ],
       "windows": 1
@@ -10010,8 +10229,9 @@
       "error": false,
       "verdict": "scam",
       "type": "lottery_prize",
-      "confidence": 0.75,
+      "confidence": 0.85,
       "red_flags": [
+       "unexpected_windfall",
        "too_good_to_be_true",
        "link_or_unofficial_channel"
       ],
@@ -10527,10 +10747,11 @@
       "domain": "safe",
       "fraud": false,
       "error": false,
-      "verdict": "undetermined",
-      "type": "undetermined",
-      "confidence": 0.0,
+      "verdict": "scam",
+      "type": "lottery_prize",
+      "confidence": 0.75,
       "red_flags": [
+       "unexpected_windfall",
        "too_good_to_be_true"
       ],
       "windows": 1
@@ -10627,9 +10848,11 @@
       "error": false,
       "verdict": "scam",
       "type": "task_job",
-      "confidence": 0.87,
+      "confidence": 0.91,
       "red_flags": [
        "pay_to_receive",
+       "solicits_money_now",
+       "too_good_to_be_true",
        "link_or_unofficial_channel"
       ],
       "windows": 1
@@ -10642,8 +10865,9 @@
       "error": false,
       "verdict": "scam",
       "type": "lottery_prize",
-      "confidence": 0.85,
+      "confidence": 0.9,
       "red_flags": [
+       "unexpected_windfall",
        "too_good_to_be_true",
        "link_or_unofficial_channel",
        "urgency_deadline"
@@ -10686,9 +10910,10 @@
       "error": false,
       "verdict": "scam",
       "type": "loan_app",
-      "confidence": 0.85,
+      "confidence": 0.87,
       "red_flags": [
-       "pay_to_receive"
+       "pay_to_receive",
+       "solicits_money_now"
       ],
       "windows": 1
      },
@@ -10715,8 +10940,9 @@
       "error": false,
       "verdict": "scam",
       "type": "courier_parcel",
-      "confidence": 0.75,
+      "confidence": 0.85,
       "red_flags": [
+       "solicits_money_now",
        "urgency_deadline",
        "link_or_unofficial_channel"
       ],
@@ -10730,9 +10956,9 @@
       "error": false,
       "verdict": "scam",
       "type": "courier_parcel",
-      "confidence": 0.87,
+      "confidence": 0.75,
       "red_flags": [
-       "pay_to_receive",
+       "solicits_money_now",
        "urgency_deadline"
       ],
       "windows": 1
@@ -10835,7 +11061,7 @@
       "fraud": true,
       "error": false,
       "verdict": "scam",
-      "type": "fake_customer_care",
+      "type": "bank_kyc_block",
       "confidence": 0.87,
       "red_flags": [
        "asks_secret_credential",
@@ -10851,8 +11077,9 @@
       "error": false,
       "verdict": "scam",
       "type": "lottery_prize",
-      "confidence": 0.87,
+      "confidence": 0.89,
       "red_flags": [
+       "unexpected_windfall",
        "too_good_to_be_true",
        "asks_secret_credential"
       ],
@@ -10884,7 +11111,7 @@
       "confidence": 0.75,
       "red_flags": [
        "link_or_unofficial_channel",
-       "urgency_deadline"
+       "solicits_money_now"
       ],
       "windows": 1
      },
@@ -10896,9 +11123,10 @@
       "error": false,
       "verdict": "scam",
       "type": "bank_kyc_block",
-      "confidence": 0.75,
+      "confidence": 0.89,
       "red_flags": [
        "link_or_unofficial_channel",
+       "asks_secret_credential",
        "urgency_deadline"
       ],
       "windows": 1
@@ -10911,11 +11139,13 @@
       "error": false,
       "verdict": "scam",
       "type": "lottery_prize",
-      "confidence": 0.89,
+      "confidence": 0.93,
       "red_flags": [
-       "pay_to_receive",
+       "unexpected_windfall",
        "too_good_to_be_true",
-       "link_or_unofficial_channel"
+       "link_or_unofficial_channel",
+       "pay_to_receive",
+       "solicits_money_now"
       ],
       "windows": 1
      },
@@ -10927,11 +11157,12 @@
       "error": false,
       "verdict": "scam",
       "type": "task_job",
-      "confidence": 0.89,
+      "confidence": 0.91,
       "red_flags": [
        "pay_to_receive",
        "too_good_to_be_true",
-       "link_or_unofficial_channel"
+       "link_or_unofficial_channel",
+       "solicits_money_now"
       ],
       "windows": 1
      },
@@ -10987,9 +11218,9 @@
       "error": false,
       "verdict": "scam",
       "type": "courier_parcel",
-      "confidence": 0.87,
+      "confidence": 0.75,
       "red_flags": [
-       "pay_to_receive",
+       "solicits_money_now",
        "link_or_unofficial_channel"
       ],
       "windows": 1
@@ -11028,11 +11259,13 @@
       "error": false,
       "verdict": "scam",
       "type": "lottery_prize",
-      "confidence": 0.92,
+      "confidence": 0.93,
       "red_flags": [
+       "unexpected_windfall",
        "too_good_to_be_true",
        "pay_to_receive",
-       "payment_to_personal_account"
+       "solicits_money_now",
+       "link_or_unofficial_channel"
       ],
       "windows": 1
      },
@@ -11044,9 +11277,10 @@
       "error": false,
       "verdict": "scam",
       "type": "loan_app",
-      "confidence": 0.87,
+      "confidence": 0.89,
       "red_flags": [
        "pay_to_receive",
+       "solicits_money_now",
        "link_or_unofficial_channel"
       ],
       "windows": 1
@@ -11063,7 +11297,7 @@
       "red_flags": [
        "asks_secret_credential",
        "link_or_unofficial_channel",
-       "urgency_deadline"
+       "unexpected_windfall"
       ],
       "windows": 1
      },
@@ -11073,11 +11307,12 @@
       "domain": "lottery",
       "fraud": true,
       "error": false,
-      "verdict": "undetermined",
-      "type": "undetermined",
-      "confidence": 0.0,
+      "verdict": "scam",
+      "type": "lottery_prize",
+      "confidence": 0.75,
       "red_flags": [
-       "too_good_to_be_true"
+       "too_good_to_be_true",
+       "unexpected_windfall"
       ],
       "windows": 1
      },
@@ -11089,10 +11324,12 @@
       "error": false,
       "verdict": "scam",
       "type": "lottery_prize",
-      "confidence": 0.89,
+      "confidence": 0.93,
       "red_flags": [
+       "unexpected_windfall",
        "too_good_to_be_true",
        "pay_to_receive",
+       "solicits_money_now",
        "link_or_unofficial_channel"
       ],
       "windows": 1
@@ -11105,10 +11342,10 @@
       "error": false,
       "verdict": "scam",
       "type": "courier_parcel",
-      "confidence": 0.87,
+      "confidence": 0.75,
       "red_flags": [
        "link_or_unofficial_channel",
-       "pay_to_receive"
+       "solicits_money_now"
       ],
       "windows": 1
      },
@@ -11134,9 +11371,10 @@
       "error": false,
       "verdict": "scam",
       "type": "task_job",
-      "confidence": 0.85,
+      "confidence": 0.87,
       "red_flags": [
-       "pay_to_receive"
+       "pay_to_receive",
+       "solicits_money_now"
       ],
       "windows": 1
      },
@@ -11163,8 +11401,9 @@
       "error": false,
       "verdict": "scam",
       "type": "loan_app",
-      "confidence": 0.75,
+      "confidence": 0.89,
       "red_flags": [
+       "asks_secret_credential",
        "urgency_deadline",
        "link_or_unofficial_channel"
       ],
@@ -11210,8 +11449,8 @@
       "type": "courier_parcel",
       "confidence": 0.75,
       "red_flags": [
-       "link_or_unofficial_channel",
-       "urgency_deadline"
+       "solicits_money_now",
+       "link_or_unofficial_channel"
       ],
       "windows": 1
      },
@@ -11223,10 +11462,11 @@
       "error": false,
       "verdict": "scam",
       "type": "loan_app",
-      "confidence": 0.87,
+      "confidence": 0.89,
       "red_flags": [
        "pay_to_receive",
-       "link_or_unofficial_channel"
+       "link_or_unofficial_channel",
+       "solicits_money_now"
       ],
       "windows": 1
      },
@@ -11238,11 +11478,12 @@
       "error": false,
       "verdict": "scam",
       "type": "lottery_prize",
-      "confidence": 0.89,
+      "confidence": 0.91,
       "red_flags": [
-       "asks_secret_credential",
+       "unexpected_windfall",
        "too_good_to_be_true",
-       "asks_full_identifier"
+       "asks_full_identifier",
+       "asks_secret_credential"
       ],
       "windows": 1
      },
@@ -11252,11 +11493,11 @@
       "domain": "courier_customs",
       "fraud": true,
       "error": false,
-      "verdict": "scam",
-      "type": "courier_parcel",
-      "confidence": 0.85,
+      "verdict": "undetermined",
+      "type": "undetermined",
+      "confidence": 0.0,
       "red_flags": [
-       "pay_to_receive"
+       "solicits_money_now"
       ],
       "windows": 1
      },
@@ -11268,10 +11509,11 @@
       "error": false,
       "verdict": "scam",
       "type": "courier_parcel",
-      "confidence": 0.87,
+      "confidence": 0.85,
       "red_flags": [
+       "urgency_deadline",
        "link_or_unofficial_channel",
-       "pay_to_receive"
+       "solicits_money_now"
       ],
       "windows": 1
      },
@@ -11281,12 +11523,11 @@
       "domain": "fake_bank_otp",
       "fraud": true,
       "error": false,
-      "verdict": "scam",
-      "type": "telecom_trai_sim_block",
-      "confidence": 0.87,
+      "verdict": "undetermined",
+      "type": "undetermined",
+      "confidence": 0.0,
       "red_flags": [
-       "link_or_unofficial_channel",
-       "asks_secret_credential"
+       "link_or_unofficial_channel"
       ],
       "windows": 1
      },
@@ -11313,9 +11554,10 @@
       "error": false,
       "verdict": "scam",
       "type": "task_job",
-      "confidence": 0.9,
+      "confidence": 0.92,
       "red_flags": [
        "pay_to_receive",
+       "solicits_money_now",
        "payment_to_personal_account"
       ],
       "windows": 1
@@ -11344,8 +11586,8 @@
       "type": "telecom_trai_sim_block",
       "confidence": 0.87,
       "red_flags": [
-       "asks_secret_credential",
-       "urgency_deadline"
+       "urgency_deadline",
+       "asks_secret_credential"
       ],
       "windows": 1
      },
@@ -11357,8 +11599,9 @@
       "error": false,
       "verdict": "scam",
       "type": "lottery_prize",
-      "confidence": 0.75,
+      "confidence": 0.85,
       "red_flags": [
+       "unexpected_windfall",
        "too_good_to_be_true",
        "link_or_unofficial_channel"
       ],
@@ -12006,8 +12249,8 @@
       "confidence": 0.89,
       "red_flags": [
        "urgency_deadline",
-       "link_or_unofficial_channel",
-       "arrest_or_legal_threat"
+       "arrest_or_legal_threat",
+       "link_or_unofficial_channel"
       ],
       "windows": 1
      },
@@ -12033,10 +12276,11 @@
       "error": false,
       "verdict": "scam",
       "type": "electricity_bill",
-      "confidence": 0.75,
+      "confidence": 0.89,
       "red_flags": [
        "urgency_deadline",
-       "link_or_unofficial_channel"
+       "link_or_unofficial_channel",
+       "remote_access_or_install"
       ],
       "windows": 1
      },
@@ -12048,9 +12292,10 @@
       "error": false,
       "verdict": "scam",
       "type": "fake_customer_care",
-      "confidence": 0.85,
+      "confidence": 0.87,
       "red_flags": [
-       "asks_secret_credential"
+       "asks_secret_credential",
+       "urgency_deadline"
       ],
       "windows": 1
      },
@@ -12062,10 +12307,11 @@
       "error": false,
       "verdict": "scam",
       "type": "loan_app",
-      "confidence": 0.9,
+      "confidence": 0.92,
       "red_flags": [
        "pay_to_receive",
-       "remote_access_or_install"
+       "remote_access_or_install",
+       "solicits_money_now"
       ],
       "windows": 1
      },
@@ -12092,10 +12338,12 @@
       "error": false,
       "verdict": "scam",
       "type": "loan_app",
-      "confidence": 0.9,
+      "confidence": 0.94,
       "red_flags": [
        "pay_to_receive",
-       "remote_access_or_install"
+       "remote_access_or_install",
+       "solicits_money_now",
+       "link_or_unofficial_channel"
       ],
       "windows": 1
      },
@@ -12134,15 +12382,7 @@
       "split": "indian_sms",
       "domain": "lottery",
       "fraud": true,
-      "error": false,
-      "verdict": "scam",
-      "type": "lottery_prize",
-      "confidence": 0.75,
-      "red_flags": [
-       "too_good_to_be_true",
-       "link_or_unofficial_channel"
-      ],
-      "windows": 1
+      "error": true
      },
      {
       "id": "d59ae578a1da",
@@ -12150,11 +12390,12 @@
       "domain": "fake_bank_otp",
       "fraud": true,
       "error": false,
-      "verdict": "undetermined",
-      "type": "undetermined",
-      "confidence": 0.0,
+      "verdict": "scam",
+      "type": "fake_customer_care",
+      "confidence": 0.75,
       "red_flags": [
-       "link_or_unofficial_channel"
+       "link_or_unofficial_channel",
+       "urgency_deadline"
       ],
       "windows": 1
      },
@@ -12177,7 +12418,16 @@
       "split": "indian_sms",
       "domain": "lottery",
       "fraud": true,
-      "error": true
+      "error": false,
+      "verdict": "scam",
+      "type": "lottery_prize",
+      "confidence": 0.89,
+      "red_flags": [
+       "unexpected_windfall",
+       "too_good_to_be_true",
+       "asks_secret_credential"
+      ],
+      "windows": 1
      },
      {
       "id": "70dc36efcf79",
@@ -12187,9 +12437,10 @@
       "error": false,
       "verdict": "scam",
       "type": "loan_app",
-      "confidence": 0.87,
+      "confidence": 0.89,
       "red_flags": [
        "pay_to_receive",
+       "solicits_money_now",
        "link_or_unofficial_channel"
       ],
       "windows": 1
@@ -12229,15 +12480,7 @@
       "split": "indian_sms",
       "domain": "electricity_bill",
       "fraud": true,
-      "error": false,
-      "verdict": "scam",
-      "type": "electricity_bill",
-      "confidence": 0.75,
-      "red_flags": [
-       "urgency_deadline",
-       "link_or_unofficial_channel"
-      ],
-      "windows": 1
+      "error": true
      },
      {
       "id": "cd459ffed098",
@@ -12247,8 +12490,9 @@
       "error": false,
       "verdict": "scam",
       "type": "lottery_prize",
-      "confidence": 0.75,
+      "confidence": 0.85,
       "red_flags": [
+       "unexpected_windfall",
        "too_good_to_be_true",
        "link_or_unofficial_channel"
       ],
@@ -12336,10 +12580,11 @@
       "error": false,
       "verdict": "scam",
       "type": "loan_app",
-      "confidence": 0.87,
+      "confidence": 0.89,
       "red_flags": [
        "pay_to_receive",
-       "too_good_to_be_true"
+       "too_good_to_be_true",
+       "solicits_money_now"
       ],
       "windows": 1
      },
@@ -12351,10 +12596,11 @@
       "error": false,
       "verdict": "scam",
       "type": "task_job",
-      "confidence": 0.87,
+      "confidence": 0.89,
       "red_flags": [
        "too_good_to_be_true",
-       "pay_to_receive"
+       "pay_to_receive",
+       "solicits_money_now"
       ],
       "windows": 1
      },
@@ -12452,11 +12698,12 @@
       "domain": "fake_bank_otp",
       "fraud": true,
       "error": false,
-      "verdict": "undetermined",
-      "type": "undetermined",
-      "confidence": 0.0,
+      "verdict": "scam",
+      "type": "fake_customer_care",
+      "confidence": 0.75,
       "red_flags": [
-       "link_or_unofficial_channel"
+       "link_or_unofficial_channel",
+       "urgency_deadline"
       ],
       "windows": 1
      },
@@ -12468,10 +12715,11 @@
       "error": false,
       "verdict": "scam",
       "type": "task_job",
-      "confidence": 0.87,
+      "confidence": 0.89,
       "red_flags": [
        "too_good_to_be_true",
-       "pay_to_receive"
+       "pay_to_receive",
+       "solicits_money_now"
       ],
       "windows": 1
      },
@@ -12483,9 +12731,10 @@
       "error": false,
       "verdict": "scam",
       "type": "courier_parcel",
-      "confidence": 0.75,
+      "confidence": 0.85,
       "red_flags": [
        "link_or_unofficial_channel",
+       "solicits_money_now",
        "urgency_deadline"
       ],
       "windows": 1
@@ -12500,8 +12749,8 @@
       "type": "loan_app",
       "confidence": 0.87,
       "red_flags": [
-       "too_good_to_be_true",
-       "remote_access_or_install"
+       "remote_access_or_install",
+       "too_good_to_be_true"
       ],
       "windows": 1
      },
@@ -12511,11 +12760,12 @@
       "domain": "courier_customs",
       "fraud": true,
       "error": false,
-      "verdict": "undetermined",
-      "type": "undetermined",
-      "confidence": 0.0,
+      "verdict": "scam",
+      "type": "courier_parcel",
+      "confidence": 0.75,
       "red_flags": [
-       "link_or_unofficial_channel"
+       "link_or_unofficial_channel",
+       "solicits_money_now"
       ],
       "windows": 1
      },
@@ -12542,9 +12792,10 @@
       "error": false,
       "verdict": "scam",
       "type": "lottery_prize",
-      "confidence": 0.75,
+      "confidence": 0.85,
       "red_flags": [
-       "too_good_to_be_true",
+       "unexpected_windfall",
+       "urgency_deadline",
        "link_or_unofficial_channel"
       ],
       "windows": 1
@@ -12557,8 +12808,9 @@
       "error": false,
       "verdict": "scam",
       "type": "lottery_prize",
-      "confidence": 0.85,
+      "confidence": 0.9,
       "red_flags": [
+       "unexpected_windfall",
        "too_good_to_be_true",
        "link_or_unofficial_channel",
        "urgency_deadline"
@@ -12571,11 +12823,12 @@
       "domain": "electricity_bill",
       "fraud": true,
       "error": false,
-      "verdict": "undetermined",
-      "type": "undetermined",
-      "confidence": 0.0,
+      "verdict": "scam",
+      "type": "electricity_bill",
+      "confidence": 0.75,
       "red_flags": [
-       "urgency_deadline"
+       "urgency_deadline",
+       "link_or_unofficial_channel"
       ],
       "windows": 1
      },
@@ -12585,11 +12838,12 @@
       "domain": "courier_customs",
       "fraud": true,
       "error": false,
-      "verdict": "undetermined",
-      "type": "undetermined",
-      "confidence": 0.0,
+      "verdict": "scam",
+      "type": "courier_parcel",
+      "confidence": 0.75,
       "red_flags": [
-       "link_or_unofficial_channel"
+       "link_or_unofficial_channel",
+       "solicits_money_now"
       ],
       "windows": 1
      },
@@ -12601,10 +12855,13 @@
       "error": false,
       "verdict": "scam",
       "type": "lottery_prize",
-      "confidence": 0.89,
+      "confidence": 0.95,
       "red_flags": [
+       "unexpected_windfall",
        "too_good_to_be_true",
        "pay_to_receive",
+       "solicits_money_now",
+       "urgency_deadline",
        "link_or_unofficial_channel"
       ],
       "windows": 1
@@ -12631,11 +12888,11 @@
       "error": false,
       "verdict": "scam",
       "type": "courier_parcel",
-      "confidence": 0.89,
+      "confidence": 0.85,
       "red_flags": [
        "asks_full_identifier",
-       "pay_to_receive",
-       "link_or_unofficial_channel"
+       "link_or_unofficial_channel",
+       "solicits_money_now"
       ],
       "windows": 1
      },
@@ -12661,12 +12918,10 @@
       "error": false,
       "verdict": "scam",
       "type": "loan_app",
-      "confidence": 0.96,
+      "confidence": 0.85,
       "red_flags": [
        "urgency_deadline",
        "too_good_to_be_true",
-       "asks_secret_credential",
-       "remote_access_or_install",
        "link_or_unofficial_channel"
       ],
       "windows": 1
@@ -12679,10 +12934,12 @@
       "error": false,
       "verdict": "scam",
       "type": "loan_app",
-      "confidence": 0.87,
+      "confidence": 0.91,
       "red_flags": [
+       "pay_to_receive",
        "too_good_to_be_true",
-       "pay_to_receive"
+       "solicits_money_now",
+       "link_or_unofficial_channel"
       ],
       "windows": 1
      },
@@ -12694,10 +12951,10 @@
       "error": false,
       "verdict": "scam",
       "type": "courier_parcel",
-      "confidence": 0.87,
+      "confidence": 0.75,
       "red_flags": [
-       "pay_to_receive",
-       "link_or_unofficial_channel"
+       "link_or_unofficial_channel",
+       "solicits_money_now"
       ],
       "windows": 1
      },
@@ -12946,12 +13203,7 @@
       "split": "indian_sms",
       "domain": "safe",
       "fraud": false,
-      "error": false,
-      "verdict": "undetermined",
-      "type": "undetermined",
-      "confidence": 0.0,
-      "red_flags": [],
-      "windows": 1
+      "error": true
      },
      {
       "id": "f833855a219f",

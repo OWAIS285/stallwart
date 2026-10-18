@@ -89,7 +89,7 @@ flowchart LR
 Key choices:
 
 - **Two independent extraction layers.** The live model calls `record_detail` while it talks; a second, separate Gemini Flash pass with a strict JSON schema re-reads the transcript. A detail is *confirmed* only when both layers saw it (or the caller repeated it) **and** the deterministic validator accepts it (UPI format, 9-18 digit account, IFSC pattern, mobile number, amount).
-- **Scam or genuine is decided by behaviour, not topic.** Real banks, lenders and couriers also call about loans, KYC, accounts and Aadhaar, so the topic proves nothing. Gemini only reports which red flags (asks for an OTP or PIN, remote-access app, pay a fee to receive money, money to a personal account, arrest threat, secrecy; or softer signs such as a threatening deadline or refusing a callback) and which legitimacy signals (offers an official callback, asks only for partial digits, accepts a no) it can **quote** from the caller; quotes not found in the caller's words are dropped. A small Python rule (`decide_verdict` in `backend/analysis.py`) then decides: one hard flag or two soft flags is a scam; a caller who shows a legitimacy signal and nothing risky is genuine; anything else stays *undetermined*. Flags are never removed, so a genuine-sounding call that later asks for an OTP still turns into a scam. Ramesh also tests every caller once ("can I ring back on the number in my passbook?"), which a real bank accepts and a scammer resists, and asks anyone who says they are his bank to read out the last four digits of his account (checked in code against his private record). Only scam calls produce a strain card. `eval/hard_negative_eval.py` measures it on paired genuine and scam calls, see below.
+- **Scam or genuine is decided by behaviour, not topic.** Real banks, lenders and couriers also call about loans, KYC, accounts and Aadhaar, so the topic proves nothing. Gemini only reports which red flags (asks for an OTP or PIN, remote-access app, pay a fee to receive money, money to a personal account, arrest threat, secrecy, guaranteed high returns, money asked by an online partner never met; or softer signs such as a threatening deadline, refusing a callback, asking to invest, donate or pay now, dodging registration questions, or an unexpected refund or prize) and which legitimacy signals (offers an official callback, reads out partial digits it already has, accepts a no) it can **quote** from the caller; quotes not found in the caller's words are dropped. A small Python rule (`decide_verdict` in `backend/analysis.py`) then decides: one hard flag or two soft flags is a scam; a caller who shows a legitimacy signal and nothing risky is genuine; anything else stays *undetermined*. Flags are never removed, so a genuine-sounding call that later asks for an OTP still turns into a scam. Ramesh also tests every caller once ("can I ring back on the number in my passbook?"), which a real bank accepts and a scammer resists, and asks anyone who says they are his bank to read out the last four digits of his account (checked in code against his private record). When an investment, charity, refund or online friendship turns to money, he asks for the SEBI or RBI registration, the charity's 80G certificate or the registered office; a scammer's dodge is itself a warning sign. Only scam calls produce a strain card. `eval/hard_negative_eval.py` measures it on paired genuine and scam calls, see below.
 - **Spoken-form normaliser.** "rahul dot sharma at the rate okaxis", "double nine", Devanagari digits and letter names become `rahul.sharma@okaxis`, `99`, `SBIN0001234`.
 - **A decoy that never repeats itself.** Scammers learn a fixed script fast, so each call draws a fresh personality for Ramesh (mood, what he was doing, family and health details, tempo, habits and a different set of stalling excuses), and the prompt forbids catchphrases, filler openers and answering questions in order. Text mode adds a per-reply director note (a new move, a length, openers to avoid). `eval/variety_eval.py` measures it, see below.
 - **Voice path stays light.** Verification, classification and strain building run off the audio path; the browser sends its own measured voice-to-voice latency, which the server aggregates (p50 and p90).
@@ -164,18 +164,18 @@ Planted test: random, fictional identifiers rendered the way callers say them (E
 
 ### Scam detection on ICFD-31k (synthetic, IJCAI-ECAI 2026)
 
-ICFD-31k test split (4,500 calls, 23 non-fraud) and cross-domain split (1,000 calls of 5 fraud types never seen in training, 39 non-fraud). Stallwart was scored on every non-fraud call (62) and a stratified random sample of 300 fraud calls (20 per test domain, 20 per cross-domain type, seed 11), 3 runs; the keyword baseline was run on all 5,500 calls. The classifier reads each call the way the live product does (16-turn windows, quoted red flags accumulate, the verdict rule decides; undetermined counts as not flagged). No ICFD data was used to build or tune it. Brackets: 95% Wilson interval from run 1.
+ICFD-31k test split (4,500 calls, 23 non-fraud) and cross-domain split (900 calls of 5 fraud types never seen in training, 39 non-fraud). Stallwart was scored on every non-fraud call (62) and a stratified random sample of 300 fraud calls (20 per test domain, 20 per cross-domain type, seed 11), 3 runs; the keyword baseline was run on all 5,400 calls. The 100 cross-domain calls read while designing the slow-burn red flags are excluded, so the cross-domain rows come from calls never looked at. The classifier reads each call the way the live product does (16-turn windows, quoted red flags accumulate, the verdict rule decides; undetermined counts as not flagged). No ICFD data was used to build or tune it. Brackets: 95% Wilson interval from run 1.
 
 | Split and method | Recall (fraud caught) | Specificity (non-fraud cleared) | Precision | F1 | Balanced accuracy | MCC |
 |---|---|---|---|---|---|---|
-| Test + cross-domain: Stallwart (mean of 3 runs) | 74.7% (70-80%) | 88.2% (78-94%) | 96.9% | 84.3% | 81.4% | 0.493 |
-| Test + cross-domain: keyword baseline (every call) | 59.8% | 74.2% | 99.5% | 74.7% | 67.0% | 0.073 |
-| Test: Stallwart (mean of 3 runs) | 87.8% (83-92%) | 71.0% (54-88%) | 96.4% | 91.9% | 79.4% | 0.463 |
+| Test + cross-domain: Stallwart (mean of 3 runs) | 85.9% (81-89%) | 87.7% (78-94%) | 97.2% | 91.2% | 86.8% | 0.626 |
+| Test + cross-domain: keyword baseline (every call) | 60.3% | 74.2% | 99.5% | 75.1% | 67.2% | 0.075 |
+| Test: Stallwart (mean of 3 runs) | 91.1% (85-94%) | 69.7% (49-84%) | 96.4% | 93.7% | 80.4% | 0.51 |
 | Test: keyword baseline (every call) | 65.4% | 56.5% | 99.7% | 79.0% | 61.0% | 0.033 |
-| Cross-domain (unseen types): Stallwart (mean of 3 runs) | 48.3% (39-59%) | 98.3% (87-100%) | 98.7% | 64.9% | 73.3% | 0.439 |
-| Cross-domain (unseen types): keyword baseline (every call) | 33.6% | 84.6% | 98.2% | 50.1% | 59.1% | 0.075 |
+| Cross-domain (unseen types): Stallwart (mean of 3 runs) | 75.3% (66-83%) | 98.2% (91-100%) | 99.1% | 85.6% | 86.8% | 0.666 |
+| Cross-domain (unseen types): keyword baseline (every call) | 33.4% | 84.6% | 98.0% | 49.9% | 59.0% | 0.078 |
 
-F1 range over runs (all): 84.2% to 84.6%. Plausible scam type for the test domain (our own mapping): 89.8%. Recall by domain, run 1: bank_payment_fraud 19/20, cross_domain_1 12/20, cross_domain_2 6/20, cross_domain_3 11/20, cross_domain_4 9/20, cross_domain_5 11/20, ecommerce_marketplace 13/20, government_impersonation 17/20, insurance_healthcare 18/20, job_employment 20/20, loan_shark_harassment 16/20, personal_emergency_extortion 17/20, tech_support_account 20/20, travel_lottery 20/20, utility_bill_service 16/20.
+F1 range over runs (all): 90.9% to 91.5%. Plausible scam type for the test domain (our own mapping): 91.6%. Recall by domain, run 1: bank_payment_fraud 19/20, cross_domain_1 15/17, cross_domain_2 8/20, cross_domain_3 17/20, cross_domain_4 17/19, cross_domain_5 15/20, ecommerce_marketplace 11/20, government_impersonation 20/20, insurance_healthcare 18/18, job_employment 20/20, loan_shark_harassment 14/20, personal_emergency_extortion 19/20, tech_support_account 19/19, travel_lottery 20/20, utility_bill_service 18/20.
 
 Published ICFD-31k baselines (authors' release notes, test split, static task): fine-tuned RoBERTa F1 99.6%, zero-shot Gemma-2 F1 35.8%. Stallwart is not trained on ICFD at all, so the fair comparison is the zero-shot row.
 
@@ -183,13 +183,29 @@ Streaming (re-checked after every caller turn, as on a live call): 30 fraud call
 
 | | Fraud calls flagged | Median seconds to flag | Non-fraud calls ever flagged |
 |---|---|---|---|
-| Stallwart | 26/30 | 49.5 s (41.4% of the call) | 7/62 |
-| Keyword baseline | 16/30 | 41.0 s | 16/62 |
-| ICFD's own first fraud chunk label | n/a | 45.0 s | n/a |
+| Stallwart | 23/30 | 45.0 s (37.9% of the call) | 10/62 |
+| Keyword baseline | 10/30 | 54.2 s | 16/62 |
+| ICFD's own first fraud chunk label | n/a | 47.5 s | n/a |
 
-Median call length 126.6 s. Flagged no later than ICFD's own first fraud label: 13/26. Classifier request latency p50 3.2 s, p90 7.8 s (1888 requests, 1 failed after retries).
+Median call length 130.4 s. Flagged no later than ICFD's own first fraud label: 18/23. Classifier request latency p50 3.5 s, p90 21.6 s (1830 requests, 61 failed after retries).
 
 Caveats: ICFD-31k is synthetic (LLM-generated); numbers say nothing about real-world accuracy. Non-fraud calls are rare in ICFD (62 of 5,500), and most are reverse scenarios where the customer, not the agent, is the suspicious party; the specificity interval is therefore wide. Fraud calls are a stratified random sample (seed recorded); the keyword baseline is run on every call. Undetermined counts as not flagged. Plausible scam type uses our own domain-to-type mapping.
+
+### Slow-burn scams: before and after the new red flags
+
+Five red flags were added for scams that persuade rather than demand: guaranteed high returns and money asked by an online partner never met (decisive on their own), and asking to invest, donate or pay now, dodging registration questions, and an unexpected refund or prize (warning signs, two make a scam). They were designed on 100 ICFD cross-domain calls, ICFD validation calls and the BothBosu train split, then measured once on 100 cross-domain calls that had not been looked at (20 per type, seed 11) and on all 62 ICFD non-fraud calls.
+
+| Held-out cross-domain calls | Before | After |
+|---|---|---|
+| Fraud calls caught | 60.0% | **75.8%** |
+| crypto and NFT | 14/20 | 17/19 |
+| romance | 7/20 | 8/20 |
+| fake charity | 10/20 | 17/20 |
+| Ponzi, MLM and investment | 15/20 | 18/20 |
+| tax and social-security | 14/20 | 15/20 |
+| ICFD non-fraud calls flagged as scam (all 62) | 8/62 | 7/62 |
+
+Who is cheating in the 24 held-out fraud calls still missed, as judged by a separate Gemini pass: the caller in 10, someone not on the call in 13, the customer in 0, nobody in 1. ICFD labels the conversation's topic, while Stallwart judges only the caller, so in 14 of the misses the caller is honest (typically a bank helping a customer who is being scammed by someone else). Counting only calls where the caller is the fraudster, recall is 88.2%. This is a second opinion by a model, not a relabelling; the headline numbers above use ICFD's labels unchanged.
 
 ### Three more public benchmarks (synthetic, Hugging Face)
 
@@ -197,18 +213,18 @@ Same classifier, same verdict rule, no tuning on any of these sets. Undetermined
 
 | Benchmark | Items (scam / non-scam) | Method | Recall (scam caught) | Specificity (non-scam cleared) | Precision | F1 |
 |---|---|---|---|---|---|---|
-| BothBosu scam-dialogue (test split, English calls) | 320 (160 / 160) | Stallwart (1 run) | 85.6% (79-90%) | 100.0% (98-100%) | 100.0% | 92.3% |
+| BothBosu scam-dialogue (test split, English calls) | 320 (160 / 160) | Stallwart (1 run) | 97.5% (94-99%) | 100.0% (98-100%) | 100.0% | 98.7% |
 | | | Keyword baseline | 45.0% | 98.8% | 97.3% | 61.5% |
-| BothBosu multi-agent-scam-conversation (test split, English calls) | 320 (160 / 160) | Stallwart (1 run) | 88.1% (82-92%) | 100.0% (98-100%) | 100.0% | 93.6% |
+| BothBosu multi-agent-scam-conversation (test split, English calls) | 320 (160 / 160) | Stallwart (1 run) | 95.5% (91-98%) | 100.0% (98-100%) | 100.0% | 97.7% |
 | | | Keyword baseline | 71.9% | 96.9% | 95.8% | 82.1% |
-| Indian scam SMS, audited (English, Hindi, Hinglish messages) | 300 (150 / 150) | Stallwart (1 run) | 80.4% (73-86%) | 100.0% (98-100%) | 100.0% | 89.1% |
+| Indian scam SMS, audited (English, Hindi, Hinglish messages) | 300 (150 / 150) | Stallwart (1 run) | 83.0% (76-88%) | 99.3% (96-100%) | 99.2% | 90.4% |
 | | | Keyword baseline | 30.0% | 95.3% | 86.5% | 44.6% |
 
-- BothBosu scam-dialogue (test split, English calls), correct by call type: delivery 40/40, insurance 40/40, refund 24/40, reward 36/40, ssn 38/40, support 39/40, telemarketing 40/40, wrong 40/40.
-- BothBosu multi-agent-scam-conversation (test split, English calls), correct by call type: appointment 40/40, delivery 40/40, insurance 40/40, refund 27/40, reward 37/40, ssn 40/40, support 36/39, wrong 40/40.
-- Indian scam SMS, audited (English, Hindi, Hinglish messages), correct by language: en 91/99, hi 93/100, hinglish 85/99.
+- BothBosu scam-dialogue (test split, English calls), correct by call type: delivery 39/39, insurance 39/39, refund 38/40, reward 39/39, ssn 39/40, support 39/40, telemarketing 40/40, wrong 39/39.
+- BothBosu multi-agent-scam-conversation (test split, English calls), correct by call type: appointment 40/40, delivery 40/40, insurance 39/39, refund 36/40, reward 39/39, ssn 40/40, support 33/36, wrong 40/40.
+- Indian scam SMS, audited (English, Hindi, Hinglish messages), correct by language: en 90/99, hi 92/100, hinglish 88/97.
 
-Requests: 1095, 4 failed after retries (excluded).
+Requests: 1095, 19 failed after retries (excluded).
 
 Caveats: All three sets are synthetic (LLM-generated); none measures real-world accuracy. The BothBosu sets are English and US-centred (SSN, IRS-style scams), so they test generalisation beyond India. The SMS set is text messages, not calls; each message is judged as a single line from the sender. Its labels were audited by an AI model with a small human spot check, as its card states. Undetermined counts as not flagged.
 
@@ -224,7 +240,7 @@ hard_negatives.json: 40 hand-written fictional calls (pairs, late-turn scams, be
 
 Classifier request latency: p50 9.4 s, p90 29.4 s (307 requests).
 
-Requests that failed after retries (excluded from the whole-call columns), per run: {'keyword': [0], 'legacy': [1], 'current': [3]}.
+Requests that failed after retries (excluded from the whole-call columns), per run: {'keyword': [0], 'legacy': [1], 'current': [0]}.
 
 Caveats: Hand-written by the team, so the calls are cleaner than real speech-to-text and the scams are clear-cut. Small set: one wrong call moves a rate by several points. Streaming re-checks after each caller turn on the full prefix; the live product also adds the persona's own end_call(not_scam) as a tie-breaker, which is not exercised here.
 
@@ -283,7 +299,7 @@ From the end of the caller's speech (measured in the client) to the first decoy 
 - **Voice latency is a few seconds**, which suits a hesitant elderly persona but is slower than a natural conversation. Numbers are reported below, not promised.
 - **Speech recognition can mis-hear.** That is why details need two checks, and why the evidence pack is a lead, not a verdict.
 - **Synthetic benchmark.** ICFD-31k is synthetic; our numbers on it say little about real scams. Real redacted messages are still to be added by the team.
-- **Slow-burn scams are the weak spot.** The verdict rule is built around payment scams that ask for something (an OTP, a fee, a transfer, secrecy). Romance, fake-charity, crypto and MLM pitches that persuade the victim to pay of their own accord are caught far less often (48% on ICFD-31k's unseen cross-domain types, against 88% on its main test split), and so are refund scams on the BothBosu sets (24-27 of 40).
+- **Slow-burn scams are still the weakest area.** Romance, fake-charity, crypto and investment pitches persuade rather than demand. Five red flags for them raised recall on held-out ICFD cross-domain calls from 60% to 76% (75% across the three main runs), but about one in four such calls is still missed, and in most of those the caller is honest (a bank warning a customer about someone else's scam), which Stallwart correctly does not flag. During simulated live calls the guaranteed-returns flag also fired once on a gold-investment pitch that ICFD labels non-fraud.
 - **In-memory abuse limits** apply per Cloud Run instance only.
 - **Proxy banks, not real ones.** Reports reach simulated inboxes inside this service. The routing tables cover the main IFSC prefixes and the UPI handles we are sure of; others land in the unresolved queue. A bare account number cannot be tied to a bank without an IFSC or a bank name, and a UPI ID goes to the bank that runs its handle, which may not be the bank that holds the account.
 

@@ -42,6 +42,7 @@ DATASETS = HERE / "datasets"
 FILES = {"test": ["test-00000-of-00002.jsonl", "test-00001-of-00002.jsonl"],
          "cross_domain": ["cross_domain-00000-of-00001.jsonl"]}
 RESULTS = HERE / "results"
+DEV_IDS = HERE / "fixtures" / "icfd_crossdomain_dev_ids.json"
 WINDOW = 16  # analysis.verify reads the last 16 turns of what it is given
 
 # Our own judgement of which of our labels fit each ICFD test domain (cross-domain types are scored for detection only).
@@ -240,10 +241,15 @@ async def main() -> None:
     parser.add_argument("--stream-legit", type=int, default=62, help="non-fraud calls to stream (all = 62)")
     parser.add_argument("--concurrency", type=int, default=6)
     parser.add_argument("--seed", type=int, default=11)
+    parser.add_argument("--out", default="detection.json", help="results file name in eval/results")
+    parser.add_argument("--skip-stream", action="store_true")
     args = parser.parse_args()
     sys.stdout.reconfigure(encoding="utf-8")
 
     rows = load_rows()
+    # Cross-domain calls inspected while designing the red flags are never scored (see the fixture's description).
+    dev = set(json.loads(DEV_IDS.read_text(encoding="utf-8"))["ids"]) if DEV_IDS.exists() else set()
+    rows = [r for r in rows if not (r["split"] == "cross_domain" and r["id"] in dev)]
     rng = random.Random(args.seed)
     legit = [r for r in rows if not r["fraud"]]
     sample, stream_sample = list(legit), []
@@ -278,7 +284,7 @@ async def main() -> None:
               flush=True)
 
     started = time.monotonic()
-    stream = await asyncio.gather(*[scorer.streaming(r) for r in stream_sample])
+    stream = [] if args.skip_stream else await asyncio.gather(*[scorer.streaming(r) for r in stream_sample])
     fraud_stream = [s for s in stream if s["fraud"]]
     legit_streamed = [s for s in stream if not s["fraud"]]
     detected = [s for s in fraud_stream if s["flagged_at"] is not None]
@@ -305,6 +311,7 @@ async def main() -> None:
     }
     summary = {
         "dataset": "ICFD-31k (synthetic; evaluation only): full test split (4,500 calls) and cross-domain split (1,000 calls)",
+        "excluded_dev_ids": len(dev),
         "population": {"calls": len(rows), "non_fraud": len(legit),
                        **{split: {"calls": sum(r["split"] == split for r in rows),
                                   "non_fraud": sum(r["split"] == split and not r["fraud"] for r in rows)} for split in FILES}},
@@ -327,14 +334,15 @@ async def main() -> None:
             "agent, is the suspicious party; the specificity interval is therefore wide.",
             "Fraud calls are a stratified random sample (seed recorded); the keyword baseline is run on every call.",
             "Undetermined counts as not flagged. Plausible scam type uses our own domain-to-type mapping.",
+            "Calls whose every classifier request failed after retries are excluded from that run (see errors).",
         ],
     }
     RESULTS.mkdir(exist_ok=True)
-    (RESULTS / "detection.json").write_text(
+    (RESULTS / args.out).write_text(
         json.dumps({"summary": summary, "runs": runs, "streaming": stream}, ensure_ascii=False, indent=1), encoding="utf-8")
     print(json.dumps({k: summary[k] for k in ("classifier_mean", "classifier_ci95_run1", "classifier_latency_seconds")},
                      indent=1), flush=True)
-    print("saved", RESULTS / "detection.json")
+    print("saved", RESULTS / args.out)
 
 
 if __name__ == "__main__":
