@@ -7,6 +7,57 @@ import { BANK_DECISIONS, DELIVERY_LABELS, DETAIL_META, ROUTED_BY_LABELS, bankIte
 const INTRO =
   "Every UPI ID or account number from a scam call gets a confidence score (how sure we are the call is a scam x how sure we caught the detail right). At 65% or more it is routed to the bank that can act on it and a signed report is delivered at once. Between 45% and 65% it waits on the watchlist; every later call that gives the same detail raises the score. These inboxes are proxies; nothing is sent to an actual bank.";
 
+// A made-up inbox, with sample account numbers, so a first-time visitor can see what a bank receives and try the buttons.
+const EXAMPLE_BANK = { code: "SBIN", name: "State Bank of India" };
+const EXAMPLE_REPORTS = [
+  {
+    reportId: "example-1",
+    detailType: "bank_account",
+    value: "0123456789",
+    status: "delivered",
+    bankStatus: "reported",
+    recommendedAction: "review_for_freeze",
+    currentConfidence: 0.91,
+    routedBy: "ifsc",
+    routingReason: "IFSC SBIN0001234: the first four letters are State Bank of India's bank code.",
+    scamType: "digital_arrest",
+    sightings: 3,
+    sentAt: "2026-10-16T09:42:00Z",
+    linkedDetails: [{ type: "ifsc", value: "SBIN0001234" }, { type: "upi_id", valueMasked: "\u2022\u2022\u2022\u2022@ybl", bank: "Yes Bank" }],
+  },
+  {
+    reportId: "example-2",
+    detailType: "bank_account",
+    value: "1234567890",
+    status: "delivered",
+    bankStatus: "monitoring",
+    recommendedAction: "monitor",
+    currentConfidence: 0.72,
+    routedBy: "bank_named",
+    routingReason: "The caller said \u201cmy State Bank account\u201d in the same sentence.",
+    scamType: "bank_kyc_block",
+    sightings: 1,
+    sentAt: "2026-10-17T15:08:00Z",
+    linkedDetails: [],
+  },
+];
+
+function exampleInbox() {
+  const decide = (_report, decision, badge) => {
+    const status = BANK_DECISIONS[decision];
+    badge.className = `badge ${status.tone}`;
+    badge.textContent = status.label;
+    toast(`Marked as ${status.label.toLowerCase()} (example only, nothing is sent).`, "ok");
+  };
+  return h(
+    "section",
+    { class: "section-gap reveal" },
+    h("h2", { class: "sub-h" }, "Example inbox"),
+    h("p", { class: "muted" }, `This is what ${EXAMPLE_BANK.name} would see: two made-up reports with sample account numbers. Try Monitor, Freeze or Dismiss; nothing is sent anywhere.`),
+    h("div", { class: "ev-list" }, EXAMPLE_REPORTS.map((r) => reportRow(EXAMPLE_BANK, r, decide))),
+  );
+}
+
 export function BanksView() {
   const el = h("div", { class: "page" }, pageHeader("Bank inboxes", INTRO), skeletons(3));
 
@@ -24,15 +75,18 @@ export function BanksView() {
     const header = pageHeader("Bank inboxes", INTRO);
     if (!withReports.length) {
       el.replaceChildren(
-        header,
-        emptyState({
-          iconName: "bank",
-          title: "No reports yet",
-          text: "Take a call as a scammer and give Ramesh a UPI ID or an account number with its IFSC. Once the call is judged a scam and the detail is confirmed, the report lands in that bank's inbox here.",
-          action: h("a", { class: "btn primary", href: "#/call" }, icon("phone"), "Take a call"),
-        }),
-        watchCard,
-        bankDirectory(data.banks),
+        ...[
+          header,
+          emptyState({
+            iconName: "bank",
+            title: "No reports yet",
+            text: "Take a call as a scammer and give Ramesh a UPI ID or an account number with its IFSC. Once the call is judged a scam and the detail is confirmed, the report lands in that bank's inbox here.",
+            action: h("a", { class: "btn primary", href: "#/call" }, icon("phone"), "Take a call"),
+          }),
+          watchCard,
+          exampleInbox(),
+          bankDirectory(data.banks),
+        ].filter(Boolean),
       );
       observeReveal(el);
       return;
@@ -51,7 +105,7 @@ export function BanksView() {
         ),
       ),
     );
-    el.replaceChildren(header, h("div", { class: "grid cards" }, cards), watchCard, apiNote(data.apiEnabled), bankDirectory(data.banks));
+    el.replaceChildren(...[header, h("div", { class: "grid cards" }, cards), watchCard, apiNote(data.apiEnabled), bankDirectory(data.banks)].filter(Boolean));
     observeReveal(el);
   }
 
@@ -117,6 +171,52 @@ function bankDirectory(banks) {
   );
 }
 
+function reportRow(bank, r, decide) {
+  const meta = DETAIL_META[r.detailType] || { label: humanize(r.detailType), icon: "hash" };
+  const decision = r.bankStatus !== "reported" ? r.bankStatus : r.simulatedDecision || "reported";
+  const status = BANK_DECISIONS[decision] || BANK_DECISIONS.reported;
+  const statusBadge = h("span", { class: `badge ${status.tone}` }, status.label);
+  const confidence = r.currentConfidence ?? r.confidence;
+  const buttons = bank.code === "UNRESOLVED"
+    ? null
+    : h(
+        "div",
+        { class: "cta-row" },
+        ["monitoring", "frozen", "dismissed"].map((d) =>
+          h("button", { class: `btn sm ${d === "frozen" ? "danger" : ""}`, type: "button", onClick: () => decide(r, d, statusBadge) }, d === "frozen" ? "Freeze" : d === "monitoring" ? "Monitor" : "Dismiss"),
+        ),
+      );
+  return h(
+    "article",
+    { class: "card ev-row reveal" },
+    h(
+      "div",
+      { class: "ev-head" },
+      h("span", { class: "ev-type" }, icon(meta.icon), meta.label),
+      h("span", { class: `badge ${r.status === "delivered" ? "ok" : r.status === "failed" ? "bad" : "warn"}` }, DELIVERY_LABELS[r.status] || r.status),
+      statusBadge,
+      r.recommendedAction === "review_for_freeze" ? h("span", { class: "chip danger" }, "Review for freeze") : h("span", { class: "chip" }, "Monitor"),
+      confidence != null ? h("span", { class: "chip ok" }, `${pct(confidence)} confidence`) : null,
+      h("span", { class: "grow" }),
+      h("small", { class: "muted" }, fmtDate(r.sentAt)),
+    ),
+    h("div", { class: "ev-value mono" }, r.value),
+    h(
+      "div",
+      { class: "chips" },
+      h("span", { class: "chip" }, ROUTED_BY_LABELS[r.routedBy] || r.routedBy),
+      r.scamType ? h("span", { class: "chip" }, scamLabel(r.scamType)) : null,
+      h("span", { class: `chip ${r.sightings > 1 ? "danger" : ""}` }, `seen in ${r.sightings} call${r.sightings === 1 ? "" : "s"}`),
+      r.callId ? h("a", { class: "chip action", href: `#/call/${r.callId}` }, icon("file"), "Source call") : null,
+    ),
+    r.routingReason ? h("small", { class: "muted" }, r.routingReason) : null,
+    (r.linkedDetails || []).length
+      ? h("small", { class: "muted" }, "Same caller also gave: ", (r.linkedDetails || []).map((l) => `${humanize(l.type)} ${l.value || `${l.valueMasked} (${l.bank || "unknown bank"})`}`).join(" · "))
+      : null,
+    buttons ? h("div", {}, h("small", { class: "muted" }, "Play the bank (demo only, recorded on your copy of the report):"), buttons) : null,
+  );
+}
+
 export function BankInboxView({ code }) {
   const back = backLink("#/banks", "All bank inboxes");
   const el = h("div", { class: "page" }, back, pageHeader("Bank inbox", "Loading…"), skeletons(2));
@@ -139,54 +239,8 @@ export function BankInboxView({ code }) {
       observeReveal(el);
       return;
     }
-    el.replaceChildren(back, pageHeader(bank.name, subtitle), h("div", { class: "ev-list section-gap" }, reports.map((r) => reportRow(bank, r))));
+    el.replaceChildren(back, pageHeader(bank.name, subtitle), h("div", { class: "ev-list section-gap" }, reports.map((r) => reportRow(bank, r, decide))));
     observeReveal(el);
-  }
-
-  function reportRow(bank, r) {
-    const meta = DETAIL_META[r.detailType] || { label: humanize(r.detailType), icon: "hash" };
-    const decision = r.bankStatus !== "reported" ? r.bankStatus : r.simulatedDecision || "reported";
-    const status = BANK_DECISIONS[decision] || BANK_DECISIONS.reported;
-    const statusBadge = h("span", { class: `badge ${status.tone}` }, status.label);
-    const confidence = r.currentConfidence ?? r.confidence;
-    const buttons = bank.code === "UNRESOLVED"
-      ? null
-      : h(
-          "div",
-          { class: "cta-row" },
-          ["monitoring", "frozen", "dismissed"].map((d) =>
-            h("button", { class: `btn sm ${d === "frozen" ? "danger" : ""}`, type: "button", onClick: () => decide(r, d, statusBadge) }, d === "frozen" ? "Freeze" : d === "monitoring" ? "Monitor" : "Dismiss"),
-          ),
-        );
-    return h(
-      "article",
-      { class: "card ev-row reveal" },
-      h(
-        "div",
-        { class: "ev-head" },
-        h("span", { class: "ev-type" }, icon(meta.icon), meta.label),
-        h("span", { class: `badge ${r.status === "delivered" ? "ok" : r.status === "failed" ? "bad" : "warn"}` }, DELIVERY_LABELS[r.status] || r.status),
-        statusBadge,
-        r.recommendedAction === "review_for_freeze" ? h("span", { class: "chip danger" }, "Review for freeze") : h("span", { class: "chip" }, "Monitor"),
-        confidence != null ? h("span", { class: "chip ok" }, `${pct(confidence)} confidence`) : null,
-        h("span", { class: "grow" }),
-        h("small", { class: "muted" }, fmtDate(r.sentAt)),
-      ),
-      h("div", { class: "ev-value mono" }, r.value),
-      h(
-        "div",
-        { class: "chips" },
-        h("span", { class: "chip" }, ROUTED_BY_LABELS[r.routedBy] || r.routedBy),
-        r.scamType ? h("span", { class: "chip" }, scamLabel(r.scamType)) : null,
-        h("span", { class: `chip ${r.sightings > 1 ? "danger" : ""}` }, `seen in ${r.sightings} call${r.sightings === 1 ? "" : "s"}`),
-        r.callId ? h("a", { class: "chip action", href: `#/call/${r.callId}` }, icon("file"), "Source call") : null,
-      ),
-      r.routingReason ? h("small", { class: "muted" }, r.routingReason) : null,
-      (r.linkedDetails || []).length
-        ? h("small", { class: "muted" }, "Same caller also gave: ", (r.linkedDetails || []).map((l) => `${humanize(l.type)} ${l.value || `${l.valueMasked} (${l.bank || "unknown bank"})`}`).join(" · "))
-        : null,
-      buttons ? h("div", {}, h("small", { class: "muted" }, "Play the bank (demo only, recorded on your copy of the report):"), buttons) : null,
-    );
   }
 
   async function decide(report, decision, badge) {

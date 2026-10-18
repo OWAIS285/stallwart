@@ -18,7 +18,7 @@ import { StrainsView } from "./views/strains.js";
 const NAV = [
   { href: "#/", label: "Home", icon: "home", match: /^#\/$/, tab: true },
   { href: "#/call", label: "Live", icon: "phone", match: /^#\/(call|chat)$/, tab: true },
-  { href: "#/replay", label: "Replay", icon: "play", match: /^#\/replay(\/(en|hi))?$/, tab: true },
+  { href: "#/replay", label: "Demo", icon: "play", match: /^#\/replay(\/(en|hi))?$/, tab: true },
   { href: "#/history", label: "History", icon: "list", match: /^#\/(history|call\/.+)$/, tab: true },
   { href: "#/strains", label: "Strains", icon: "virus", match: /^#\/strains$/, tab: true },
   { href: "#/drills", label: "Drills", icon: "users", match: /^#\/drills?(\/.*)?$/, tab: true },
@@ -29,7 +29,7 @@ const ROUTES = [
   { re: /^#\/$/, title: "", view: () => HomeView() },
   { re: /^#\/call$/, title: "Live call", view: () => CallView({ mode: "voice" }) },
   { re: /^#\/chat$/, title: "Text chat", view: () => CallView({ mode: "text" }) },
-  { re: /^#\/replay(?:\/(en|hi))?$/, title: "Replay", view: (m) => ReplayView({ lang: m[1] }) },
+  { re: /^#\/replay(?:\/(en|hi))?$/, title: "Demo", view: (m) => ReplayView({ lang: m[1] }) },
   { re: /^#\/history$/, title: "History", view: () => HistoryView() },
   { re: /^#\/call\/([\w-]+)$/, title: "Call review", view: (m) => ReviewView({ id: m[1] }) },
   { re: /^#\/strains$/, title: "Strain library", view: () => StrainsView() },

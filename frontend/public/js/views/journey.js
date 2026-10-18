@@ -102,8 +102,8 @@ const TAGS = [
   { id: "orb", tone: "blue", title: "Stallwart AI", when: (p) => 1 - seg(0.08, 0.14, p), sub: () => "Standing by for the next call" },
   { id: "scam", tone: "red", title: "Scammer", when: (p) => seg(0.15, 0.18, p) * (1 - seg(0.45, 0.5, p)), sub: (p) => (p < 0.24 ? "Dialling a stranger\u2026" : "Call connected") },
   { id: "orb", tone: "blue", title: "Ramesh (AI)", when: (p) => seg(0.17, 0.2, p) * (1 - seg(0.52, 0.56, p)), sub: (p, idle) => (p < 0.27 ? "Phone ringing\u2026" : `Scammer's time wasted ${clock(14 + seg(0.28, 0.41, p) * 26 + idle)}`) },
-  { id: "bank", tone: "red", title: "Mule account caught", when: (p) => seg(0.5, 0.52, p) * (1 - seg(0.535, 0.55, p)), sub: () => "SBIN0001234 \u2192 State Bank of India" },
-  { id: "bank", tone: "ice", title: "Account frozen", when: (p) => seg(0.552, 0.572, p) * (1 - seg(0.66, 0.7, p)), sub: () => "Bank fraud team notified" },
+  { id: "bank_tag", tone: "red", title: "Mule account caught", when: (p) => seg(0.5, 0.52, p) * (1 - seg(0.535, 0.55, p)), sub: () => "SBIN0001234 \u2192 State Bank of India" },
+  { id: "bank_tag", tone: "ice", title: "Account frozen", when: (p) => seg(0.552, 0.572, p) * (1 - seg(0.66, 0.7, p)), sub: () => "Bank fraud team notified" },
   { id: "card", tone: "blue", title: "Strain captured", when: (p) => seg(0.62, 0.65, p) * (1 - seg(0.72, 0.75, p)), sub: () => "Identifiers removed" },
   { id: "families", tone: "ice", title: "Family drills", when: (p) => seg(0.82, 0.85, p) * (1 - seg(0.97, 1, p)), sub: () => "Practice call, with consent" },
   // the last scene names every station: Stallwart AI at the heart, the catching side on its left, the protecting side on its right
@@ -178,10 +178,11 @@ export function createJourney({ onFail } = {}) {
   const count = h("div", { class: "sj-count", "aria-hidden": "true" }, h("span", { class: "sj-roll" }, rollCol), h("span", { class: "sj-of" }, `/ ${pad(SCENES.length)}`));
   const status = h("div", { class: "sj-status", "aria-hidden": "true" }, rec, recText);
   const hint = h("div", { class: "sj-hint", "aria-hidden": "true" }, h("i"), h("span", { class: "sj-hint-a" }, "Scroll to continue"), h("span", { class: "sj-hint-b" }, "Scroll for more"));
+  const hud = h("div", { class: "sj-hud", "aria-hidden": "true" }, tags.map((t) => t.el));
   const el = h(
     "section",
     { class: "journey", "data-step": "0", "aria-label": "How Stallwart works, from the first ring to a protected family" },
-    h("div", { class: "sj-visual" }, stage, h("div", { class: "sj-hud", "aria-hidden": "true" }, tags.map((t) => t.el))),
+    h("div", { class: "sj-visual" }, stage, hud),
     h("div", { class: "sj-shade", "aria-hidden": "true" }),
     h("div", { class: "sj-scenes" }, scenes),
     count,
@@ -317,6 +318,12 @@ export function createJourney({ onFail } = {}) {
     const idle = idleSince ? (performance.now() - idleSince) / 1000 : 0;
     const w = stage.clientWidth;
     const hgt = stage.clientHeight;
+    // in the last scene the Stallwart AI card must sit below the buttons, never on them
+    let ctaBottom = 0;
+    if (step === LAST) {
+      const cta = scenes[LAST].querySelector(".sj-cta");
+      if (cta) ctaBottom = cta.getBoundingClientRect().bottom - hud.getBoundingClientRect().top;
+    }
     for (const tag of tags) {
       const k = tag.when(p);
       const at = k > 0.01 ? project(tag.id) : null;
@@ -324,8 +331,9 @@ export function createJourney({ onFail } = {}) {
       const showTag = !!at && at.visible && at.x > 60 && at.x < w - 60 && at.y - lift > 84 && at.y < hgt - 90;
       tag.el.classList.toggle("on", showTag && k > 0.02);
       if (!showTag) continue;
+      const y = tag.hub && ctaBottom ? Math.max(at.y, ctaBottom + 20 + 96) : at.y;
       tag.el.style.opacity = String(clamp(k * 1.2));
-      tag.el.style.transform = `translate(${Math.round(at.x)}px, ${Math.round(at.y)}px)`;
+      tag.el.style.transform = `translate(${Math.round(at.x)}px, ${Math.round(y)}px)`;
       if (!tag.small) continue;
       const text = tag.sub(p, idle);
       if (text !== tag.last) {

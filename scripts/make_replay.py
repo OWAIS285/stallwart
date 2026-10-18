@@ -63,10 +63,10 @@ LANGS = {
             "{BADGE}": "four seven two one",
             "{CASE}": "two zero two five, slash, four four seven one",
             "{AMOUNT}": "fifty thousand rupees",
-            "{UPI}": "rahul dot sharma at okaxis",
-            "{ACCOUNT_NAME}": "R K Trading Company",
-            "{ACCOUNT}": "three four seven six, two zero one five, eight nine three four",
-            "{IFSC}": "S B I N, zero zero zero, four two one five",
+            "{UPI}": "rahul dot sharma at O K axis",
+            "{ACCOUNT_NAME}": "A B C Trading Company",
+            "{ACCOUNT}": "zero one two three, four five six seven, eight nine",
+            "{IFSC}": "S B I N, zero zero zero, one two three four",
         },
     },
     "hindi": {
@@ -84,9 +84,9 @@ LANGS = {
             "{CASE}": "दो शून्य दो पाँच, चार चार सात एक",
             "{AMOUNT}": "पचास हज़ार रुपये",
             "{UPI}": "राहुल डॉट शर्मा एट ओके एक्सिस",
-            "{ACCOUNT_NAME}": "आर के ट्रेडिंग कंपनी",
-            "{ACCOUNT}": "तीन चार सात छह, दो शून्य एक पाँच, आठ नौ तीन चार",
-            "{IFSC}": "एस बी आई एन, शून्य शून्य शून्य, चार दो एक पाँच",
+            "{ACCOUNT_NAME}": "ए बी सी ट्रेडिंग कंपनी",
+            "{ACCOUNT}": "शून्य एक दो तीन, चार पाँच छह सात, आठ नौ",
+            "{IFSC}": "एस बी आई एन, शून्य शून्य शून्य, एक दो तीन चार",
         },
     },
 }
@@ -430,7 +430,10 @@ async def record(args, cfg: dict) -> dict:
                 history.append(("Scammer", line))
                 history.append(("Victim", reply or "(says nothing)"))
             await asyncio.sleep(3)
-            await ws.send(json.dumps({"type": "end"}))
+            try:
+                await ws.send(json.dumps({"type": "end"}))
+            except Exception:  # noqa: BLE001 - the server may already have ended the call
+                pass
             try:
                 await asyncio.wait_for(done.wait(), 90)
             except asyncio.TimeoutError:

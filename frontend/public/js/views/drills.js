@@ -18,6 +18,36 @@ function outcomeChip(drill) {
   return h("span", { class: "badge" }, "Waiting for the call");
 }
 
+// Two made-up drills, shown to everyone, so a first-time visitor sees what the list and a report look like.
+const EXAMPLE_DRILLS = [
+  {
+    drillId: "example-kamala",
+    example: true,
+    parentName: "Kamala Iyer",
+    familyName: "The Iyer family",
+    strainId: "demo_bank_kyc_block",
+    createdAt: "2026-10-15T10:20:00Z",
+    outcome: "passed",
+    stepsTotal: 4,
+    stoppedAtStep: 3,
+    debriefText:
+      "Well done, Kamala ji. You stopped the moment the caller asked for the OTP, and that is exactly right: a bank never asks for an OTP on a call. Remember three things. Hang up. Call your bank on the number printed on your card. Tell your family before you do anything else.",
+  },
+  {
+    drillId: "example-mohan",
+    example: true,
+    parentName: "Mohan Lal Gupta",
+    familyName: "The Gupta family",
+    strainId: "demo_digital_arrest",
+    createdAt: "2026-10-17T18:05:00Z",
+    outcome: "failed",
+    stepsTotal: 4,
+    stoppedAtStep: 2,
+    debriefText:
+      "Mohan ji, this is only practice, and nothing real was shared. The caller frightened you with an arrest warrant, told you to stay on the line and keep it secret, and then you read out your Aadhaar details. That is how this scam works: fear first, then secrecy, then payment. No officer ever arrests anyone over the phone. If it happens for real, hang up and call your son or daughter first. Let us practise once more.",
+  },
+];
+
 export function DrillNewView({ strainId }) {
   const el = h("div", { class: "page narrow" }, pageHeader("Create a family drill", "A short practice call that teaches a parent how this scam sounds."), skeletons(1));
 
@@ -115,26 +145,26 @@ export function DrillsView() {
       return;
     }
     const header = pageHeader("Family drills", "Practice calls you have sent to parents and elders.", h("a", { class: "btn primary", href: "#/strains" }, icon("users"), "New drill"));
+    const card = (drill) =>
+      h(
+        "a",
+        { class: "card call-card reveal", href: `#/drill/${drill.drillId}` },
+        h("div", { class: "cc-top" }, h("span", { class: "cc-icon" }, icon("users")), h("div", {}, h("h3", {}, drill.parentName), h("small", { class: "muted" }, `${drill.familyName} \u00b7 ${fmtDate(drill.createdAt)}`)), h("span", { class: "grow" }), outcomeChip(drill)),
+        drill.outcome && drill.stepsTotal ? h("p", { class: "muted" }, `Stopped at step ${drill.stoppedAtStep} of ${drill.stepsTotal}`) : h("p", { class: "muted" }, "Not started yet. Share the invitation link."),
+      );
+    const examples = h(
+      "div",
+      { class: "section-gap" },
+      h("h2", { class: "sub-h reveal" }, "Example drills"),
+      h("p", { class: "muted" }, "Two made-up drills, to show what a finished practice call looks like."),
+      h("div", { class: "grid cards" }, EXAMPLE_DRILLS.map(card)),
+    );
     if (!drills.length) {
-      el.replaceChildren(header, emptyState({ iconName: "users", title: "No drills yet", text: "Open a strain and press “Create a family drill” to send a consented practice call.", action: h("a", { class: "btn primary", href: "#/strains" }, "Browse strains") }));
+      el.replaceChildren(header, emptyState({ iconName: "users", title: "No drills of your own yet", text: "Open a strain and press \u201cCreate a family drill\u201d to send a consented practice call.", action: h("a", { class: "btn primary", href: "#/strains" }, "Browse strains") }), examples);
       observeReveal(el);
       return;
     }
-    el.replaceChildren(
-      header,
-      h(
-        "div",
-        { class: "grid cards" },
-        drills.map((drill) =>
-          h(
-            "a",
-            { class: "card call-card reveal", href: `#/drill/${drill.drillId}` },
-            h("div", { class: "cc-top" }, h("span", { class: "cc-icon" }, icon("users")), h("div", {}, h("h3", {}, drill.parentName), h("small", { class: "muted" }, `${drill.familyName} · ${fmtDate(drill.createdAt)}`)), h("span", { class: "grow" }), outcomeChip(drill)),
-            drill.outcome && drill.stepsTotal ? h("p", { class: "muted" }, `Stopped at step ${drill.stoppedAtStep} of ${drill.stepsTotal}`) : h("p", { class: "muted" }, "Not started yet. Share the invitation link."),
-          ),
-        ),
-      ),
-    );
+    el.replaceChildren(header, h("div", { class: "grid cards" }, drills.map(card)), examples);
     observeReveal(el);
   }
   load();
@@ -147,8 +177,12 @@ export function DrillReportView({ id }) {
 
   async function load() {
     let data;
+    const example = EXAMPLE_DRILLS.find((d) => d.drillId === id);
     try {
-      data = await api.drill(id);
+      if (example) {
+        const { strains } = await api.strains().catch(() => ({ strains: [] }));
+        data = { drill: example, strain: strains.find((s) => s.strainId === example.strainId) || null };
+      } else data = await api.drill(id);
     } catch (err) {
       el.replaceChildren(back, pageHeader("Drill report"), errorState(err.status === 404 ? "This drill was not found in this browser." : err.message, err.status === 404 ? null : load));
       return;
@@ -171,7 +205,8 @@ export function DrillReportView({ id }) {
     el.replaceChildren(
       ...[
         back,
-        pageHeader(`Drill for ${drill.parentName}`, `${drill.familyName} · created ${fmtDate(drill.createdAt)}`),
+        pageHeader(`Drill for ${drill.parentName}`, `${drill.familyName} \u00b7 ${drill.example ? "example, made up" : "created"} ${fmtDate(drill.createdAt)}`),
+        drill.example ? h("p", { class: "banner" }, "This is an example drill. The names are made up; a real report looks exactly like this.") : null,
         banner,
         !drill.outcome || drill.outcome === "aborted"
           ? h("section", { class: "card linkcard" }, h("div", { class: "card-h" }, icon("link"), "Invitation link"), h("div", { class: "linkbox" }, h("code", {}, link)), h("button", { class: "btn primary", type: "button", onClick: () => copyText(link) }, icon("copy"), "Copy the link"))

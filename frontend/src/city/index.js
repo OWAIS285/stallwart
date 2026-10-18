@@ -122,6 +122,8 @@ export function createCity({ host, onFrame } = {}) {
     s_bank: new THREE.Vector3(S.bank.x, PIN_Y.bank, S.bank.z),
     s_card: new THREE.Vector3(S.card.x, PIN_Y.card, S.card.z),
     s_families: new THREE.Vector3(S.families.x, PIN_Y.families, S.families.z),
+    // just above the bank's roof, for the bank cards in the bank scene
+    bank_tag: new THREE.Vector3(S.bank.x, 6.6, S.bank.z),
   };
   let fx = null;
   try {
@@ -286,6 +288,7 @@ export function createCity({ host, onFrame } = {}) {
       plinths[name].group.position.set(px, 0, pz);
       plinths[name].group.scale.setScalar(sc);
       anchors[`s_${name}`].set(px, PIN_Y[name] * sc, pz);
+      if (name === "bank") anchors.bank_tag.set(px, 6.6 * sc, pz);
     }
     const tx = camVals[3];
     const tz = camVals[5];
